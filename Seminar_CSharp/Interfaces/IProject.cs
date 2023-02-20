@@ -10,8 +10,6 @@ namespace Seminar_CSharp.Interfaces
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<IActivity> Activitys { get; set; }
-        public List<IUser> Users { get; set; }
-        public IUser User { get; set; }
+        public string Description { get; set; }
     }
 }

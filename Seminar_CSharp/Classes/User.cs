@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Seminar_CSharp.Class
 {
-    internal class User
+    internal class User : IUser
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
