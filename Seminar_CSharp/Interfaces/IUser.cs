@@ -8,12 +8,13 @@ namespace Seminar_CSharp.Interfaces
 {
     internal interface IUser
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
-        public string Foto { get; set; }
-        public string NickName { get; set; }
-       
+        int UserId { get; set; }
+        string Name { get; set; }
+        string Surname { get; set; }
+        string Photo { get; set; }
+      //  List<IProject> Projects { get; set; }
+        //List<IActivity> Activities { get; set; }
+
 
     }
 }

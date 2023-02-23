@@ -11,14 +11,14 @@ namespace Seminar_CSharp
 
 
                 Project project = new Project { Name = "Project1" };
-                User vlad = new User { FirstName = "Vlad", SecondName = "Malashchuk", NickName = "xmalas04", Foto = "123"};
+                User vlad = new User { Name = "Vlad", Surname = "Malashchuk", NickName = "xmalas04", Photo = "123"};
                 db.Users.Add(vlad);
                 db.SaveChanges();
                 var users = db.Users.ToList();
                 Console.WriteLine("List of Objects:");
                 foreach (User u in users)
                 {
-                    Console.WriteLine($"{u.Id}.{u.FirstName} - {u.SecondName}");
+                    Console.WriteLine($"{u.UserId}.{u.Name} - {u.Surname}");
                 }
             }
         }

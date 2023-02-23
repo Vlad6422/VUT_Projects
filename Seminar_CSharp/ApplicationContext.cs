@@ -12,7 +12,7 @@ namespace Seminar_CSharp
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Activity> Activitys { get; set; }
+        public DbSet<Activity> Activities { get; set; }
         
         public ApplicationContext()
         {
@@ -23,5 +23,6 @@ namespace Seminar_CSharp
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
         }
+       
     }
 }
