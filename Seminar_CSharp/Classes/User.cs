@@ -23,7 +23,6 @@ namespace Seminar_CSharp.Class
 
         public List<Activity> Activities { get; set; }
         public List<Project> Projects { get; set; } 
-     //  public int ProjectId { get; set; }
-       // public Project? Project { get; set; }
+     
     }
 }
