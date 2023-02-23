@@ -17,7 +17,7 @@ namespace Seminar_CSharp.Class
         [MaxLength(50)]
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Activity> Activities { get; set; }
-        public List<User> Users { get; set; } 
+        public List<Activity> Activities { get; set; } = new();
+        public List<User> Users { get; set; } = new(); 
     }
 }

@@ -21,8 +21,8 @@ namespace Seminar_CSharp.Class
         public string NickName { get; set; }
         public bool ShowNickName { get; set; }
 
-        public List<Activity> Activities { get; set; }
-        public List<Project> Projects { get; set; } 
+        public List<Activity> Activities { get; set; } = new();
+        public List<Project> Projects { get; set; } = new();
      
     }
 }

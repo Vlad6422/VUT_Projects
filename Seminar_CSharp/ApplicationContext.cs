@@ -16,12 +16,12 @@ namespace Seminar_CSharp
         
         public ApplicationContext()
         {
-            Database.EnsureDeleted();
+            Database.EnsureDeleted(); //For 1st create. Then Delete this.
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ICS;Trusted_Connection=True;");
         }
        
     }
