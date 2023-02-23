@@ -10,7 +10,7 @@ namespace Seminar_CSharp
             using (ApplicationContext db = new ApplicationContext())
             {
 
-                Activity faze1 = new Activity {Start = DateTime.UtcNow, Description = "Project delame1" };
+                Activity faze1 = new Activity {Start = DateTime.Now, Description = "Project delame1" };
                 Activity faze2 = new Activity { Start = DateTime.Now, Description = "Project delame2" };
                 Activity faze3 = new Activity { Start = DateTime.Now, Description = "Project delame3" };
                 db.Activities.AddRange(faze1,faze2,faze3);
