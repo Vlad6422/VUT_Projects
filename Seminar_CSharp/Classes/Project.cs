@@ -11,12 +11,11 @@ namespace Seminar_CSharp.Class
 {
     internal class Project : IProject
     {
-        [Key]
         public int ProjectId { get; set; }
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string ?Description { get; set; }
         public List<Activity> Activities { get; set; } = new();
         public List<User> Users { get; set; } = new(); 
     }
