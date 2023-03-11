@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Seminar_CSharp.Interfaces
 {
-    internal interface IProject
+    public interface IProject
     {
-        int ProjectId { get; set; }
+        int Id { get; set; }
         string Name { get; set; }
-        string Description { get; set; }
-       // List<IUser> Users { get; set; }
-       // List<IActivity> Activities { get; set; }
+        string ?Description { get; set; }
     }
 }

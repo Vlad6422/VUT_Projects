@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace Seminar_CSharp.Class
 {
-    internal class Project : IProject
+    class Project : IProject
     {
-        public int ProjectId { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
         public string ?Description { get; set; }
+
         public List<Activity> Activities { get; set; } = new();
         public List<User> Users { get; set; } = new(); 
     }

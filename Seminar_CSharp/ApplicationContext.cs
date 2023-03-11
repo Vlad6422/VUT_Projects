@@ -16,8 +16,8 @@ namespace Seminar_CSharp
         
         public ApplicationContext()
         {
-           // Database.EnsureDeleted(); //For 1st create. Then Delete this. I leave this for 1st faze,after ill delete this
-          //  Database.EnsureCreated();
+            Database.EnsureDeleted(); //For 1st create. Then Delete this. I leave this for 1st faze,after ill delete this
+           Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

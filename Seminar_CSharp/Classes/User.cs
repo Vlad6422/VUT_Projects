@@ -8,18 +8,22 @@ using System.Threading.Tasks;
 
 namespace Seminar_CSharp.Class
 {
-    internal class User : IUser
+     class User : IUser
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
+
         [Required]
         public string Surname { get; set; }
+
         public string ?Photo { get; set; }
 
         [Required]
         [MaxLength(20)]
         public string NickName { get; set; }
+
         [Required]
         public bool ShowNickName { get; set; }
 

@@ -1,4 +1,6 @@
-﻿using Seminar_CSharp.Class;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Seminar_CSharp.Class;
 
 namespace Seminar_CSharp
 {
@@ -6,6 +8,7 @@ namespace Seminar_CSharp
     {
         static void Main(string[] args)
         {
+           
             //Tests for Db. I will make UnitTest in 2nd faze. Now we have only object tests.
             using (ApplicationContext db = new ApplicationContext())
             {

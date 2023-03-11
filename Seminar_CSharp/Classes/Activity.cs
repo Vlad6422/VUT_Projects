@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Seminar_CSharp.Class
 {
     
-    internal class Activity : IActivity
+     class Activity : IActivity
     {
-        public int ActivityId { get; set; }
+        public int Id { get; set; }
         [Required]
         public DateTime Start { get; set; }
         [Required]
