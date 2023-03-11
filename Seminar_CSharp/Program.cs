@@ -8,9 +8,30 @@ namespace Seminar_CSharp
     {
         static void Main(string[] args)
         {
-           
+
+
+
+            /*       Test Connecting to Bd  START       */
+
+            var builder = new ConfigurationBuilder();
+            // setting the path to the current directory
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            // get configuration from appsettings.json file
+            builder.AddJsonFile("appsettings.json");
+            // create a configuration
+            var config = builder.Build();
+            // get connection string
+            string connectionString = config.GetConnectionString("DefaultConnection");
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+            var options = optionsBuilder.UseSqlServer(connectionString).Options;
+
+
+            /*       Test Connecting to Bd END         */
+
+
             //Tests for Db. I will make UnitTest in 2nd faze. Now we have only object tests.
-            using (ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext(options))
             {
 
                 Activity faze1 = new Activity {Start = DateTime.Now, Description = "Project delame1" };
@@ -18,7 +39,7 @@ namespace Seminar_CSharp
                 Activity faze3 = new Activity { Start = DateTime.Now, Description = "Project delame3" };
                 db.Activities.AddRange(faze1,faze2,faze3);
 
-                User Vlad = new User { Name = "Vlad", Surname = "Malashchuk", NickName = "xmalas04", Photo = "111", ShowNickName=true  };
+                User Vlad = new User { Name = "Dima", Surname = "Malashchuk", NickName = "xmalas04", Photo = "111", ShowNickName=true  };
                 User Kate = new User { Name = "Kate", Surname = "AvadaKedabra", NickName = "xsasu01", Photo = "222", ShowNickName = false };
                 User Steve = new User { Name = "Steve", Surname = "Potter", NickName = "xxyilo28", Photo = "333", ShowNickName = true };
                 db.Users.AddRange(Vlad, Kate, Steve);  

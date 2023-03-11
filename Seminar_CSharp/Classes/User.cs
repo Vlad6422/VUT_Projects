@@ -10,7 +10,7 @@ namespace Seminar_CSharp.Class
 {
      class User : IUser
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         [Required]
         public string Name { get; set; }

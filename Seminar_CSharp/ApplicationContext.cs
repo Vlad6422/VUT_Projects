@@ -14,15 +14,12 @@ namespace Seminar_CSharp
         public DbSet<User> Users { get; set; }
         public DbSet<Activity> Activities { get; set; }
         
-        public ApplicationContext()
+        public ApplicationContext( DbContextOptions<ApplicationContext> options) :base(options)
         {
-            Database.EnsureDeleted(); //For 1st create. Then Delete this. I leave this for 1st faze,after ill delete this
-           Database.EnsureCreated();
+           // Database.EnsureDeleted();
+         //  Database.EnsureCreated();
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ICS;Trusted_Connection=True;");
-        }
+       
        
     }
 }
