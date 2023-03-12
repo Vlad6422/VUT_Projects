@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Seminar_CSharp.Migrations
+namespace App.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class ICS : Migration
