@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App.DAL.Interfaces;
+namespace Time2Plan.DAL.Interfaces;
 
 public record ProjectEntity : IEntity
 {

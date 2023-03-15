@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Time2Plan.DAL.Interfaces;
-
-public interface IEntity
+namespace Time2Plan.BL.Facades
 {
-    Guid Id { get; set; }
+    internal class FacadeBase
+    {
+    }
 }

@@ -1,20 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using App.DAL.Interfaces;
+using Time2Plan.DAL.Interfaces;
 
-namespace App.DAL
+namespace Time2Plan.DAL;
+
+public class ApplicationContext : DbContext
 {
-    internal class ApplicationContext : DbContext
+    // nastaveni propojeni entit s databazi
+    public DbSet<ProjectEntity> Projects => Set<ProjectEntity>();
+    public DbSet<UserEntity> Users => Set<UserEntity>();
+    public DbSet<ActivityEntity> Activities => Set<ActivityEntity>();
+
+    private readonly bool _seedTestData;
+    public ApplicationContext(DbContextOptions options, bool seedData) : base(options) => _seedTestData = seedData;
+
+
+    // nastaveni modelu databaze - jednotlivych vazeb + pripadne delete constraint a jine(M-N, M-1, One - One)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        public DbSet<ProjectEntity> Projects => Set<ProjectEntity>();
-        public DbSet<UserEntity> Users => Set<UserEntity>();
-        public DbSet<ActivityEntity> Activities => Set<ActivityEntity>();
-        
-        public ApplicationContext( DbContextOptions<ApplicationContext> options) :base(options)
-        {
-           // Database.EnsureDeleted();
-         //  Database.EnsureCreated();
-        }
-       
-       
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<ProjectEntity>()
+            .HasMany<ActivityEntity>();
     }
+
 }

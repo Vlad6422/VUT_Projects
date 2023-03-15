@@ -1,12 +1,15 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using CookBook.DAL.Entities;
+using Time2Plan.DAL.Interfaces;
 
-namespace CookBook.DAL.Repositories;
+namespace Time2Plan.DAL.Repositories;
 
-public interface IRepository<TEntity>
-    where TEntity : class, IEntity
+/// <summary>
+/// Genericke rozhrani repozitare nad entitami - mozne pridat/odebrat metody
+/// </summary>
+/// <typeparam name="TEntity"></typeparam>
+public interface IRepository<TEntity> where TEntity : class, IEntity
 {
     IQueryable<TEntity> Get();
     void Delete(Guid entityId);

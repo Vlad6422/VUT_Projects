@@ -9,7 +9,7 @@ using Seminar_CSharp;
 
 #nullable disable
 
-namespace Seminar_CSharp.Migrations
+namespace Time2Plan.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
     [Migration("20230304185626_ICS")]

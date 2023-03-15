@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace App.DAL.Migrations
+namespace Time2Plan.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class ICS : Migration
