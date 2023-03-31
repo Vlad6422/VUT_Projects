@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App.DAL\Time2Plan.DAL.csproj" />
+    <ProjectReference Include="..\Time2Plan.DAL\Time2Plan.DAL.csproj" />
   </ItemGroup>
 
 </Project>
