@@ -9,6 +9,7 @@ public class UserEntityMapper : IEntityMapper<UserEntity>
         existingEntity.Surname = newEntity.Surname;
         existingEntity.Name = newEntity.Name;
         existingEntity.Photo = newEntity.Photo;
-        // potreba promyslet co vsechno se ma namapovat
+        existingEntity.NickName = newEntity.NickName;
+        existingEntity.ShowNickName = newEntity.ShowNickName;
     }
 }

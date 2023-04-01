@@ -11,6 +11,5 @@ public class ActivityEntityMapper : IEntityMapper<ActivityEntity>
         existingEntity.Description = newEntity.Description;
         existingEntity.Tag = newEntity.Tag;
         existingEntity.Type = newEntity.Type;
-        //...nevim
     }
 }

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Time2Plan.DAL\Time2Plan.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
