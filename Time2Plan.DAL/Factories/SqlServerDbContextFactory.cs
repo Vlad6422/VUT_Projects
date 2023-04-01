@@ -1,18 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Time2Plan.DAL.Factories;
 
-public class SqlServerDbContext : IDbContextFactory<ApplicationContext>
+public class SqlServerDbContextFactory : IDbContextFactory<Time2PlanDbContext>
 {
     private readonly bool _seedDemoData;
-    private readonly DbContextOptionsBuilder<ApplicationContext> _contextOptionsBuilder = new();
+    private readonly DbContextOptionsBuilder<Time2PlanDbContext> _contextOptionsBuilder = new();
 
-    public SqlServerDbContext(string connectionString, bool seedDemoData = false)
+    public SqlServerDbContextFactory(string connectionString, bool seedDemoData = false)
     {
         _seedDemoData = seedDemoData;
 
@@ -23,5 +18,5 @@ public class SqlServerDbContext : IDbContextFactory<ApplicationContext>
         //_contextOptionsBuilder.EnableSensitiveDataLogging();
     }
 
-    public ApplicationContext CreateDbContext() => new(_contextOptionsBuilder.Options, _seedDemoData);
+    public Time2PlanDbContext CreateDbContext() => new(_contextOptionsBuilder.Options, _seedDemoData);
 }

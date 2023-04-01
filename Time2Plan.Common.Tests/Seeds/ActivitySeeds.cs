@@ -40,11 +40,6 @@ namespace Time2Plan.Common.Tests.Seeds
         public static readonly ActivityEntity CodeDelete = Code with { Id = Guid.NewGuid() };
         public static readonly ActivityEntity CodeUpdate = Code with { Id = Guid.NewGuid() };
 
-        public static readonly ActivityEntity ActivityEntity1 = new() 
-        {
-
-        };
-
 
         public static void Seed(this ModelBuilder modelBuilder)
         {

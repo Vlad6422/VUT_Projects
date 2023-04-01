@@ -9,6 +9,5 @@ public record ProjectEntity : IEntity
     public string ?Description { get; set; }
 
     public ICollection<ActivityEntity> Activities { get; init; } = new List<ActivityEntity>();
-    //public ICollection<UserEntity> Users { get; init; } = new List<UserEntity>();
     public ICollection<ProjectUserRelation> UserProjects { get; init; } = new List<ProjectUserRelation>();
 }

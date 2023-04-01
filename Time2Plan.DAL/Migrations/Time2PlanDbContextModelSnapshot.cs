@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Time2Plan.DAL;
 
@@ -10,12 +9,10 @@ using Time2Plan.DAL;
 
 namespace Time2Plan.DAL.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
-    [Migration("20230330161959_relation_between_U-P")]
-    partial class relation_between_UP
+    [DbContext(typeof(Time2PlanDbContext))]
+    partial class Time2PlanDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
@@ -124,7 +121,7 @@ namespace Time2Plan.DAL.Migrations
                     b.HasOne("Time2Plan.DAL.Interfaces.UserEntity", "User")
                         .WithMany("Activities")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Project");
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Time2Plan.Common.Tests\Time2Plan.Common.Tests.csproj" />
     <ProjectReference Include="..\Time2Plan.DAL\Time2Plan.DAL.csproj" />
   </ItemGroup>
 

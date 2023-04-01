@@ -3,17 +3,16 @@ using Time2Plan.DAL.Interfaces;
 
 namespace Time2Plan.DAL;
 
-public class ApplicationContext : DbContext
+public class Time2PlanDbContext : DbContext
 {
     // nastaveni propojeni entit s databazi
     public DbSet<ProjectEntity> Projects => Set<ProjectEntity>();
     public DbSet<UserEntity> Users => Set<UserEntity>();
     public DbSet<ActivityEntity> Activities => Set<ActivityEntity>();
-
     public DbSet<ProjectUserRelation> UserProjects => Set<ProjectUserRelation>();
 
     private readonly bool _seedTestData;
-    public ApplicationContext(DbContextOptions options, bool seedData) : base(options) => _seedTestData = seedData;
+    public Time2PlanDbContext(DbContextOptions options, bool seedData = false) : base(options) => _seedTestData = seedData;
 
 
     // nastaveni modelu databaze - jednotlivych vazeb + pripadne delete constraint a jine(M-N, M-1, One - One)
@@ -43,5 +42,4 @@ public class ApplicationContext : DbContext
             .WithOne(u => u.User)
             .OnDelete(DeleteBehavior.Cascade);
     }
-
 }

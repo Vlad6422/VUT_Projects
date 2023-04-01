@@ -14,6 +14,8 @@ namespace Time2Plan.Common.Tests.Seeds
             Id = default,
             Project = default,
             User = default,
+            UserId= default,
+            ProjectId = default,
         };
 
         public static readonly ProjectUserRelation ProjectAlphaUser1 = new()
@@ -21,6 +23,8 @@ namespace Time2Plan.Common.Tests.Seeds
             Id = Guid.NewGuid(),
             Project = ProjectSeeds.ProjectAlpha,
             User = UserSeeds.User1,
+            UserId = UserSeeds.User1.Id,
+            ProjectId = ProjectSeeds.ProjectAlpha.Id,
         };
 
 

@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Time2Plan.DAL.Factories;
 
-public class SqLiteDbContext : IDbContextFactory<ApplicationContext>
+public class DbContextSqLiteFactory : IDbContextFactory<Time2PlanDbContext>
 {
     private readonly bool _seedTestingData;
-    private readonly DbContextOptionsBuilder<ApplicationContext> _contextOptionsBuilder = new();
+    private readonly DbContextOptionsBuilder<Time2PlanDbContext> _contextOptionsBuilder = new();
 
-    public SqLiteDbContext(string databaseName, bool seedTestingData = false)   
+    public DbContextSqLiteFactory(string databaseName, bool seedTestingData = false)
     {
         _seedTestingData = seedTestingData;
 
@@ -20,5 +21,5 @@ public class SqLiteDbContext : IDbContextFactory<ApplicationContext>
         //_contextOptionsBuilder.LogTo(Console.WriteLine);
     }
 
-    public ApplicationContext CreateDbContext() => new(_contextOptionsBuilder.Options, _seedTestingData);
+    public Time2PlanDbContext CreateDbContext() => new(_contextOptionsBuilder.Options, _seedTestingData);
 }

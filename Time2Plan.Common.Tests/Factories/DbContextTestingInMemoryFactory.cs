@@ -1,9 +1,9 @@
 ﻿using Time2Plan.DAL;
 using Microsoft.EntityFrameworkCore;
 
-namespace CookBook.Common.Tests.Factories;
+namespace Time2Plan.Common.Tests.Factories;
 
-public class DbContextTestingInMemoryFactory : IDbContextFactory<ApplicationContext>
+public class DbContextTestingInMemoryFactory : IDbContextFactory<Time2PlanDbContext>
 {
     private readonly string _databaseName;
     private readonly bool _seedTestingData;
@@ -14,14 +14,14 @@ public class DbContextTestingInMemoryFactory : IDbContextFactory<ApplicationCont
         _seedTestingData = seedTestingData;
     }
 
-    public ApplicationContext CreateDbContext()
+    public Time2PlanDbContext CreateDbContext()
     {
-        DbContextOptionsBuilder<ApplicationContext> contextOptionsBuilder = new();
+        DbContextOptionsBuilder<Time2PlanDbContext> contextOptionsBuilder = new();
         contextOptionsBuilder.UseInMemoryDatabase(_databaseName);
 
         // contextOptionsBuilder.LogTo(System.Console.WriteLine); //Enable in case you want to see tests details, enabled may cause some inconsistencies in tests
         // builder.EnableSensitiveDataLogging();
 
-        return new ApplicationTestingDbContext(contextOptionsBuilder.Options, _seedTestingData);
+        return new Time2PlanTestingDbContext(contextOptionsBuilder.Options, _seedTestingData);
     }
 }
