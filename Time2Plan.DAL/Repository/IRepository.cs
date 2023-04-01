@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Time2Plan.DAL.Interfaces;
 
-namespace Time2Plan.DAL.Repositories;
+namespace Time2Plan.DAL.Repository;
 
 /// <summary>
 /// Genericke rozhrani repozitare nad entitami - mozne pridat/odebrat metody

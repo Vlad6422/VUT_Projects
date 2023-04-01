@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Time2Plan.DAL.Mappers;
 
-namespace Time2Plan.DAL.Repositories;
+namespace Time2Plan.DAL.Repository;
 
 public class Repository<TEntity> : IRepository<TEntity>
     where TEntity : class, IEntity
@@ -11,7 +11,7 @@ public class Repository<TEntity> : IRepository<TEntity>
     private readonly IEntityMapper<TEntity> _entityMapper; // instance mapperu - updatuje existujici entity
 
     public Repository(DbContext dbContext, IEntityMapper<TEntity> entityMapper)
-    { 
+    {
         _dbSet = dbContext.Set<TEntity>(); // drzi databazove pripojeni
         _entityMapper = entityMapper;
     }
@@ -22,7 +22,7 @@ public class Repository<TEntity> : IRepository<TEntity>
         => entity.Id != Guid.Empty && await _dbSet.AnyAsync(e => e.Id == entity.Id);
     // prazde ID = nebude v databazi /// jinak se ptame databaze
 
- 
+
     public async Task<TEntity> InsertAsync(TEntity entity)
         => (await _dbSet.AddAsync(entity)).Entity;
 
