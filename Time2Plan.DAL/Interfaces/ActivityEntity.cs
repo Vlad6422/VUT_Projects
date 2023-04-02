@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Time2Plan.DAL.Interfaces
+﻿namespace Time2Plan.DAL.Interfaces
 {
         public record ActivityEntity : IEntity
         {
