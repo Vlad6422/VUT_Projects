@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Time2Plan.BL.Mappers.Interfaces;
 
-namespace Time2Plan.BL.Mappers
+namespace Time2Plan.BL.Mappers;
+
+public abstract class
+    ModelMapperBase<TEntity, TListModel, TDetailModel> : IModelMapper<TEntity, TListModel, TDetailModel>
 {
-    internal class ModelMapperBase
-    {
-    }
+    public abstract TListModel MapToListModel(TEntity? entity);
+
+    public IEnumerable<TListModel> MapToListModel(IEnumerable<TEntity> entities)
+        => entities.Select(MapToListModel);
+
+    public abstract TDetailModel MapToDetailModel(TEntity entity);
+    public abstract TEntity MapToEntity(TDetailModel model);
 }
