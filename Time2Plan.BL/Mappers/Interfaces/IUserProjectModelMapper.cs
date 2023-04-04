@@ -8,7 +8,8 @@ public interface IUserProjectModelMapper
     : IModelMapper<ProjectUserRelation, UserProjectListModel, UserProjectDetailModel>
 {
     UserProjectListModel MapToListModel(UserProjectDetailModel detailModel);
-    ProjectUserRelation MapToEntity(UserProjectDetailModel model, Guid userId, Guid projectId);
+    ProjectUserRelation MapToEntity(UserProjectListModel model);
     void MapToExistingDetailModel(UserProjectDetailModel existingDetailModel, UserListModel user, ProjectListModel project);
-    ProjectUserRelation MapToEntity(UserProjectListModel model, Guid userId, Guid projectId);
+    ProjectUserRelation MapToEntity(UserProjectDetailModel model);
+
 }

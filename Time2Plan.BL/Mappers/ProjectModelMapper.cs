@@ -33,8 +33,8 @@ public class ProjectModelMapper : ModelMapperBase<ProjectEntity, ProjectListMode
                 Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
-                UserProjects = new ObservableCollection<UserProjectListModel>(_userProjectModelMapper.MapToListModel(entity.UserProjects)),   
-                Activities = new ObservableCollection<ActivityListModel>(_activityModelMapper.MapToListModel(entity.Activities))
+                UserProjects = _userProjectModelMapper.MapToListModel(entity.UserProjects).ToObservableCollection(), 
+                Activities = _activityModelMapper.MapToListModel(entity.Activities).ToObservableCollection()
             };
 
     public override ProjectEntity MapToEntity(ProjectDetailModel model)

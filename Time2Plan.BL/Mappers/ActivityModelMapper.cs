@@ -30,8 +30,7 @@ public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListM
                 End = entity.End,
                 Type = entity.Type,
                 Tag = entity.Tag,
-                Description = entity.Description,
-                // Project = ProjectModelMapper.MapToDetailModel(entity.Project),
+                Description = entity.Description
             };
 
     public override ActivityEntity MapToEntity(ActivityDetailModel model)

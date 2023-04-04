@@ -6,7 +6,15 @@ namespace Time2Plan.BL.Mappers;
 
 public class UserModelMapper : ModelMapperBase<UserEntity, UserListModel, UserDetailModel>,
     IUserModelMapper
-{
+{ 
+    private readonly IUserProjectModelMapper _userProjectModelMapper;
+    private readonly IActivityModelMapper _activityModelMapper;
+    public UserModelMapper(IUserProjectModelMapper userProjectModelMapper) 
+        => _userProjectModelMapper = userProjectModelMapper;
+
+    public UserModelMapper(IActivityModelMapper activityModelMapper) 
+        => _activityModelMapper = activityModelMapper;
+
     public override UserListModel MapToListModel(UserEntity? entity)
         => entity is null
             ? UserListModel.Empty
@@ -28,7 +36,9 @@ public class UserModelMapper : ModelMapperBase<UserEntity, UserListModel, UserDe
                 Name = entity.Name,
                 Surname = entity.Surname,
                 NickName = entity.NickName,
-                Photo = entity.Photo
+                Photo = entity.Photo,
+                Activities = _activityModelMapper.MapToListModel(entity.Activities).ToObservableCollection(),
+                UserProjects = _userProjectModelMapper.MapToListModel(entity.UserProjects).ToObservableCollection()
             };
 
     public override UserEntity MapToEntity(UserDetailModel model)

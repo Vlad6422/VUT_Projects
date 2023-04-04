@@ -8,8 +8,10 @@ public record ActivityDetailModel : ModelBase
     public string? Tag { get; set; }
     public string? Description { get; set; }
 
-    public ProjectDetailModel? Project { get; set; }
-    public UserDetailModel? User { get; set; }
+    // is necessary to reference back?
+
+    //public ProjectDetailModel? Project { get; set; }
+    //public UserDetailModel? User { get; set; }
 
     public static ActivityDetailModel Empty => new()
     {
