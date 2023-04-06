@@ -26,8 +26,10 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
             .Where(e => e.Start > fromDate)
             .Where(e => e.Start < toDate)
             .Where (e => e.Project == project)
+            .Where(e => e.Tag == tag)
             .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
     }
+
 }
