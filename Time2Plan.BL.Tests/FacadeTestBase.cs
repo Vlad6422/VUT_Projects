@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
+using Time2Plan.BL.Mappers.Interfaces;
 
 namespace Time3Plan.BL.Tests;
 
@@ -16,17 +17,17 @@ public class FacadeTestBase : IAsyncLifetime
 {
     protected FacadeTestBase(ITestOutputHelper output)
     {
-        XunitTestOutputConverter converter = new(output);
+        XUnitTestOutputConverter converter = new(output);
         Console.SetOut(converter);
 
         //DbContextFactory = new DbContextTeestingInMemoryFactory(GetType().Name, seedTestingData: true);
-        DbContextFactory = new DbContexLocalDBTestingFactory(GetType().FullName!, seedTestingData: true);
+        DbContextFactory = new DbContextLocalDBTestingFactory(GetType().FullName!, seedTestingData: true);
         //DbContextFactory = new DbContextSQLiteTestingFactory.cs(GetType().FullName!, seedTestingData: true);
 
         ActivityEntityMapper = new ActivityEntityMapper();
         ProjectEntityMapper = new ProjectEntityMapper();
         ProjectUserRelationMapper = new ProjectUserRelationMapper();
-        UserEntityMapper = new UserEntityMApper();
+        UserEntityMapper = new UserEntityMapper();
 
         ActivityModelMapper = new ActivityModelMapper();
         ProjectModelMapper = new ProjectModelMapper();
@@ -36,7 +37,7 @@ public class FacadeTestBase : IAsyncLifetime
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
     }
 
-    protected IDbContextFactory<CookBookDbContext> DbContextFactory { get; }
+    protected IDbContextFactory<Time2PlanDbContext> DbContextFactory { get; }
 
     protected ActivityEntityMapper ActivityEntityMapper { get; }
     protected ProjectEntityMapper ProjectEntityMapper { get; }
@@ -51,14 +52,14 @@ public class FacadeTestBase : IAsyncLifetime
     public async Task InitializeAsync()
     {
         await using var dbx = await DbContextFactory.CreateDbContextAsync();
-        await dbx.Database.EnsureDeleteAsync();
-        await dbx.Database.EnsureCreateAsync();
+        await dbx.Database.EnsureDeletedAsync();
+        await dbx.Database.EnsureCreatedAsync();
     }
 
     public async Task DisposeAsync()
     {
         await using var dbx = await DbContextFactory.CreateDbContextAsync();
-        await dbx.Database.EnsureDeleteAsync();
+        await dbx.Database.EnsureDeletedAsync();
     }
 
 }

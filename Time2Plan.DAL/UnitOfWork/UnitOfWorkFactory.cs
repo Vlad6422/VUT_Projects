@@ -2,7 +2,7 @@
 
 namespace Time2Plan.DAL.UnitOfWork;
 
-internal class UnitOfWorkFactory : IUnitOfWorkFactory
+public class UnitOfWorkFactory : IUnitOfWorkFactory
 {
     private readonly IDbContextFactory<Time2PlanDbContext> _dbContextFactory;
 
