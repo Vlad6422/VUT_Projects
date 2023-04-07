@@ -22,7 +22,7 @@ public class FacadeTestBase : IAsyncLifetime
 
         //DbContextFactory = new DbContextTeestingInMemoryFactory(GetType().Name, seedTestingData: true);
         DbContextFactory = new DbContextLocalDBTestingFactory(GetType().FullName!, seedTestingData: true);
-        //DbContextFactory = new DbContextSQLiteTestingFactory.cs(GetType().FullName!, seedTestingData: true);
+        //DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
 
         ActivityEntityMapper = new ActivityEntityMapper();
         ProjectEntityMapper = new ProjectEntityMapper();
@@ -30,8 +30,8 @@ public class FacadeTestBase : IAsyncLifetime
         UserEntityMapper = new UserEntityMapper();
 
         ActivityModelMapper = new ActivityModelMapper();
-        ProjectModelMapper = new ProjectModelMapper();
-        UserModelMapper = new UserModelMapper();
+        ProjectModelMapper = new ProjectModelMapper(ActivityModelMapper);
+        UserModelMapper = new UserModelMapper(ActivityModelMapper);
         UserProjectModelMapper = new UserProjectModelMapper();
 
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
@@ -45,9 +45,11 @@ public class FacadeTestBase : IAsyncLifetime
     protected UserEntityMapper UserEntityMapper { get; }
 
     protected IActivityModelMapper ActivityModelMapper { get; }
-    protected ProjectModelMapper ProjectModelMapper { get; }
-    protected UserModelMapper UserModelMapper { get; }
+    protected IProjectModelMapper ProjectModelMapper { get; }
+    protected IUserModelMapper UserModelMapper { get; }
     protected UserProjectModelMapper UserProjectModelMapper { get; }
+
+    protected UnitOfWorkFactory UnitOfWorkFactory { get; }
 
     public async Task InitializeAsync()
     {
