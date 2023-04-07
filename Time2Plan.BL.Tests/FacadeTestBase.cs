@@ -11,7 +11,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Time2Plan.BL.Mappers.Interfaces;
 
-namespace Time3Plan.BL.Tests;
+namespace Time2Plan.BL.Tests;
 
 public class FacadeTestBase : IAsyncLifetime
 {

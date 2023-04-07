@@ -10,15 +10,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
+using Time2Plan.BL.Tests;
+using Time2Plan.BL.Facades.Interfaces;
 
 namespace Time2Plan.BL.Tests;
 
 public class ActivityFacadeTests : FacadeTestBase
 {
-    private readonly IActivityFacade facadeTest;
+    private readonly IActivityFacade _facadeTest;
     public ActivityFacadeTests(ITestOutputHelper output) : base(output)
     {
-        facadeTest = new ActivityFacade();//
+        _facadeTest = new ActivityFacade(UnitOfWorkFactory, ActivityModelMapper);
     }
 
     [Fact]
@@ -27,7 +29,10 @@ public class ActivityFacadeTests : FacadeTestBase
         //Arrange
         var model = new ActivityDetailModel()
         {
-            DateTime = "";
+            Start = DateTime.Now.AddDays(-7),
+            End = DateTime.Now,
+            Type = "test type of activity"
+        };
         //Act
         //Assert
     }

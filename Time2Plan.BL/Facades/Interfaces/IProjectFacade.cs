@@ -3,7 +3,7 @@ using Time2Plan.DAL.Interfaces;
 
 namespace Time2Plan.BL.Facades.Interfaces
 {
-    internal interface IProjectFacade : IFacade<ProjectEntity, ProjectListModel, ProjectDetailModel>
+    public interface IProjectFacade : IFacade<ProjectEntity, ProjectListModel, ProjectDetailModel>
     {
     }
 }

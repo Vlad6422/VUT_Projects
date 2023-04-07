@@ -3,7 +3,7 @@ using Time2Plan.DAL.Interfaces;
 
 namespace Time2Plan.BL.Facades.Interfaces
 {
-    internal interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, ActivityDetailModel>
+    public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, ActivityDetailModel>
     {
     }
 }
