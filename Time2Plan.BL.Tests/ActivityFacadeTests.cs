@@ -38,7 +38,7 @@ public class ActivityFacadeTests : FacadeTestBase
     public async Task GetAll_Single_SeededCode()
     {
         var activities = await _activityTest.GetAsync();
-        var activity = activities.Singel(i => i.Id == ActivitySeeds.Code.Id);
+        var activity = activities.Single(i => i.Id == ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
     }
