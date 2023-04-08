@@ -22,6 +22,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Time2Plan.BL.Time2Plan.BL.csproj" />
 		<ProjectReference Include="..\Time2Plan.BL\Time2Plan.BL.csproj" />
 		<ProjectReference Include="..\Time2Plan.Common.Tests\Time2Plan.Common.Tests.csproj" />
 	</ItemGroup>
