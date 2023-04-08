@@ -8,8 +8,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using XUnit;
-using XUnit.Abstractions;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Time2Plan.BL.Tests;
 
@@ -60,16 +60,16 @@ public class UserFacadeTests : FacadeTestBase
                     End = DateTime.Now
                 }
             }
-        }
+        };
         //Act, assert
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model))
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model));
     }
 
     [Fact]
     public async Task GetById_FromSeeded_DoesNotThrowAndEqualsSeeded()
     {
         //Arrange
-        var model = new UserDetailModel()
+        var model = new UserDetailModel();
         //Act
         var returnModel = await _userTest.GetAsync(detailModel.Id);
         //Assert

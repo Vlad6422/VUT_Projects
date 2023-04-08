@@ -1,6 +1,5 @@
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
-using Time2Plan.Common.Enums;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +7,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using XUnit;
-using XUnit.Abstraction;
+using Xunit;
+using Xunit.Abstraction;
 using Time2Plan.BL.Testes;
 using Time2Plan.BL.Facades.Interfaces;
 
@@ -39,7 +38,7 @@ public class ActivityFacadeTests : FacadeTestBase
     public async Task GetAll_Single_SeededCode()
     {
         var activities = await _activityTest.GetAsync();
-        var activity = activities.Singel(i => i.Id == ActivitySeeds.Code.Id)
+        var activity = activities.Singel(i => i.Id == ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(IngredientModelMapper.MapToListModel(IngredientSeeds.Water), ingredient);
     }
