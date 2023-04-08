@@ -1,6 +1,5 @@
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
-using Time2Plan.Common.Enums;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
+using System.ComponentModel;
 
 namespace Time2Plan.BL.Tests;
 
@@ -22,15 +22,15 @@ public class UserFacadeTests : FacadeTestBase
     }
 
     [Fact]
-    public async Task Create_new_user_without_activities()
+    public async Task Create_user_without_activities()
     {
         //Arrange
         var model = new UserDetailModel()
         {
             Id = Guid.Empty,
-            Name = "TestName1",
-            Surname = "TestSurname1",
-            NickName = "TestNickName1"
+            Name = "Name1",
+            Surname = "Surname1",
+            NickName = "NickName1"
         };
         //Act
         var returnedModel = await _userTest.CreateAsync(model);
@@ -40,16 +40,16 @@ public class UserFacadeTests : FacadeTestBase
     }
 
     [Fact]
-    public async Task Create_new_user_with_activity()
+    public async Task Create_user_with_nonexisting_activity()
     {
         //Arrange                                      
         var model = new UserDetailModel()
         {
             Id = Guid.Empty,
-            Name = "TestName2",
-            Surname = "TestSurname2",
-            NickName = "Testnickname",
-            Activities = new ObservableCollection<ActivityEntity>()
+            Name = "User1",
+            Surname = "Surname1",
+            NickName = "NickName1",
+            Activities = new ObservableCollection<ActivityListModel>()      //ActivityEntity?
             {
                 new()
                 {
@@ -63,6 +63,60 @@ public class UserFacadeTests : FacadeTestBase
         };
         //Act, assert
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model));
+    }
+
+    [Fact]
+    public async Task Create_WithActivities_DoesNotThrowAndEqualsCreated()
+    {
+        //Arrange
+        var model = new UserDetailModel()
+        {
+            Name = "User2",
+            Surname = "Surname2",
+            NickName = "NickName2",
+            Photo = "--",
+            Activities = new ObservableCollection<ActivityListModel>()
+            {
+                new()
+                {
+                    Id = ActivitySeeds.Code.Id,
+                    Start = ActivitySeeds.Code.Start,
+                    End = ActivitySeeds.Code.End,
+                    Type = ActivitySeeds.Code.Type,
+                    Tag = ActivitySeeds.Code.Tag,
+                    Description = ActivitySeeds.Code.Description,
+                }
+            },
+        };
+        //Act && Assert
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _facadeSUT.SaveAsync(model));
+    }
+
+    [Fact]
+    public async Task Create_WithExistingAndNotExistingActivities_Throws()
+    {
+        //Arrange
+        var model = new UserDetailModel()
+        {
+            Name = "User2",
+            Surname = "Surname2",
+            NickName = "NickName2",
+            Activities = new ObservableCollection<ActivityListModel>()
+            {
+                new ()
+                {
+                    Id = Guid.Empty,
+                    Start = ActivitySeeds.Code.Start,
+                    End = ActivitySeeds.Code.End,
+                    Type = ActivitySeeds.Code.Type,
+                    Tag = ActivitySeeds.Code.Tag,
+                    Description = ActivitySeeds.Code.Description,
+                },
+                ActivityModelMapper.MapToListModel(ActivitySeeds.Run),
+            },
+        };
+        //Act & Assert
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _facadeSUT.SaveAsync(model));
     }
 
     [Fact]
@@ -127,14 +181,14 @@ public class UserFacadeTests : FacadeTestBase
     public async Task DeleteById_FromSeeded_DoesNotThrow()
     {
         //Arrange, act, assert
-        await _userTest.DeleteAsync(UserSeeds.UserEntity.Id);
+        await _userTest.DeleteAsync(UserSeeds..Id);
     }
 
     private static void FixIds(UserDetailModel expectedModel, UserDetailModel returnedModel)
     {
         returnedModel.Id = expectedModel.Id;
 
-        foreach (var UserListModel in returnedModel.Activity) //?
+        foreach (var UserListModel in returnedModel.Activities) //?
         {
             var ActivityDetailModel = expectedModel.Activities.FirstOrDefault(i =>
                 i.User.Name == UserListModel.Name && i.Unit == ActivityModel.Unit);

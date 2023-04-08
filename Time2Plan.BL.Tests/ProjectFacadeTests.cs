@@ -82,7 +82,6 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         DeepAssert.Equal(project, ProjectModelMapper.MapToDetailModel(projectFromDb));
     }
 
-
     [Fact]
     public async Task ProjectAlpha_InsertOrUpdate_ProjectUpdated()
     {
