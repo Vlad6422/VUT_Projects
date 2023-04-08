@@ -7,9 +7,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xunit.Abstractions;
 using Xunit;
-using Xunit.Abstraction;
-using Time2Plan.BL.Testes;
+using Time2Plan.BL.Tests;
 using Time2Plan.BL.Facades.Interfaces;
 
 namespace Time2Plan.BL.Tests;
@@ -40,7 +40,7 @@ public class ActivityFacadeTests : FacadeTestBase
         var activities = await _activityTest.GetAsync();
         var activity = activities.Singel(i => i.Id == ActivitySeeds.Code.Id);
 
-        DeepAssert.Equal(IngredientModelMapper.MapToListModel(IngredientSeeds.Water), ingredient);
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class ActivityFacadeTests : FacadeTestBase
     {
         var activity = await _activityTest.GetAsync(ActivitySeeds.Code.Id);
 
-        DeepAssert.Equal(IngredientModelMapper.MapToDetailModel(IngredientSeeds.Water), ingredient);
+        DeepAssert.Equal(ActivityModelMapper.MapToDetailModel(ActivitySeeds.Code), activity);
     }
 
     [Fact]
@@ -70,13 +70,11 @@ public class ActivityFacadeTests : FacadeTestBase
     [Fact]
     public async Task SeededCode_InsertOrUpdate_ActivityUpdated()
     {
-        var activtiy = new ActivityDetailModel()
+        var activity = new ActivityDetailModel()
         {
             Id = ActivitySeeds.Code.Id,
-            Name = ActivitySeeds.Code.Name,
             Description = ActivitySeeds.Code.Description,
         };
-        activity.Name += "updated";
         activity.Description += "updated";
 
         await _activityTest.SaveAsync(activity);

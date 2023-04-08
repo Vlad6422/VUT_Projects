@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Time2Plan.BL.Facades;
+using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
@@ -14,9 +15,9 @@ namespace Time2Plan.BL.Tests;
 public sealed class ProjectFacadeTest : FacadeTestBase
 {
     private readonly IProjectFacade _projectTest;
-    public ProjectFacadeTests(ITestOutputHelper output) : base(output)
+    public ProjectFacadeTest(ITestOutputHelper output) : base(output)
     {
-        _projectTest = new ProjectFacade(unitOfWorkFactory, modelMapper);
+        _projectTest = new ProjectFasade(UnitOfWorkFactory, ProjectModelMapper);
     }
 
     [Fact]
@@ -26,7 +27,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         {
             Id = Guid.Empty,
             Name = @"Project 1",
-            Description = @"Test description1",
+            Description = @"Test description1"
         };
 
         var _ = await _projectTest.CreateAsync(model);
@@ -52,7 +53,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     {
         await _projectTest.DeleteAsync(ProjectSeeds.ProjectAlpha.Id);
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        Assert.False(await dbxAssert.Projects.AnyAsync(i => i.Id == ProjectSeeds.ProjectAlpha))
+        Assert.False(await dbxAssert.Projects.AnyAsync(i => i.Id == ProjectSeeds.ProjectAlpha));
     }
 
     [Fact]

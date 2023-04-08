@@ -1,3 +1,4 @@
+using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using System.ComponentModel;
+using Time2Plan.DAL.UnitOfWork;
 
 namespace Time2Plan.BL.Tests;
 
@@ -18,7 +20,7 @@ public class UserFacadeTests : FacadeTestBase
     private readonly IUserFacade _userTest;
     public UserFacadeTests(ITestOutputHelper output) : base(output)
     {
-        _userTest = new UserFacade(unitOfWorkFactory, modelMapper);
+        _userTest = new UserFasade(UnitOfWorkFactory, UserModelMapper);
     }
 
     [Fact]
@@ -35,8 +37,8 @@ public class UserFacadeTests : FacadeTestBase
         //Act
         var returnedModel = await _userTest.CreateAsync(model);
         //Assert
-        FixIds(mode1, returnedModel);
-        DeepAssert.Equal(mode1, returnedModel);
+        FixIds(model, returnedModel);
+        DeepAssert.Equal(model, returnedModel);
     }
 
     [Fact]
@@ -55,7 +57,6 @@ public class UserFacadeTests : FacadeTestBase
                 {
                     Id = Guid.Empty,
                     Type = "TestType1",
-                    Name = "TestAvtivity1",
                     Start = DateTime.Now.AddDays(-7),
                     End = DateTime.Now
                 }
@@ -84,12 +85,11 @@ public class UserFacadeTests : FacadeTestBase
                     End = ActivitySeeds.Code.End,
                     Type = ActivitySeeds.Code.Type,
                     Tag = ActivitySeeds.Code.Tag,
-                    Description = ActivitySeeds.Code.Description,
                 }
             },
         };
         //Act && Assert
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _facadeSUT.SaveAsync(model));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model));
     }
 
     [Fact]
@@ -110,13 +110,12 @@ public class UserFacadeTests : FacadeTestBase
                     End = ActivitySeeds.Code.End,
                     Type = ActivitySeeds.Code.Type,
                     Tag = ActivitySeeds.Code.Tag,
-                    Description = ActivitySeeds.Code.Description,
                 },
                 ActivityModelMapper.MapToListModel(ActivitySeeds.Run),
             },
         };
         //Act & Assert
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _facadeSUT.SaveAsync(model));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model));
     }
 
     [Fact]
@@ -125,16 +124,16 @@ public class UserFacadeTests : FacadeTestBase
         //Arrange
         var model = new UserDetailModel();
         //Act
-        var returnModel = await _userTest.GetAsync(detailModel.Id);
+        var returnModel = await _userTest.GetAsync(UserDetailModel.Id);
         //Assert
-        DeepAssert.Equal(detailModel, returnModel);
+        DeepAssert.Equal(UserDetailModel, returnModel);
     }
 
     [Fact]
     public async Task GetAll_FromSeeded_DoesNotThrowAndContainsSeeded()
     {
         //Arrange
-        var listModel = UserModelMapper.MapToListModel(UserSeeds.UserEntity);
+        var listModel = UserModelMapper.MapToListModel(UserSeeds.User1);
         //Act
         var returnedModel = await _userTest.GetAsync();
         //Assert
@@ -145,7 +144,7 @@ public class UserFacadeTests : FacadeTestBase
     public async Task Update_FromSeeded_DoesNotThrow()
     {
         //Arrange
-        var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.UserEntity);
+        var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1Update);
         detailModel.Name = "Changed user name";
         //Act & Assert
         await _userTest.SaveAsync(detailModel with { Activities = default });
@@ -155,10 +154,10 @@ public class UserFacadeTests : FacadeTestBase
     public async Task Update_Name_FromSeeded_CheckUpdated()
     {
         //Arrange
-        var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.UserEntity);
+        var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1Update);
         detailModel.Name = "Changed user name 1";
         //Act
-        await _userTest.SaveAsync(detailModel with { Actvities = default });
+        await _userTest.SaveAsync(detailModel with { Activities = default });
         //Assert
         var returnedModel = await _userTest.GetAsync(detailModel.Id);
         DeepAssert.Equal(detailModel, returnedModel);
@@ -168,20 +167,20 @@ public class UserFacadeTests : FacadeTestBase
     public async Task Update_RemoveOneOfActivities_FromSeeded_CheckUpdated()
     {
         //Arrange
-        var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.UserEntity);
-        detailModel.Activity.Remove(detailModel.Activity.First());
+        var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1);
+        detailModel.Activities.Remove(detailModel.Activities.First());
         //Act
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(detailModel));
         //Assert
-        var returnedModel = await _facadeSUT.GetAsync(detailModel.Id);
-        DeepAssert.Equal(UserModelMapper.MapToDetailModel(UserSeeds.UserEntity), returnedModel);
+        var returnedModel = await _userTest.GetAsync(detailModel.Id);
+        DeepAssert.Equal(UserModelMapper.MapToDetailModel(UserSeeds.User1), returnedModel);
     }
 
     [Fact]
     public async Task DeleteById_FromSeeded_DoesNotThrow()
     {
         //Arrange, act, assert
-        await _userTest.DeleteAsync(UserSeeds..Id);
+        await _userTest.DeleteAsync(UserSeeds.User1Delete.Id);
     }
 
     private static void FixIds(UserDetailModel expectedModel, UserDetailModel returnedModel)
@@ -193,10 +192,10 @@ public class UserFacadeTests : FacadeTestBase
             var ActivityDetailModel = expectedModel.Activities.FirstOrDefault(i =>
                 i.User.Name == UserListModel.Name && i.Unit == ActivityModel.Unit);
 
-            if (ingredientAmountDetailModel != null)
+            if (UserDetailModel != null)
             {
                 UserListModel.Id = UserDetailModel.Id;
-                UserListModel.Activity.Id = UserDetailModel.Activity.Id;
+                UserListModel.Activities.Id = UserDetailModel.Activities.Id;
             }
         }
     }
