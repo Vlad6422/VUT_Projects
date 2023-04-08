@@ -15,10 +15,10 @@ namespace Time2Plan.BL.Tests;
 
 public class UserFacadeTests : FacadeTestBase
 {
-    private readonly IUserFacade userTest;
+    private readonly IUserFacade _userTest;
     public UserFacadeTests(ITestOutputHelper output) : base(output)
     {
-        userTest = new UserFacade(unitOfWorkFactory, modelMapper);
+        _userTest = new UserFacade(unitOfWorkFactory, modelMapper);
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class UserFacadeTests : FacadeTestBase
             NickName = "TestNickName1"
         };
         //Act
-        var returnedModel = await userTest.CreateAsync(model);
+        var returnedModel = await _userTest.CreateAsync(model);
         //Assert
         FixIds(mode1, returnedModel);
         DeepAssert.Equal(mode1, returnedModel);
@@ -56,13 +56,13 @@ public class UserFacadeTests : FacadeTestBase
                     Id = Guid.Empty,
                     Type = "TestType1",
                     Name = "TestAvtivity1",
-                    Start = new DateTime(2022, 04, 20, 10, 30, 0),
-                    End = new DateTime(2022, 05, 20, 11, 00, 0)
+                    Start = DateTime.Now.AddDays(-7),
+                    End = DateTime.Now
                 }
             }
         }
         //Act, assert
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => userTest.SaveAsync(model))
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model))
     }
 
     [Fact]
@@ -71,7 +71,7 @@ public class UserFacadeTests : FacadeTestBase
         //Arrange
         var model = new UserDetailModel()
         //Act
-        var returnModel = await userTest.GetAsync(detailModel.Id);
+        var returnModel = await _userTest.GetAsync(detailModel.Id);
         //Assert
         DeepAssert.Equal(detailModel, returnModel);
     }
@@ -82,7 +82,7 @@ public class UserFacadeTests : FacadeTestBase
         //Arrange
         var listModel = UserModelMapper.MapToListModel(UserSeeds.UserEntity);
         //Act
-        var returnedModel = await userTest.GetAsync();
+        var returnedModel = await _userTest.GetAsync();
         //Assert
         Assert.Contains(listModel, returnedModel);
     }
@@ -94,7 +94,7 @@ public class UserFacadeTests : FacadeTestBase
         var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.UserEntity);
         detailModel.Name = "Changed user name";
         //Act & Assert
-        await userTest.SaveAsync(detailModel with { Activities = default });
+        await _userTest.SaveAsync(detailModel with { Activities = default });
     }
 
     [Fact]
@@ -104,9 +104,9 @@ public class UserFacadeTests : FacadeTestBase
         var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.UserEntity);
         detailModel.Name = "Changed user name 1";
         //Act
-        await userTest.SaveAsync(detailModel with { Actvities = default });
+        await _userTest.SaveAsync(detailModel with { Actvities = default });
         //Assert
-        var returnedModel = await userTest.GetAsync(detailModel.Id);
+        var returnedModel = await _userTest.GetAsync(detailModel.Id);
         DeepAssert.Equal(detailModel, returnedModel);
     }
 
@@ -117,7 +117,7 @@ public class UserFacadeTests : FacadeTestBase
         var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.UserEntity);
         detailModel.Activity.Remove(detailModel.Activity.First());
         //Act
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => userTest.SaveAsync(detailModel));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(detailModel));
         //Assert
         var returnedModel = await _facadeSUT.GetAsync(detailModel.Id);
         DeepAssert.Equal(UserModelMapper.MapToDetailModel(UserSeeds.UserEntity), returnedModel);
@@ -127,7 +127,7 @@ public class UserFacadeTests : FacadeTestBase
     public async Task DeleteById_FromSeeded_DoesNotThrow()
     {
         //Arrange, act, assert
-        await userTest.DeleteAsync(UserSeeds.UserEntity.Id);
+        await _userTest.DeleteAsync(UserSeeds.UserEntity.Id);
     }
 
     private static void FixIds(UserDetailModel expectedModel, UserDetailModel returnedModel)

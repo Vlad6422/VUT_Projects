@@ -10,15 +10,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using XUnit;
 using XUnit.Abstraction;
+using Time2Plan.BL.Testes;
+using Time2Plan.BL.Facades.Interfaces;
 
 namespace Time2Plan.BL.Tests;
 
 public class ActivityFacadeTests : FacadeTestBase
 {
-    private readonly IActivityFacade activityTest;
+    private readonly IActivityFacade _activityTest;
     public ActivityFacadeTests(ITestOutputHelper output) : base(output)
     {
-        activityTest = new ActivityFacade();
+        _activityTest = new ActivityFacade();
     }
 
     [Fact]
@@ -26,17 +28,17 @@ public class ActivityFacadeTests : FacadeTestBase
     {
         var model = new ActivityDetailModel()
         {
-            Id = Guid.Empty,
-            Name = @"Activity 1",
-            Description = @"Test activity 1",
+            Start = DateTime.Now.AddDays(-7),
+            End = DateTime.Now,
+            Type = "test type of activity"
         };
-        var _ = await activityTest.SaveAsync(model);
+        var _ = await _activityTest.SaveAsync(model);
     }
 
     [Fact]
     public async Task GetAll_Single_SeededCode()
     {
-        var activities = await activityTest.GetAsync();
+        var activities = await _activityTest.GetAsync();
         var activity = activities.Singel(i => i.Id == ActivitySeeds.Code.Id)
 
         DeepAssert.Equal(IngredientModelMapper.MapToListModel(IngredientSeeds.Water), ingredient);
@@ -45,7 +47,7 @@ public class ActivityFacadeTests : FacadeTestBase
     [Fact]
     public async Task GetById_SeededCode()
     {
-        var activity = await activityTest.GetAsync(ActivitySeeds.Code.Id);
+        var activity = await _activityTest.GetAsync(ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(IngredientModelMapper.MapToDetailModel(IngredientSeeds.Water), ingredient);
     }
@@ -53,7 +55,7 @@ public class ActivityFacadeTests : FacadeTestBase
     [Fact]
     public async Task GetById_NonExistent()
     {
-        var activity = await activityTest.GetAsync(ActivitySeeds.Id);
+        var activity = await _activityTest.GetAsync(ActivitySeeds.Id);
 
         Assert.Null(activity);
     }
@@ -62,7 +64,7 @@ public class ActivityFacadeTests : FacadeTestBase
     public async Task Delete_activity()
     {
         //Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await activityTest.DeleteAsync(ActivitySeeds.Id));
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _activityTest.DeleteAsync(ActivitySeeds.Id));
     }
 
 
@@ -78,7 +80,7 @@ public class ActivityFacadeTests : FacadeTestBase
         activity.Name += "updated";
         activity.Description += "updated";
 
-        await activityTest.SaveAsync(activity);
+        await _activityTest.SaveAsync(activity);
 
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
         var activityFromDb = await dbxAssert.Activities.SingleAsync(i => i.Id == activity.Id);
