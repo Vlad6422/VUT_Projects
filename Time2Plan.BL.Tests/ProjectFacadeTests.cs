@@ -65,45 +65,45 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         await Assert.ThrowsAsync<InvalidOperationException>(async () => await _projectTest.DeleteAsync(ProjectSeeds.ProjectAlpha.Id));
     }
 
-    //[Fact]
-    //public async Task NewProject_InsertOrUpdate_ProjectAdded()
-    //{
-    //    //Arrange
-    //    var project = new ProjectDetailModel()
-    //    {
-    //        Id = Guid.Empty,
-    //        Name = "Project test 2",
-    //        Description = "Description test 2",
-    //    };
+    [Fact]
+    public async Task NewProject_InsertOrUpdate_ProjectAdded()
+    {
+        //Arrange
+        var project = new ProjectDetailModel()
+        {
+            Id = Guid.Empty,
+            Name = "Project test 2",
+            Description = "Description test 2",
+        };
 
-    //    //Act
-    //    project = await _projectTest.SaveAsync(project);
+        //Act
+        project = await _projectTest.SaveAsync(project);
 
-    //    //Assert
-    //    await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-    //    var projectFromDb = await dbxAssert.Projects.SingleAsync(i => i.Id == project.Id);
-    //    DeepAssert.Equal(project, ProjectModelMapper.MapToDetailModel(projectFromDb));
-    //}
+        //Assert
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        var projectFromDb = await dbxAssert.Projects.SingleAsync(i => i.Id == project.Id);
+        DeepAssert.Equal(project, ProjectModelMapper.MapToDetailModel(projectFromDb));
+    }
 
-    //[Fact]
-    //public async Task ProjectAlpha_InsertOrUpdate_ProjectUpdated()
-    //{
-    //    //Arrange
-    //    var project = new ProjectDetailModel()
-    //    {
-    //        Id = ProjectSeeds.ProjectAlpha.Id,
-    //        Name = ProjectSeeds.ProjectAlpha.Name,
-    //        Description = ProjectSeeds.ProjectAlpha.Description,
-    //    };
-    //    project.Name += "updated";
-    //    project.Description += "updated";
+    [Fact]
+    public async Task ProjectAlpha_InsertOrUpdate_ProjectUpdated()
+    {
+        //Arrange
+        var project = new ProjectDetailModel()
+        {
+            Id = ProjectSeeds.ProjectAlpha.Id,
+            Name = ProjectSeeds.ProjectAlpha.Name,
+            Description = ProjectSeeds.ProjectAlpha.Description,
+        };
+        project.Name += "updated";
+        project.Description += "updated";
 
-    //    //Act
-    //    await _projectTest.SaveAsync(project);
+        //Act
+        await _projectTest.SaveAsync(project);
 
-    //    //Assert
-    //    await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-    //    var projectFromDb = await dbxAssert.Projects.SingleAsync(i => i.Id == project.Id);
-    //    DeepAssert.Equal(project, ProjectModelMapper.MapToDetailModel(projectFromDb));
-    //}
+        //Assert
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        var projectFromDb = await dbxAssert.Projects.SingleAsync(i => i.Id == project.Id);
+        DeepAssert.Equal(project, ProjectModelMapper.MapToDetailModel(projectFromDb));
+    }
 }
