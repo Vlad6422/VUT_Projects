@@ -52,20 +52,20 @@ public class ActivityFacadeTests : FacadeTestBase
     }
 
     //doesnt build
-    //[Fact]
-    //public async Task GetById_NonExistent()
-    //{
-    //    var activity = await _activityTest.GetAsync(ActivitySeeds.Id);
+    [Fact]
+    public async Task GetById_NonExistent()
+    {
+        var activity = await _activityTest.GetAsync(ActivitySeeds.EmptyActivity.Id);
 
-    //    Assert.Null(activity);
-    //}
+        Assert.Null(activity);
+    }
 
-    //[Fact]
-    //public async Task Delete_activity()
-    //{
-    //    //Act & Assert
-    //    await Assert.ThrowsAsync<InvalidOperationException>(async () => await _activityTest.DeleteAsync(ActivitySeeds.Id));
-    //}
+    [Fact]
+    public async Task Delete_activity()
+    {
+        //Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _activityTest.DeleteAsync(ActivitySeeds.Run.Id));
+    }
 
 
 
@@ -77,8 +77,8 @@ public class ActivityFacadeTests : FacadeTestBase
         {
             Id = ActivitySeeds.Code.Id,
             Description = ActivitySeeds.Code.Description,
-            Start = DateTime.Now,
-            End = DateTime.Now
+            Start = ActivitySeeds.Code.Start,
+            End = ActivitySeeds.Code.End
         };
         activity.Description += "updated";
 
