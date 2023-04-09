@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,6 +8,7 @@ using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
+using Time2Plan.DAL.Interfaces;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -48,13 +50,13 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         DeepAssert.Equal(ProjectModelMapper.MapToDetailModel(ProjectSeeds.ProjectAlpha), project);
     }
 
-    //[Fact]
-    //public async Task ProjectAlpha_DeleteById_Deleted()
-    //{
-    //    await _projectTest.DeleteAsync(ProjectSeeds.ProjectAlpha.Id);
-    //    await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-    //    Assert.False(await dbxAssert.Projects.AnyAsync(i => i.Id == ProjectSeeds.ProjectAlpha));
-    //}
+    [Fact]
+    public async Task ProjectAlpha_DeleteById_Deleted()
+    {
+        await _projectTest.DeleteAsync(ProjectSeeds.ProjectAlpha.Id);
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        Assert.False(await dbxAssert.Projects.AnyAsync<ProjectEntity>(i => i.Id == ProjectSeeds.ProjectAlpha.Id));
+    }
 
     [Fact]
     public async Task Delete_ProjectUsedInActivity_Throws()
