@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Time2Plan.BL\Time2Plan.BL.csproj" />
     <ProjectReference Include="..\Time2Plan.DAL\Time2Plan.DAL.csproj" />
   </ItemGroup>
 

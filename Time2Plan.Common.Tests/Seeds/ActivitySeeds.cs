@@ -37,6 +37,13 @@ namespace Time2Plan.Common.Tests.Seeds
             Description = "5 km run",
         };
 
+        public static readonly ActivityEntity ActivityWithProject = new()
+        {
+            Id = Guid.NewGuid(),
+            Start = new DateTime(2022, 4, 5, 15, 30, 0),
+            End = new DateTime(2022, 6, 4, 3, 0, 0),
+            Project = ProjectSeeds.ProjectBeta
+        };
         public static readonly ActivityEntity CodeDelete = Code with { Id = Guid.NewGuid() };
         public static readonly ActivityEntity CodeUpdate = Code with { Id = Guid.NewGuid() };
 
