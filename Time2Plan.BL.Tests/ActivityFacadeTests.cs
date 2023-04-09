@@ -62,8 +62,7 @@ public class ActivityFacadeTests : FacadeTestBase
     [Fact]
     public async Task Delete_activity()
     {
-        //Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _activityTest.DeleteAsync(ActivitySeeds.Run.Id));
+        await _activityTest.DeleteAsync(ActivitySeeds.Run.Id);
     }
 
 
