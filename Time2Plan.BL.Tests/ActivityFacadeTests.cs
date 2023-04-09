@@ -51,7 +51,6 @@ public class ActivityFacadeTests : FacadeTestBase
         DeepAssert.Equal(ActivityModelMapper.MapToDetailModel(ActivitySeeds.Code), activity);
     }
 
-    //doesnt build
     [Fact]
     public async Task GetById_NonExistent()
     {
@@ -68,8 +67,6 @@ public class ActivityFacadeTests : FacadeTestBase
     }
 
 
-
-    //fails
     [Fact]
     public async Task SeededCode_InsertOrUpdate_ActivityUpdated()
     {
