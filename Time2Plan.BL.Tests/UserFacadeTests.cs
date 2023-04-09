@@ -12,6 +12,7 @@ using Xunit;
 using Xunit.Abstractions;
 using System.ComponentModel;
 using Time2Plan.DAL.UnitOfWork;
+using Time2Plan.DAL.Interfaces;
 
 namespace Time2Plan.BL.Tests;
 
@@ -121,17 +122,10 @@ public class UserFacadeTests : FacadeTestBase
     [Fact]
     public async Task GetById_FromSeeded_DoesNotThrowAndEqualsSeeded()
     {
-        //Arrange
-        var model = new UserDetailModel()
-        {
-            Name= "Jan",
-            Surname = "Novák",
-            NickName = "JNovak"
-        };
         //Act
-        var returnModel = await _userTest.GetAsync(model.Id);
+        var user = await _userTest.GetAsync(UserSeeds.User1.Id);
         //Assert
-        DeepAssert.Equal(model, returnModel);
+        DeepAssert.Equal(UserModelMapper.MapToDetailModel(UserSeeds.User1), user);
     }
 
     [Fact]
