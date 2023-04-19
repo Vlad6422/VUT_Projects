@@ -27,7 +27,7 @@ public class UserFacadeTests : FacadeTestBase
             Name = "User1",
             Surname = "Surname1",
             NickName = "NickName1",
-            Activities = new ObservableCollection<ActivityListModel>()      //ActivityEntity?
+            Activities = new ObservableCollection<ActivityListModel>()
             {
                 new()
                 {
