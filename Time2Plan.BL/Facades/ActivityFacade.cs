@@ -1,9 +1,5 @@
-﻿using System.Linq;
-using System.Numerics;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
+﻿using Microsoft.EntityFrameworkCore;
 using Time2Plan.BL.Facades.Interfaces;
-using Time2Plan.BL.Mappers;
 using Time2Plan.BL.Mappers.Interfaces;
 using Time2Plan.BL.Models;
 using Time2Plan.DAL.Interfaces;
@@ -14,15 +10,15 @@ namespace Time2Plan.BL.Facades;
 
 public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>, IActivityFacade
 {
-    public ActivityFacade(IUnitOfWorkFactory unitOfWorkFactory,IActivityModelMapper modelMapper) : base(unitOfWorkFactory, modelMapper)
+    public ActivityFacade(IUnitOfWorkFactory unitOfWorkFactory, IActivityModelMapper modelMapper) : base(unitOfWorkFactory, modelMapper)
     {
     }
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(ActivityListModel model, Guid projectId, DateTime fromDate, DateTime toDate, string tag, ProjectEntity project, Interval interval=Interval.All)
+    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(ActivityListModel model, Guid projectId, DateTime fromDate, DateTime toDate, string tag, ProjectEntity project, Interval interval = Interval.All)
     {
-        if(interval != Interval.All)
+        if (interval != Interval.All)
         {
             toDate = DateTime.Now;
-            switch(interval)
+            switch (interval)
             {
                 case Interval.Daily:
                     fromDate = toDate.AddDays(-1);
@@ -33,7 +29,7 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
                 case Interval.Monthly:
                     fromDate = toDate.AddMonths(-1);
                     break;
-                case Interval.Yearly: 
+                case Interval.Yearly:
                     fromDate = toDate.AddYears(-1);
                     break;
             }
@@ -45,7 +41,7 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
         List<ActivityEntity> entities = await query
             .Where(e => e.Start > fromDate)
             .Where(e => e.Start < toDate)
-            .Where (e => e.Project == project)
+            .Where(e => e.Project == project)
             .Where(e => e.Tag == tag)
             .ToListAsync();
 

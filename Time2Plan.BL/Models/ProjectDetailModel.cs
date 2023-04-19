@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Time2Plan.DAL.Interfaces;
 
 namespace Time2Plan.BL.Models;
 

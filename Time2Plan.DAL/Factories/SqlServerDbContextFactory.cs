@@ -12,10 +12,6 @@ public class SqlServerDbContextFactory : IDbContextFactory<Time2PlanDbContext>
         _seedDemoData = seedDemoData;
 
         _contextOptionsBuilder.UseSqlServer(connectionString);
-
-        ////Enable in case you want to see tests details, enabled may cause some inconsistencies in tests
-        //_contextOptionsBuilder.LogTo(System.Console.WriteLine);
-        //_contextOptionsBuilder.EnableSensitiveDataLogging();
     }
 
     public Time2PlanDbContext CreateDbContext() => new(_contextOptionsBuilder.Options, _seedDemoData);

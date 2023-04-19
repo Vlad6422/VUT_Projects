@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Time2Plan.BL.Mappers.Interfaces;
 using Time2Plan.BL.Models;
 using Time2Plan.DAL.Interfaces;
-using Time2Plan.BL.Mappers.Interfaces;
 
 namespace Time2Plan.BL.Mappers;
 
@@ -11,7 +10,7 @@ public class UserProjectModelMapper : ModelMapperBase<ProjectUserRelation, UserP
     public override UserProjectDetailModel MapToDetailModel(ProjectUserRelation? entity)
         => (entity?.User is null || entity?.Project is null) ? UserProjectDetailModel.Empty : new UserProjectDetailModel
         {
-            Id= entity.Id,
+            Id = entity.Id,
             UserId = entity.UserId,
             ProjectId = entity.ProjectId,
             UserName = entity.User.Name,
@@ -51,7 +50,7 @@ public class UserProjectModelMapper : ModelMapperBase<ProjectUserRelation, UserP
 
     }
 
-   
+
     public override UserProjectListModel MapToListModel(ProjectUserRelation? entity)
         => (entity?.User is null || entity?.Project is null) ? UserProjectListModel.Empty : new UserProjectListModel
         {

@@ -17,7 +17,7 @@ public record UserDetailModel : ModelBase
         Id = Guid.Empty,
         Name = string.Empty,
         Surname = string.Empty,
-        NickName= string.Empty,
+        NickName = string.Empty,
         Photo = string.Empty
     };
 }

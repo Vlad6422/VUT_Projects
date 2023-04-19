@@ -1,9 +1,8 @@
 ﻿using Time2Plan.BL.Models;
 using Time2Plan.DAL.Interfaces;
 
-namespace Time2Plan.BL.Facades.Interfaces
+namespace Time2Plan.BL.Facades.Interfaces;
+
+public interface IProjectFacade : IFacade<ProjectEntity, ProjectListModel, ProjectDetailModel>
 {
-    public interface IProjectFacade : IFacade<ProjectEntity, ProjectListModel, ProjectDetailModel>
-    {
-    }
 }

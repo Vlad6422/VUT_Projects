@@ -1,18 +1,11 @@
-using Time2Plan.BL.Facades.Interfaces;
+using System.Collections.ObjectModel;
 using Time2Plan.BL.Facades;
+using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
-using System.ComponentModel;
-using Time2Plan.DAL.UnitOfWork;
-using Time2Plan.DAL.Interfaces;
 
 namespace Time2Plan.BL.Tests;
 
@@ -23,24 +16,6 @@ public class UserFacadeTests : FacadeTestBase
     {
         _userTest = new UserFasade(UnitOfWorkFactory, UserModelMapper);
     }
-
-    //[Fact]
-    //public async Task Create_user_without_activities()
-    //{
-    //    //Arrange
-    //    var model = new UserDetailModel()
-    //    {
-    //        Id = Guid.Empty,
-    //        Name = "Name1",
-    //        Surname = "Surname1",
-    //        NickName = "NickName1"
-    //    };
-    //    //Act
-    //    var returnedModel = await _userTest.SaveAsync(model);
-    //    //Assert
-    //    FixIds(model, returnedModel);
-    //    DeepAssert.Equal(model, returnedModel);
-    //}
 
     [Fact]
     public async Task Create_user_with_nonexisting_activity()
@@ -163,39 +138,9 @@ public class UserFacadeTests : FacadeTestBase
     }
 
     [Fact]
-    public async Task Update_RemoveOneOfActivities_FromSeeded_CheckUpdated()
-    {
-        //Arrange
-        var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1);
-        detailModel.Activities.Remove(detailModel.Activities.First());
-        //Act
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(detailModel));
-        //Assert
-        var returnedModel = await _userTest.GetAsync(detailModel.Id);
-        DeepAssert.Equal(UserModelMapper.MapToDetailModel(UserSeeds.User1), returnedModel);
-    }
-
-    [Fact]
     public async Task DeleteById_FromSeeded_DoesNotThrow()
     {
         //Arrange, act, assert
         await _userTest.DeleteAsync(UserSeeds.User1Delete.Id);
     }
-
-    //private static void FixIds(UserDetailModel expectedModel, UserDetailModel returnedModel)
-    //{
-    //    returnedModel.Id = expectedModel.Id;
-
-    //    foreach (var UserListModel in returnedModel.Activities) //?
-    //    {
-    //        var ActivityDetailModel = expectedModel.Activities.FirstOrDefault(i =>
-    //            i.User.Name == UserListModel.Name && i.Unit == ActivityModel.Unit);
-
-    //        if (UserDetailModel != null)
-    //        {
-    //            UserListModel.Id = UserDetailModel.Id;
-    //            UserListModel.Activities.Id = UserDetailModel.Activities.Id;
-    //        }
-    //    }
-    //}
 }

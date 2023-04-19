@@ -1,24 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using Time2Plan.Common.Tests;
-using Microsoft.EntityFrameworkCore;
+using Time2Plan.Common.Tests.Factories;
 using Xunit;
 using Xunit.Abstractions;
-using Time2Plan.DAL;
-using Time2Plan.Common.Tests.Factories;
 
 namespace Time2Plan.DAL.Tests;
 
-public class  DbContextTestsBase : IAsyncLifetime
+public class DbContextTestsBase : IAsyncLifetime
 {
     protected DbContextTestsBase(ITestOutputHelper output)
     {
         XUnitTestOutputConverter converter = new(output);
         Console.SetOut(converter);
-        
-        // DbContextFactory = new DbContextTestingInMemoryFactory(GetType().Name, seedTestingData: true);
+
         DbContextFactory = new DbContextLocalDBTestingFactory(GetType().FullName!, seedTestingData: true);
-        //DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
 
         Time2PlanDbContextSUT = DbContextFactory.CreateDbContext();
     }

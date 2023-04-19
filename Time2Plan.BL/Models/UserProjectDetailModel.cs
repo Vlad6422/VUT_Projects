@@ -3,10 +3,8 @@
 public record UserProjectDetailModel : ModelBase
 {
     public required Guid UserId { get; set; }
-    //public UserDetailModel? User { get; init; }
     public string? UserName { get; set; }
     public required Guid ProjectId { get; set; }
-    //public ProjectDetailModel? Project { get; init; }
     public string? ProjectName { get; set; }
 
     public static UserProjectDetailModel Empty => new()

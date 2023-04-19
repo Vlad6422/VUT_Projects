@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Time2Plan.BL.Mappers.Interfaces;
+﻿namespace Time2Plan.BL.Mappers.Interfaces;
 
 public interface IModelMapper<TEntity, out TListModel, TDetailModel>
 {

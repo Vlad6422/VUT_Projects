@@ -1,8 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Models;
@@ -46,7 +42,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     [Fact]
     public async Task GetById_ProjectAlpha()
     {
-        var project = await  _projectTest.GetAsync(ProjectSeeds.ProjectAlpha.Id);
+        var project = await _projectTest.GetAsync(ProjectSeeds.ProjectAlpha.Id);
         DeepAssert.Equal(ProjectModelMapper.MapToDetailModel(ProjectSeeds.ProjectAlpha), project);
     }
 

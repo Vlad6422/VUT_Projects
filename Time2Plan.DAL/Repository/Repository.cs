@@ -1,5 +1,5 @@
-﻿using Time2Plan.DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Time2Plan.DAL.Interfaces;
 using Time2Plan.DAL.Mappers;
 
 namespace Time2Plan.DAL.Repository;
@@ -20,7 +20,7 @@ public class Repository<TEntity> : IRepository<TEntity>
 
     public async ValueTask<bool> ExistsAsync(TEntity entity) // asynchroni
         => entity.Id != Guid.Empty && await _dbSet.AnyAsync(e => e.Id == entity.Id);
-    // prazde ID = nebude v databazi /// jinak se ptame databaze
+    // prazdne ID = nebude v databazi /// jinak se ptame databaze
 
 
     public async Task<TEntity> InsertAsync(TEntity entity)

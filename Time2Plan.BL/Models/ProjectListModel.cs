@@ -6,7 +6,7 @@ public record ProjectListModel : ModelBase
 
     public static ProjectListModel Empty => new()
     {
-        Id =  Guid.NewGuid(),
+        Id = Guid.NewGuid(),
         Name = string.Empty
     };
 }

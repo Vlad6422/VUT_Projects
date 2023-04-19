@@ -1,6 +1,6 @@
-﻿using Time2Plan.Common.Tests.Seeds;
+﻿using Microsoft.EntityFrameworkCore;
+using Time2Plan.Common.Tests.Seeds;
 using Time2Plan.DAL;
-using Microsoft.EntityFrameworkCore;
 
 namespace Time2Plan.Common.Tests;
 
@@ -23,9 +23,6 @@ public class Time2PlanTestingDbContext : Time2PlanDbContext
             ActivitySeeds.Seed(modelBuilder);
             ProjectSeeds.Seed(modelBuilder);
             UserSeeds.Seed(modelBuilder);
-
-            // nutne dodelat data
-            //ProjectUserSeeds.Seed(modelBuilder);
         }
     }
 }

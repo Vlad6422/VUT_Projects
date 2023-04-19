@@ -1,18 +1,17 @@
-using Xunit.Abstractions;
 using Xunit;
+using Xunit.Abstractions;
 
-namespace Time2Plan.DAL.Tests
+namespace Time2Plan.DAL.Tests;
+
+public class DbContextProjectTests : DbContextTestsBase
 {
-    public class DbContextProjectTests : DbContextTestsBase
+    public DbContextProjectTests(ITestOutputHelper output) : base(output)
     {
-        public DbContextProjectTests(ITestOutputHelper output) : base(output)
-        {
-        }
+    }
 
-        [Fact]
-        public void Test1()
-        {
+    [Fact]
+    public void Test1()
+    {
 
-        }
     }
 }

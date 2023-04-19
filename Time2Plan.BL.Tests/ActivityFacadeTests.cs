@@ -1,16 +1,11 @@
+using Microsoft.EntityFrameworkCore;
 using Time2Plan.BL.Facades;
+using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit.Abstractions;
 using Xunit;
-using Time2Plan.BL.Tests;
-using Time2Plan.BL.Facades.Interfaces;
+using Xunit.Abstractions;
 
 namespace Time2Plan.BL.Tests;
 

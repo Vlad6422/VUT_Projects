@@ -1,5 +1,5 @@
-﻿using Time2Plan.DAL;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Time2Plan.DAL;
 
 namespace Time2Plan.Common.Tests.Factories;
 
@@ -18,9 +18,6 @@ public class DbContextTestingInMemoryFactory : IDbContextFactory<Time2PlanDbCont
     {
         DbContextOptionsBuilder<Time2PlanDbContext> contextOptionsBuilder = new();
         contextOptionsBuilder.UseInMemoryDatabase(_databaseName);
-
-        // contextOptionsBuilder.LogTo(System.Console.WriteLine); //Enable in case you want to see tests details, enabled may cause some inconsistencies in tests
-        // builder.EnableSensitiveDataLogging();
 
         return new Time2PlanTestingDbContext(contextOptionsBuilder.Options, _seedTestingData);
     }

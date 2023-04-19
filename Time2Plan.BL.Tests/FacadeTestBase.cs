@@ -1,15 +1,13 @@
+using Microsoft.EntityFrameworkCore;
 using Time2Plan.BL.Mappers;
+using Time2Plan.BL.Mappers.Interfaces;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Factories;
 using Time2Plan.DAL;
 using Time2Plan.DAL.Mappers;
 using Time2Plan.DAL.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
-using Time2Plan.BL.Mappers.Interfaces;
 
 namespace Time2Plan.BL.Tests;
 
@@ -20,9 +18,7 @@ public class FacadeTestBase : IAsyncLifetime
         XUnitTestOutputConverter converter = new(output);
         Console.SetOut(converter);
 
-        //DbContextFactory = new DbContextTeestingInMemoryFactory(GetType().Name, seedTestingData: true);
         DbContextFactory = new DbContextLocalDBTestingFactory(GetType().FullName!, seedTestingData: true);
-        //DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName!, seedTestingData: true);
 
         ActivityEntityMapper = new ActivityEntityMapper();
         ProjectEntityMapper = new ProjectEntityMapper();

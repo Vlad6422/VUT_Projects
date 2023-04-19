@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Time2Plan.BL.Models;
+﻿namespace Time2Plan.BL.Models;
 
 public record ActivityListModel : ModelBase
 {
