@@ -1,4 +1,4 @@
-﻿using Time2Plan.DAL.Interfaces;
+﻿using Time2Plan.DAL.Entities;
 
 namespace Time2Plan.DAL.Mappers;
 

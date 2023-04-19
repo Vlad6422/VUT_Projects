@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Time2Plan.DAL.Interfaces;
+using Time2Plan.DAL.Entities;
 
 namespace Time2Plan.Common.Tests.Seeds;
 

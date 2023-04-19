@@ -1,4 +1,4 @@
-﻿namespace Time2Plan.DAL.Interfaces;
+﻿namespace Time2Plan.DAL.Entities;
 
 public record ActivityEntity : IEntity
 {
