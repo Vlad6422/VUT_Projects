@@ -27,7 +27,7 @@ steps:
   inputs:
     solution: '**\*.sln'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    configuration: 'Debug'
+    configuration: 'Master'
     platform: 'Any CPU'
 - task: DotNetCoreCLI@2
   name: 'Test'
