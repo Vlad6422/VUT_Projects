@@ -13,15 +13,15 @@ steps:
 
 #needs to run only once
 #command to include the .NET 7 SDK
-#- task: UseDotNet@2
-#  displayName: 'Use .NET Core sdk'
-#  inputs:
-#    packageType: sdk
-#    version: 7.x
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 7.x
 #command to include maui
-#- task: CmdLine@2
-#  inputs:
-#    script: 'dotnet workload install maui'
+- task: CmdLine@2
+  inputs:
+    script: 'dotnet workload install maui'
 
 - task: VSBuild@1
   inputs:
