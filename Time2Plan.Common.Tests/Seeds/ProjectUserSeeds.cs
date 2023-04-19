@@ -21,6 +21,4 @@ internal class ProjectUserSeeds
         UserId = UserSeeds.User1.Id,
         ProjectId = ProjectSeeds.ProjectAlpha.Id,
     };
-
-
 }
