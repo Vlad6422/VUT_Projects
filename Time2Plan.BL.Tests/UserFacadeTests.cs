@@ -136,7 +136,7 @@ public class UserFacadeTests : FacadeTestBase
         var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1Update);
         detailModel.Name = "Changed user name";
         //Act & Assert
-        await _userFacadeSUT.SaveAsync(detailModel with { Activities = default });
+        await _userFacadeSUT.SaveAsync(detailModel);
     }
 
     [Fact]
@@ -146,7 +146,7 @@ public class UserFacadeTests : FacadeTestBase
         var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1Update);
         detailModel.Name = "Changed user name 1";
         //Act
-        await _userFacadeSUT.SaveAsync(detailModel with { Activities = default });
+        await _userFacadeSUT.SaveAsync(detailModel);
         //Assert
         var returnedModel = await _userFacadeSUT.GetAsync(detailModel.Id);
         DeepAssert.Equal(detailModel, returnedModel);
