@@ -22,15 +22,19 @@ public class ActivityFacadeTests : FacadeTestBase
     {
         var activity = new ActivityDetailModel()
         {
-            Start = DateTime.Now.AddDays(-7),
-            End = DateTime.Now,
+            Start = new DateTime(2001, 1, 1, 8, 0, 0),
+            End = new DateTime(2002, 1, 1, 10, 0, 0),
             Type = "test type of activity"
         };
 
         var savedActivity = await _activityFacadeSUT.SaveAsync(activity);
         activity.Id = savedActivity.Id;
 
-        DeepAssert.Equal(activity, savedActivity);
+        //Assert
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        var activityFromDb = await dbxAssert.Activities.SingleAsync(i => i.Id == activity.Id);
+       
+        DeepAssert.Equal(activity, ActivityModelMapper.MapToDetailModel(activityFromDb));
     }
 
     [Fact]

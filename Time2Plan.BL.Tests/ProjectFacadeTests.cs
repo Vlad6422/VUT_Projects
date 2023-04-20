@@ -19,16 +19,22 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     }
 
     [Fact]
-    public async Task Create_new_project()
+    public async Task Create_New_Project()
     {
-        var model = new ProjectDetailModel()
+        //Arrange
+        var project = new ProjectDetailModel()
         {
-            Id = Guid.Empty,
-            Name = @"Project 1",
-            Description = @"Test description1"
+            Name = "Project 1",
+            Description = "Description test 1",
         };
 
-        var _ = await _projectFasadeSUT.SaveAsync(model);
+        //Act
+        project = await _projectFasadeSUT.SaveAsync(project);
+
+        //Assert
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        var projectFromDb = await dbxAssert.Projects.SingleAsync(i => i.Id == project.Id);
+        DeepAssert.Equal(project, ProjectModelMapper.MapToDetailModel(projectFromDb));
     }
 
     [Fact]
