@@ -12,10 +12,10 @@ namespace Time2Plan.BL.Tests;
 
 public sealed class ProjectFacadeTest : FacadeTestBase
 {
-    private readonly IProjectFacade _projectTest;
+    private readonly IProjectFacade _projectFasadeSUT;
     public ProjectFacadeTest(ITestOutputHelper output) : base(output)
     {
-        _projectTest = new ProjectFasade(UnitOfWorkFactory, ProjectModelMapper);
+        _projectFasadeSUT = new ProjectFasade(UnitOfWorkFactory, ProjectModelMapper);
     }
 
     [Fact]
@@ -28,13 +28,13 @@ public sealed class ProjectFacadeTest : FacadeTestBase
             Description = @"Test description1"
         };
 
-        var _ = await _projectTest.SaveAsync(model);
+        var _ = await _projectFasadeSUT.SaveAsync(model);
     }
 
     [Fact]
     public async Task GetById_Single_ProjectAlpha()
     {
-        var projects = await _projectTest.GetAsync();
+        var projects = await _projectFasadeSUT.GetAsync();
         var project = projects.Single(i => i.Id == ProjectSeeds.ProjectAlpha.Id);
         DeepAssert.Equal(ProjectModelMapper.MapToListModel(ProjectSeeds.ProjectAlpha), project);
     }
@@ -42,14 +42,14 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     [Fact]
     public async Task GetById_ProjectAlpha()
     {
-        var project = await _projectTest.GetAsync(ProjectSeeds.ProjectAlpha.Id);
+        var project = await _projectFasadeSUT.GetAsync(ProjectSeeds.ProjectAlpha.Id);
         DeepAssert.Equal(ProjectModelMapper.MapToDetailModel(ProjectSeeds.ProjectAlpha), project);
     }
 
     [Fact]
     public async Task ProjectAlpha_DeleteById_Deleted()
     {
-        await _projectTest.DeleteAsync(ProjectSeeds.ProjectAlpha.Id);
+        await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectAlpha.Id);
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
         Assert.False(await dbxAssert.Projects.AnyAsync<ProjectEntity>(i => i.Id == ProjectSeeds.ProjectAlpha.Id));
     }
@@ -58,7 +58,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     public async Task Delete_ProjectUsedInActivity_Throws()
     {
         //Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _projectTest.DeleteAsync(ProjectSeeds.ProjectAlpha.Id));
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectAlpha.Id));
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         };
 
         //Act
-        project = await _projectTest.SaveAsync(project);
+        project = await _projectFasadeSUT.SaveAsync(project);
 
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
@@ -95,7 +95,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         project.Description += "updated";
 
         //Act
-        await _projectTest.SaveAsync(project);
+        await _projectFasadeSUT.SaveAsync(project);
 
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
