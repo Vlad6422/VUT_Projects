@@ -101,7 +101,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         project.Description += "updated";
 
         //Act
-        await _projectFasadeSUT.SaveAsync(project);
+        project = await _projectFasadeSUT.SaveAsync(project);
 
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
