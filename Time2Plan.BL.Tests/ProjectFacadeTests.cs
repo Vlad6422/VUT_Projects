@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Facades.Interfaces;
+using Time2Plan.BL.Mappers;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
@@ -55,17 +57,24 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     [Fact]
     public async Task ProjectAlpha_DeleteById_Deleted()
     {
-        await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectAlpha.Id);
+        var projectId = ProjectSeeds.ProjectAlphaDelete.Id;
+        await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectAlphaDelete.Id);
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        Assert.False(await dbxAssert.Projects.AnyAsync<ProjectEntity>(i => i.Id == ProjectSeeds.ProjectAlpha.Id));
+        Assert.False(await dbxAssert.Projects.AnyAsync<ProjectEntity>(i => i.Id == projectId));
     }
 
     [Fact]
-    public async Task Delete_ProjectUsedInActivity_Throws()
+    public async Task Delete_Project_With_Activities()
     {
-        //Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectAlpha.Id));
+        var projectId = ProjectSeeds.ProjectWithActivitiesDelete.Id;
+        await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectWithActivitiesDelete.Id);
+
+
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        Assert.False(await dbxAssert.Projects.AnyAsync<ProjectEntity>(i => i.Id == projectId));
+
     }
+
 
     [Fact]
     public async Task NewProject_InsertOrUpdate_ProjectAdded()
