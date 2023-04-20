@@ -6,7 +6,7 @@ namespace Time2Plan.BL.Mappers;
 
 public class ProjectModelMapper : ModelMapperBase<ProjectEntity, ProjectListModel, ProjectDetailModel>, IProjectModelMapper
 {
-    private readonly IUserProjectModelMapper? _userProjectModelMapper;
+    private readonly IUserProjectModelMapper _userProjectModelMapper;
     private readonly IActivityModelMapper _activityModelMapper;
 
     public ProjectModelMapper(IUserProjectModelMapper userProjectModelMapper) =>
