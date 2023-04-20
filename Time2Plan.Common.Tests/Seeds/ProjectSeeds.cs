@@ -28,13 +28,27 @@ public static class ProjectSeeds
         Description = "A marketing campaign"
     };
 
+    public static readonly ProjectEntity ProjectWithActivities = new()
+    {
+        Id = Guid.NewGuid(),
+        Name = "Pojrect with activities",
+        Description = "Coding and running"    
+    };
+    static ProjectSeeds()
+    {
+        ///ProjectWithActivities.Activities.Add(ActivitySeeds.Code);
+        //ProjectWithActivities.Activities.Add(ActivitySeeds.Run);
+    }
+
     public static readonly ProjectEntity ProjectAlphaDelete = ProjectAlpha with { Id = Guid.NewGuid() };
     public static readonly ProjectEntity ProjectAlphaUpdate = ProjectAlpha with { Id = Guid.NewGuid() };
+    public static readonly ProjectEntity ProjectWithActivitiesDelete = ProjectWithActivities with { Id = Guid.NewGuid() };
+    public static readonly ProjectEntity ProjectWithActivitiesUpdate = ProjectWithActivities with { Id = Guid.NewGuid() };
 
 
     public static void Seed(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ProjectEntity>().HasData(ProjectAlpha, ProjectBeta, ProjectAlphaDelete, ProjectAlphaUpdate);
+        modelBuilder.Entity<ProjectEntity>().HasData(ProjectAlpha, ProjectBeta, ProjectAlphaDelete, ProjectAlphaUpdate, ProjectWithActivities, ProjectWithActivitiesUpdate, ProjectWithActivitiesDelete);
     }
 }
 
