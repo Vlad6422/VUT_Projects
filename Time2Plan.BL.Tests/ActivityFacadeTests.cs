@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
+using Time2Plan.DAL.Entities;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -45,6 +47,62 @@ public class ActivityFacadeTests : FacadeTestBase
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
     }
+
+    [Fact]
+    public async Task GetFilterAsyncDatesOnly()
+    {
+        var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
+        var toDate = new DateTime(2022, 12, 30);
+        var activities = await _activityFacadeSUT.GetAsyncFilter(fromDate, toDate);
+        var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
+
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
+    }
+
+    [Fact]
+    public async Task GetFilterAsyncTagOnly()
+    {
+        string tag = ActivitySeeds.Run.Tag!;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(tag);
+        var activity = activities.Single(a => a.Id == ActivitySeeds.Run.Id);
+
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Run), activity);
+    }
+
+
+    [Fact]
+    public async Task GetFilterAsyncIntervalOnly()
+    {
+        var interval = ActivityFacade.Interval.Yearly;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(interval);
+        var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
+
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.ThisYearActivity), activity);
+    }
+
+    [Fact]
+    public async Task GetFilterAsyncDatesAll() 
+    {
+        var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
+        var toDate = new DateTime(2022, 12, 30);
+        var tag = ActivitySeeds.Code.Tag;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(fromDate, toDate, tag, null); //doesnt work with project, seeds are broken rn
+        var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
+
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
+    }
+
+    [Fact]
+    public async Task GetFilterAsyncIntervalAll()
+    {
+        var interval = ActivityFacade.Interval.Yearly;
+        var tag = ActivitySeeds.ThisYearActivity.Tag;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(interval, tag, null); //doesnt work with project, seeds are broken rn
+        var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
+
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.ThisYearActivity), activity);
+    }
+    
 
     [Fact]
     public async Task GetById_SeededCode()
