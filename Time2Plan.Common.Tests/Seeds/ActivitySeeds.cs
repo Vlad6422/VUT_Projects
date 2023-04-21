@@ -36,6 +36,13 @@ public static class ActivitySeeds
         Tag = "Sport",
         Description = "5 km run",
     };
+    public static readonly ActivityEntity ThisYearActivity = new()
+    {
+        Id = Guid.NewGuid(),
+        Start = new DateTime(2023, 1, 2, 13, 0, 0),
+        End = new DateTime(2023, 1, 2, 16, 0, 0),
+        Tag = "Activitying"
+    };
 
     public static readonly ActivityEntity ActivityWithProject = new()
     {
@@ -50,6 +57,6 @@ public static class ActivitySeeds
 
     public static void Seed(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ActivityEntity>().HasData(Code, Run, CodeDelete, CodeUpdate);
+        modelBuilder.Entity<ActivityEntity>().HasData(Code, Run, ThisYearActivity, CodeDelete, CodeUpdate);
     }
 }
