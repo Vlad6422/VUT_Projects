@@ -10,8 +10,6 @@ public static class ProjectSeeds
         Id = default,
         Name = default!,
         Description = default,
-        UserProjects = default!,
-        Activities = default!,
     };
 
     public static readonly ProjectEntity ProjectAlpha = new()
@@ -34,11 +32,6 @@ public static class ProjectSeeds
         Name = "Pojrect with activities",
         Description = "Coding and running"    
     };
-    static ProjectSeeds()
-    {
-        ///ProjectWithActivities.Activities.Add(ActivitySeeds.Code);
-        //ProjectWithActivities.Activities.Add(ActivitySeeds.Run);
-    }
 
     public static readonly ProjectEntity ProjectAlphaDelete = ProjectAlpha with { Id = Guid.NewGuid() };
     public static readonly ProjectEntity ProjectAlphaUpdate = ProjectAlpha with { Id = Guid.NewGuid() };
@@ -48,7 +41,14 @@ public static class ProjectSeeds
 
     public static void Seed(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ProjectEntity>().HasData(ProjectAlpha, ProjectBeta, ProjectAlphaDelete, ProjectAlphaUpdate, ProjectWithActivities, ProjectWithActivitiesUpdate, ProjectWithActivitiesDelete);
+        modelBuilder.Entity<ProjectEntity>().HasData(
+            ProjectAlpha, 
+            ProjectBeta, 
+            ProjectAlphaDelete, 
+            ProjectAlphaUpdate, 
+            ProjectWithActivities, 
+            ProjectWithActivitiesUpdate, 
+            ProjectWithActivitiesDelete);
     }
 }
 
