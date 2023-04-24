@@ -7,7 +7,7 @@ namespace Time2Plan.BL.Mappers;
 public class ProjectModelMapper : ModelMapperBase<ProjectEntity, ProjectListModel, ProjectDetailModel>, IProjectModelMapper
 {
     private readonly IUserProjectModelMapper? _userProjectModelMapper;
-    private readonly IActivityModelMapper _activityModelMapper;
+    private readonly IActivityModelMapper? _activityModelMapper;
 
     public ProjectModelMapper(IUserProjectModelMapper userProjectModelMapper) =>
         _userProjectModelMapper = userProjectModelMapper;
@@ -32,8 +32,8 @@ public class ProjectModelMapper : ModelMapperBase<ProjectEntity, ProjectListMode
                 Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
-                UserProjects = _userProjectModelMapper != null ? _userProjectModelMapper.MapToListModel(entity.UserProjects).ToObservableCollection() : default,
-                Activities = _activityModelMapper.MapToListModel(entity.Activities).ToObservableCollection()
+                UserProjects = _userProjectModelMapper != null ? _userProjectModelMapper.MapToListModel(entity.UserProjects).ToObservableCollection() : default!,
+                Activities = _activityModelMapper!.MapToListModel(entity.Activities).ToObservableCollection()
             };
 
     public override ProjectEntity MapToEntity(ProjectDetailModel model)

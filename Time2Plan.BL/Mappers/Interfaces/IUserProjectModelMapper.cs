@@ -9,6 +9,6 @@ public interface IUserProjectModelMapper
     UserProjectListModel MapToListModel(UserProjectDetailModel detailModel);
     ProjectUserRelation MapToEntity(UserProjectListModel model);
     void MapToExistingDetailModel(UserProjectDetailModel existingDetailModel, UserListModel user, ProjectListModel project);
-    ProjectUserRelation MapToEntity(UserProjectDetailModel model);
+    new ProjectUserRelation MapToEntity(UserProjectDetailModel model);
 
 }

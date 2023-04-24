@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Facades.Interfaces;
@@ -11,12 +12,26 @@ namespace Time2Plan.BL.Tests;
 
 public class UserFacadeTests : FacadeTestBase
 {
-    private readonly IUserFacade _userTest;
+    private readonly IUserFacade _userFacadeSUT;
     public UserFacadeTests(ITestOutputHelper output) : base(output)
     {
-        _userTest = new UserFasade(UnitOfWorkFactory, UserModelMapper);
+        _userFacadeSUT = new UserFasade(UnitOfWorkFactory, UserModelMapper);
     }
+    [Fact]
+    public async Task CreateNewUser()
+    {
+        var user = new UserDetailModel()
+        {
+            Name = "Patrick",
+            Surname = "Bateman",
+            NickName = "Trickman"
+        };
+        user = await _userFacadeSUT.SaveAsync(user);
 
+        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
+        var userFromDb = await dbxAssert.Users.SingleAsync(i => i.Id == user.Id);
+        DeepAssert.Equal(user, UserModelMapper.MapToDetailModel(userFromDb));
+    }
     [Fact]
     public async Task Create_user_with_nonexisting_activity()
     {
@@ -39,7 +54,7 @@ public class UserFacadeTests : FacadeTestBase
             }
         };
         //Act, assert
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userFacadeSUT.SaveAsync(model));
     }
 
     [Fact]
@@ -65,7 +80,7 @@ public class UserFacadeTests : FacadeTestBase
             },
         };
         //Act && Assert
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userFacadeSUT.SaveAsync(model));
     }
 
     [Fact]
@@ -91,14 +106,14 @@ public class UserFacadeTests : FacadeTestBase
             },
         };
         //Act & Assert
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userTest.SaveAsync(model));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _userFacadeSUT.SaveAsync(model));
     }
 
     [Fact]
     public async Task GetById_FromSeeded_DoesNotThrowAndEqualsSeeded()
     {
         //Act
-        var user = await _userTest.GetAsync(UserSeeds.User1.Id);
+        var user = await _userFacadeSUT.GetAsync(UserSeeds.User1.Id);
         //Assert
         DeepAssert.Equal(UserModelMapper.MapToDetailModel(UserSeeds.User1), user);
     }
@@ -109,7 +124,7 @@ public class UserFacadeTests : FacadeTestBase
         //Arrange
         var listModel = UserModelMapper.MapToListModel(UserSeeds.User1);
         //Act
-        var returnedModel = await _userTest.GetAsync();
+        var returnedModel = await _userFacadeSUT.GetAsync();
         //Assert
         Assert.Contains(listModel, returnedModel);
     }
@@ -121,7 +136,7 @@ public class UserFacadeTests : FacadeTestBase
         var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1Update);
         detailModel.Name = "Changed user name";
         //Act & Assert
-        await _userTest.SaveAsync(detailModel with { Activities = default });
+        await _userFacadeSUT.SaveAsync(detailModel);
     }
 
     [Fact]
@@ -131,9 +146,9 @@ public class UserFacadeTests : FacadeTestBase
         var detailModel = UserModelMapper.MapToDetailModel(UserSeeds.User1Update);
         detailModel.Name = "Changed user name 1";
         //Act
-        await _userTest.SaveAsync(detailModel with { Activities = default });
+        await _userFacadeSUT.SaveAsync(detailModel);
         //Assert
-        var returnedModel = await _userTest.GetAsync(detailModel.Id);
+        var returnedModel = await _userFacadeSUT.GetAsync(detailModel.Id);
         DeepAssert.Equal(detailModel, returnedModel);
     }
 
@@ -141,6 +156,6 @@ public class UserFacadeTests : FacadeTestBase
     public async Task DeleteById_FromSeeded_DoesNotThrow()
     {
         //Arrange, act, assert
-        await _userTest.DeleteAsync(UserSeeds.User1Delete.Id);
+        await _userFacadeSUT.DeleteAsync(UserSeeds.User1Delete.Id);
     }
 }
