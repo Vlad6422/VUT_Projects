@@ -53,4 +53,12 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Time2Plan.BL\Time2Plan.BL.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Messages\" />
+	</ItemGroup>
+
 </Project>
