@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using Time2Plan.BL;
+using Time2Plan.App.Services;
 
 namespace Time2Plan.App
 {
@@ -58,3 +59,4 @@ namespace Time2Plan.App
             }
         }
     }
+}
