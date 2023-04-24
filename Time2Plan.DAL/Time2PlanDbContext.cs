@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Time2Plan.DAL.Entities;
+using Time2Plan.DAL.Seeds;
 
 namespace Time2Plan.DAL;
 
 public class Time2PlanDbContext : DbContext
 {
+
     public DbSet<ProjectEntity> Projects => Set<ProjectEntity>();
     public DbSet<UserEntity> Users => Set<UserEntity>();
     public DbSet<ActivityEntity> Activities => Set<ActivityEntity>();
@@ -38,5 +40,9 @@ public class Time2PlanDbContext : DbContext
             .HasMany(a => a.Activities)
             .WithOne(u => u.User)
             .OnDelete(DeleteBehavior.Cascade);
+        if (_seedTestData)
+        {
+            UserSeeds.Seed(modelBuilder);
+        }
     }
 }
