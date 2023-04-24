@@ -12,7 +12,7 @@ public static class DALInstaller
     public static IServiceCollection AddDALServices(this IServiceCollection services, IConfiguration configuration)
     {
         DALOptions dalOptions = new();
-        configuration.GetSection("Time2Plan:DAL").Bind(dalOptions);
+        configuration.GetSection("TimePlan:DAL").Bind(dalOptions);
 
         services.AddSingleton<DALOptions>(dalOptions);
 

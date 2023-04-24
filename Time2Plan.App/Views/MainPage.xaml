@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Time2Plan.App.MainPage"
+             xmlns:views="clr-namespace:Time2Plan.App.Views"
              xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
              xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
-             x:DataType="vm:UserListViewModel">
+             x:DataType="vm:UserListViewModel"
+             x:Name="UserListViewRoot">
              
     <Grid>
         <Grid HorizontalOptions="FillAndExpand"
@@ -82,4 +84,4 @@
                 FontSize="14"
                  />
     </Grid>
-</ContentPage>
+</views:ContentPageBase>

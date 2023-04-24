@@ -1,11 +1,11 @@
-﻿namespace Time2Plan.App
+﻿using Time2Plan.App.ViewModels;
+
+namespace Time2Plan.App
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage
     {
         
-
-        public MainPage()
-        {
+        public MainPage(UserListViewModel viewModel) : base(viewModel)        {
             InitializeComponent();
         }
 

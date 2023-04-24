@@ -1,12 +1,13 @@
-﻿namespace Time2Plan.App
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+﻿using Microsoft.Extensions.DependencyInjection;
 
-            MainPage = new AppShell();
-        }
+namespace Time2Plan.App;
+
+public partial class App : Application
+{
+    public App(IServiceProvider serviceProvider)
+    {
+        InitializeComponent();
+
+        MainPage = serviceProvider.GetRequiredService<AppShell>();
     }
 }
