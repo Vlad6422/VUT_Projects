@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using CommunityToolkit.Maui;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
@@ -14,6 +15,7 @@ namespace Time2Plan.App
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -24,7 +26,7 @@ namespace Time2Plan.App
 
             builder.Services
                 .AddDALServices(builder.Configuration)
-                //   .AddAppServices()
+                .AddAppServices()
                 .AddBLServices();
 
             var app = builder.Build();
@@ -40,7 +42,7 @@ namespace Time2Plan.App
             var configurationBuilder = new ConfigurationBuilder();
 
             var assembly = Assembly.GetExecutingAssembly();
-            const string appSettingsFilePath = "CookBook.App.appsettings.json";
+            const string appSettingsFilePath = "Time2Plan.App.appsettings.json";
             using var appSettingsStream = assembly.GetManifestResourceStream(appSettingsFilePath);
             if (appSettingsStream is not null)
             {
