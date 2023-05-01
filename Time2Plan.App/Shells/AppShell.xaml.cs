@@ -14,12 +14,12 @@ public partial class AppShell
 
         InitializeComponent();
     }
-
+/*
     [RelayCommand]
     private async Task GoToRecipesAsync()
         => await _navigationService.GoToAsync<UserListViewModel>();
 
     [RelayCommand]
     private async Task GoToIngredientsAsync()
-        => await _navigationService.GoToAsync<UserListViewModel>();
+        => await _navigationService.GoToAsync<UserListViewModel>();*/
 }

@@ -22,12 +22,12 @@ namespace Time2Plan.App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            ConfigureAppSettings(builder);
+                ConfigureAppSettings(builder);
 
-            builder.Services
-                .AddDALServices(builder.Configuration)
-                .AddAppServices()
-                .AddBLServices();
+             builder.Services
+                 .AddDALServices(builder.Configuration)
+                 .AddAppServices()
+                 .AddBLServices();
 
             var app = builder.Build();
 

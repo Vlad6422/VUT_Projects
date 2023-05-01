@@ -34,7 +34,7 @@ public static class DALInstaller
         if (dalOptions.LocalDb?.Enabled == true)
         {
             services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider => new SqlServerDbContextFactory(dalOptions.LocalDb.ConnectionString));
-            services.AddSingleton<IDbMigrator, NoneDbMigrator>();
+            services.AddSingleton<IDbMigrator, LocalDbMigrator>();
         }
 
         if (dalOptions.Sqlite?.Enabled == true)
