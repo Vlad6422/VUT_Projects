@@ -46,6 +46,7 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Images\user_default.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -78,6 +79,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\ButtonStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ContentPageBase.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
