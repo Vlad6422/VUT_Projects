@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Time2Plan.BL.Facades.Interfaces;
 using Time2Plan.BL.Mappers;
 using Time2Plan.DAL.UnitOfWork;

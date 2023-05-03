@@ -51,17 +51,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.json" />
+	  <EmbeddedResource Include="AppSettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+		<PackageReference Include="Fody" Version="6.7.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+		<PackageReference Include="Scrutor" Version="4.2.2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,12 +73,32 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Messages\" />
-	</ItemGroup>
-
-	<ItemGroup>
+	  <Compile Update="Shells\Activity\ActivityDetailView.xaml.cs">
+	    <DependentUpon>ActivityDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Shells\Activity\ActivityEditView.xaml.cs">
+	    <DependentUpon>ActivityEditView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Shells\Activity\ActivityListView.xaml.cs">
+	    <DependentUpon>ActivityListView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Project\ProjectDetailView.xaml.cs">
+	    <DependentUpon>ProjectDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Project\ProjectEditView.xaml.cs">
+	    <DependentUpon>ProjectEditView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Project\ProjectActivitiesEditView.xaml.cs">
+	    <DependentUpon>ProjectActivitiesEditView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Project\ProjectListView.xaml.cs">
+	    <DependentUpon>ProjectListView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ContentPageBase.xaml.cs">
 	    <DependentUpon>ContentPageBase.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\User\UserListView.xaml.cs">
+	    <DependentUpon>UserListView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

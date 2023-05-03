@@ -24,12 +24,12 @@ public class Time2PlanDbContext : DbContext
         modelBuilder.Entity<ProjectUserRelation>()
             .HasOne<ProjectEntity>(up => up.Project)
             .WithMany(p => p.UserProjects)
-            .HasForeignKey(up => up.ProjectId);
+            .HasForeignKey(up => up.ProjectId).OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ProjectUserRelation>()
             .HasOne<UserEntity>(up => up.User)
             .WithMany(u => u.UserProjects)
-            .HasForeignKey(up => up.UserId);
+            .HasForeignKey(up => up.UserId).OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ProjectEntity>()
             .HasMany(i => i.Activities)

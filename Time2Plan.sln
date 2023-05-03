@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{80284809-F49
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Time2Plan.BL.Tests", "Time2Plan.BL.Tests\Time2Plan.BL.Tests.csproj", "{835E3F1A-5725-49C6-BAB4-4C62F5AB1423}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Time2Plan.App", "Time2Plan.App\Time2Plan.App.csproj", "{3A6D4DCC-4223-4A6B-982B-F8B5CFFE468F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Time2Plan.App", "Time2Plan.App\Time2Plan.App.csproj", "{3A6D4DCC-4223-4A6B-982B-F8B5CFFE468F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

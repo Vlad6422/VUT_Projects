@@ -42,7 +42,7 @@ namespace Time2Plan.App
             var configurationBuilder = new ConfigurationBuilder();
 
             var assembly = Assembly.GetExecutingAssembly();
-            const string appSettingsFilePath = "Time2Plan.App.appsettings.json";
+            const string appSettingsFilePath = "Time2Plan.App.AppSettings.json";
             using var appSettingsStream = assembly.GetManifestResourceStream(appSettingsFilePath);
             if (appSettingsStream is not null)
             {
