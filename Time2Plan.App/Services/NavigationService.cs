@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Time2Plan.App.Models;
+﻿using Time2Plan.App.Models;
 using Time2Plan.App.ViewModels;
+using Time2Plan.App.Views.Activity;
+using Time2Plan.App.Views.User;
+using Time2Plan.App.Views.Project;
 
 namespace Time2Plan.App.Services;
 
@@ -12,19 +10,19 @@ namespace Time2Plan.App.Services;
     {
         public IEnumerable<RouteModel> Routes { get; } = new List<RouteModel>
     {
-       /* new("//ingredients", typeof(IngredientListView), typeof(IngredientListViewModel)),
-        new("//ingredients/detail", typeof(IngredientDetailView), typeof(IngredientDetailViewModel)),
+        new("//Activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
+        new("//Activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
 
-        new("//ingredients/edit", typeof(IngredientEditView), typeof(IngredientEditViewModel)),
-        new("//ingredients/detail/edit", typeof(IngredientEditView), typeof(IngredientEditViewModel)),
+        new("//Activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
+        new("//Activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
 
-        new("//recipes", typeof(RecipeListView), typeof(RecipeListViewModel)),
-        new("//recipes/detail", typeof(RecipeDetailView), typeof(RecipeDetailViewModel)),
+        new("//Users", typeof(ProjectListView), typeof(ProjectListViewModel)),
+        new("//Users/detail", typeof(ProjectDetailView), typeof(ProjectDetailViewModel)),
 
-        new("//recipes/edit", typeof(RecipeEditView), typeof(RecipeEditViewModel)),
-        new("//recipes/detail/edit", typeof(RecipeEditView), typeof(RecipeEditViewModel)),
+        new("//Users/edit", typeof(ProjectEditView), typeof(ProjectEditViewModel)),
+        new("//Users/detail/edit", typeof(ProjectEditView), typeof(ProjectEditViewModel)),
 
-        new("//recipes/detail/edit/ingredients", typeof(RecipeIngredientsEditView), typeof(RecipeIngredientsEditViewModel)),*/
+        new("//Users/detail/edit/Activities", typeof(ProjectActivitiesEditView), typeof(ProjectActivitiesEditViewModel)),
     };
 
         public async Task GoToAsync<TViewModel>()

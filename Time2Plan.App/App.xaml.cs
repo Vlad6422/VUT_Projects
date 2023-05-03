@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Time2Plan.App.Shells;
 
 namespace Time2Plan.App;
 

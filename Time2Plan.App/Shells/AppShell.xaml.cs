@@ -2,7 +2,7 @@
 using Time2Plan.App.Services;
 using Time2Plan.App.ViewModels;
 
-namespace Time2Plan.App;
+namespace Time2Plan.App.Shells;
 
 public partial class AppShell
 {
@@ -16,10 +16,10 @@ public partial class AppShell
     }
 /*
     [RelayCommand]
-    private async Task GoToRecipesAsync()
+    private async Task GoToUsersAsync()
         => await _navigationService.GoToAsync<UserListViewModel>();
 
     [RelayCommand]
-    private async Task GoToIngredientsAsync()
-        => await _navigationService.GoToAsync<UserListViewModel>();*/
+    private async Task GoToActivitiesAsync()
+        => await _navigationService.GoToAsync<UserListViewModel>();
 }

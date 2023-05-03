@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Mappers\Interfaces\IRecipeModelMapper.cs" />
+    <Compile Remove="Mappers\Interfaces\IProjectModelMapper.cs" />
   </ItemGroup>
 
   <ItemGroup>
