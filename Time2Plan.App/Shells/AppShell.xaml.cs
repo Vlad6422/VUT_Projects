@@ -14,13 +14,13 @@ public partial class AppShell
 
         InitializeComponent();
     }
-}
-/*
+
     [RelayCommand]
     private async Task GoToUsersAsync()
         => await _navigationService.GoToAsync<UserListViewModel>();
+}
 
-    [RelayCommand]
-    private async Task GoToActivitiesAsync()
-        => await _navigationService.GoToAsync<UserListViewModel>();
-} */
+//[RelayCommand]
+//private async Task GoToActivitiesAsync()
+//    => await _navigationService.GoToAsync<UserListViewModel>();
+//} 

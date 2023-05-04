@@ -63,9 +63,9 @@ namespace Time2Plan.App.Resources.Texts {
         /// <summary>
         ///   Looks up a localized string similar to Activities.
         /// </summary>
-        internal static string Activities_Tab_Title {
+        internal static string Projects_Tab_Title{
             get {
-                return ResourceManager.GetString("Activities_Tab_Title", resourceCulture);
+                return ResourceManager.GetString("Projects_Tab_Title", resourceCulture);
             }
         }
         

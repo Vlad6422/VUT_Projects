@@ -28,7 +28,7 @@ public static class DALInstaller
         {
             services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider =>
             { 
-                return new SqlServerDbContextFactory("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog = Time2Plan;MultipleActiveResultSets = True;Integrated Security = True;");
+                return new SqlServerDbContextFactory(dalSettings.ConnectionString);
             });
             services.AddSingleton<IDbMigrator, LocalDbMigrator>();
         }

@@ -73,38 +73,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Shells\Activity\ActivityDetailView.xaml.cs">
-	    <DependentUpon>ActivityDetailView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Shells\Activity\ActivityEditView.xaml.cs">
-	    <DependentUpon>ActivityEditView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Shells\Activity\ActivityListView.xaml.cs">
-	    <DependentUpon>ActivityListView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Project\ProjectDetailView.xaml.cs">
-	    <DependentUpon>ProjectDetailView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Project\ProjectEditView.xaml.cs">
-	    <DependentUpon>ProjectEditView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Project\ProjectActivitiesEditView.xaml.cs">
-	    <DependentUpon>ProjectActivitiesEditView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Project\ProjectListView.xaml.cs">
-	    <DependentUpon>ProjectListView.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\ContentPageBase.xaml.cs">
 	    <DependentUpon>ContentPageBase.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\User\UserListView.xaml.cs">
 	    <DependentUpon>UserListView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\User\UserEditView.xaml.cs">
-	    <DependentUpon>UserEditView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\User\UserDetailView.xaml.cs">
-	    <DependentUpon>UserDetailView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

@@ -48,7 +48,7 @@ public class NoneDbMigrator : IDbMigrator
 public class LocalDbMigrator : IDbMigrator
 {
     private readonly IDbContextFactory<Time2PlanDbContext> _dbContextFactory;
-    //private readonly LocalDbOptions _localDbOptions;
+    private readonly LocalDbOptions _localDbOptions;
 
 
     public LocalDbMigrator(IDbContextFactory<Time2PlanDbContext> dbContextFactory)
@@ -63,9 +63,9 @@ public class LocalDbMigrator : IDbMigrator
     {
         await using Time2PlanDbContext dbContext = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        dbContext.Database.EnsureDeleted();
+        //dbContext.Database.EnsureDeleted();
         dbContext.Database.EnsureCreated();
-        //await dbContext.Database.MigrateAsync();
+        // await dbContext.Database.MigrateAsync(cancellationToken);
     }
 
 }

@@ -2,7 +2,7 @@
 
 public class DALSettings
 {
-    public string ConnectionString { get; set; }
+    public string ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog = Time2Plan;MultipleActiveResultSets = True;Integrated Security = True;";
     public bool SeedDemoData { get; set; }
 }
 

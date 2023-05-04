@@ -31,16 +31,16 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
         Users = await _UserFacade.GetAsync();
     }
 
-    [RelayCommand]
-    private async Task GoToDetailAsync(Guid id)
-        => await _navigationService.GoToAsync<UserDetailViewModel>(
-            new Dictionary<string, object?> { [nameof(UserDetailViewModel.Id)] = id });
+    //[RelayCommand]
+    //private async Task GoToDetailAsync(Guid id)
+    //    => await _navigationService.GoToAsync<UserDetailViewModel>(
+    //        new Dictionary<string, object?> { [nameof(UserDetailViewModel.Id)] = id });
 
-    [RelayCommand]
-    private async Task GoToCreateAsync()
-    {
-        await _navigationService.GoToAsync("/edit");
-    }
+    //[RelayCommand]
+    //private async Task GoToCreateAsync()
+    //{
+    //    await _navigationService.GoToAsync("/edit");
+    //}
 
     public async void Receive(UserEditMessage message)
     {
