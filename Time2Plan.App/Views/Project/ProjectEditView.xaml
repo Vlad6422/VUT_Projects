@@ -7,9 +7,9 @@
                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
                        xmlns:models="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                        x:Class="Time2Plan.App.Views.Project.ProjectEditView"
-                       Title="{x:Static t:ProjectEditViewTexts.Page_Title}"
-                       x:DataType="viewModels:ProjectEditViewModel"
-                       Style="{StaticResource ContentPageStyle}">
+                       x:DataType="viewModels:ProjectEditViewModel">
+    <!--Title="{x:Static t:ProjectEditViewTexts.Page_Title}"
+                       Style="{StaticResource ContentPageStyle}">-->
     <!--<Grid RowDefinitions="Auto, *, Auto"
           RowSpacing="40">
         <Grid Grid.Row="0"

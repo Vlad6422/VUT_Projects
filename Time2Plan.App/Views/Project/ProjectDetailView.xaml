@@ -6,10 +6,10 @@
                        xmlns:texts="clr-namespace:Time2Plan.App.Resources.Texts"
                        xmlns:models="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                        x:Class="Time2Plan.App.Views.Project.ProjectDetailView"
-                       Title="{x:Static texts:ProjectDetailViewTexts.Page_Title}"
-                       Style="{StaticResource ContentPageStyle}"
                        x:Name="ProjectDetailViewRoot"
                        x:DataType="vm:ProjectDetailViewModel">
+                       <!--Title="{x:Static texts:ProjectDetailViewTexts.Page_Title}"
+                       Style="{StaticResource ContentPageStyle}"-->
     <!--<Grid RowDefinitions="Auto, *"
           RowSpacing="20">
         <Grid Grid.Row="0"

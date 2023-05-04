@@ -14,6 +14,7 @@ public partial class AppShell
 
         InitializeComponent();
     }
+}
 /*
     [RelayCommand]
     private async Task GoToUsersAsync()
@@ -22,4 +23,4 @@ public partial class AppShell
     [RelayCommand]
     private async Task GoToActivitiesAsync()
         => await _navigationService.GoToAsync<UserListViewModel>();
-}
+} */

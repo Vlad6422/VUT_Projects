@@ -5,8 +5,8 @@
              xmlns:views="clr-namespace:Time2Plan.App.Views"
              xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
              xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
-             x:DataType="vm:UserListViewModel"
-             x:Name="UserListViewRoot">
+             x:DataType="vm:UserDetailViewModel"
+             x:Name="UserDetailViewRoot">
 
     <!--<Grid>
         <Grid HorizontalOptions="FillAndExpand"

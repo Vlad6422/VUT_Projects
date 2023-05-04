@@ -30,7 +30,7 @@ namespace Time2Plan.App
             var app = builder.Build();
 
             app.Services.GetRequiredService<IDbMigrator>().Migrate();
-            RegisterRouting(app.Services.GetRequiredService<INavigationService>());
+            // RegisterRouting(app.Services.GetRequiredService<INavigationService>());
 
             return app;
         }

@@ -69,23 +69,4 @@ public class LocalDbMigrator : IDbMigrator
     }
 
 }
-public class LocalDbMigrator : IDbMigrator
-{
-    private readonly IDbContextFactory<Time2PlanDbContext> _dbContextFactory;
-
-    public LocalDbMigrator(IDbContextFactory<Time2PlanDbContext> dbContextFactory)
-    {
-        _dbContextFactory = dbContextFactory;
-    }
-
-    public void Migrate() => MigrateAsync(CancellationToken.None).GetAwaiter().GetResult();
-
-    public async Task MigrateAsync(CancellationToken cancellationToken)
-    {
-        await using Time2PlanDbContext dbContext = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
-
-        // Ensures that database is created applying the latest state
-        await dbContext.Database.MigrateAsync(cancellationToken);
-    }
-}
 

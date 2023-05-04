@@ -6,10 +6,10 @@
                        xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                        xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
                        x:Class="Time2Plan.App.Views.Project.ProjectListView"
-                       Title="{x:Static t:ProjectListViewTexts.Page_Title}"
                        x:DataType="vm:ProjectListViewModel"
-                       x:Name="ProjectListViewRoot"
-                       Style="{StaticResource ContentPageStyle}">
+                       x:Name="ProjectListViewRoot">
+    <!--Title="{x:Static t:ProjectListViewTexts.Page_Title}"
+                       Style="{StaticResource ContentPageStyle}"-->
     <!--<Grid>
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="Auto, *"

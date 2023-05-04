@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Time2Plan.App.Views.User.UserListView"
-             xmlns:views="clr-namespace:Time2Plan.App.Views"
-             xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
-             xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
-             x:DataType="vm:UserListViewModel"
-             x:Name="UserListViewRoot">
+<views:ContentPageBase  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:views="clr-namespace:Time2Plan.App.Views"
+                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
+                        xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
+                        xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        x:Class="Time2Plan.App.Views.User.UserListView"
+                        Title ="{x:Static t:UserListViewTexts.Page_Title}"
+                        x:DataType="vm:UserListViewModel"
+                        x:Name="UserListViewRoot"
+                        Style="{StaticResource ContentPageStyle}">
 
-    <!--<Grid>
-        <Grid HorizontalOptions="FillAndExpand"
+    <Grid>
+        <Frame
+            BackgroundColor="White">
+        </Frame>
+        <!--<Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="Auto, *"
               RowSpacing="20"
               >
@@ -40,7 +46,7 @@
                                        HorizontalOptions="Fill" VerticalOptions="Fill"
                                        Aspect="AspectFill"
                                        WidthRequest="320" HeightRequest="240"
-                                       Source="{Binding Photo, TargetNullValue='images.jpg'}" />
+                                       Source="{Binding Photo, TargetNullValue='user_default.png'}" />
 
                                 <BoxView Grid.Row="0"
                                          Opacity="0.25"
@@ -82,6 +88,6 @@
                 
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"
-                 />
-    </Grid>-->
+                 />-->
+    </Grid>
 </views:ContentPageBase>
