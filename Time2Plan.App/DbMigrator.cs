@@ -51,7 +51,7 @@ public class LocalDbMigrator : IDbMigrator
     //private readonly LocalDbOptions _localDbOptions;
 
 
-    public LocalDbMigrator(IDbContextFactory<Time2PlanDbContext> dbContextFactory, DALOptions dalOptions)
+    public LocalDbMigrator(IDbContextFactory<Time2PlanDbContext> dbContextFactory)
     {
         _dbContextFactory = dbContextFactory;
         // _localDbOptions = dalOptions.LocalDb ?? throw new ArgumentNullException(nameof(dalOptions), $@"{nameof(DALOptions.LocalDb)} are not set");

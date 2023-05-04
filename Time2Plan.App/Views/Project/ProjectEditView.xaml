@@ -10,7 +10,7 @@
                        Title="{x:Static t:ProjectEditViewTexts.Page_Title}"
                        x:DataType="viewModels:ProjectEditViewModel"
                        Style="{StaticResource ContentPageStyle}">
-    <Grid RowDefinitions="Auto, *, Auto"
+    <!--<Grid RowDefinitions="Auto, *, Auto"
           RowSpacing="40">
         <Grid Grid.Row="0"
               ColumnDefinitions="*, 320"
@@ -125,5 +125,5 @@
                 Text="{x:Static t:ProjectEditViewTexts.Save_Button_Text}"
                 Command="{Binding SaveCommand}"
                 Style="{StaticResource PrimaryButtonStyle}" />
-    </Grid>
+    </Grid>-->
 </views:ContentPageBase>

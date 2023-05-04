@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Maui;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using System.Reflection;
 using Time2Plan.BL;
 using Time2Plan.App.Services;

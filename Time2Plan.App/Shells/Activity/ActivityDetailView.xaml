@@ -9,7 +9,7 @@
                        Style="{StaticResource ContentPageStyle}"
                        x:Name="ActivityDetailViewRoot"
                        x:DataType="vm:ActivityDetailViewModel">
-    <VerticalStackLayout Spacing="20">
+    <!--<VerticalStackLayout Spacing="20">
         <HorizontalStackLayout HorizontalOptions="End"
                                Spacing="15"
                                HeightRequest="30">
@@ -46,5 +46,5 @@
                        Text="{Binding Activity.Description}"/>
             </VerticalStackLayout>
         </Grid>
-    </VerticalStackLayout>
+    </VerticalStackLayout>-->
 </views:ContentPageBase>

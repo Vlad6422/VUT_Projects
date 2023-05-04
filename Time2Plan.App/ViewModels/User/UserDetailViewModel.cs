@@ -50,7 +50,7 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
             }
             catch (InvalidOperationException)
             {
-                await _alertService.DisplayAsync(UserDetailViewModelTexts.DeleteError_Alert_Title, UserDetailViewModelTexts.DeleteError_Alert_Message);
+                //await _alertService.DisplayAsync(UserDetailViewModelTexts.DeleteError_Alert_Title, UserDetailViewModelTexts.DeleteError_Alert_Message);
             }
         }
     }

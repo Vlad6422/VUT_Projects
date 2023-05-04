@@ -2,6 +2,7 @@
 using Time2Plan.App.Services;
 using Time2Plan.App.ViewModels;
 using Time2Plan.App.Views;
+using Time2Plan.App.Shells;
 
 namespace Time2Plan.App;
 

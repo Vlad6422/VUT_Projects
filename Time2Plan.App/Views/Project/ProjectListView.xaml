@@ -10,7 +10,7 @@
                        x:DataType="vm:ProjectListViewModel"
                        x:Name="ProjectListViewRoot"
                        Style="{StaticResource ContentPageStyle}">
-    <Grid>
+    <!--<Grid>
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="Auto, *"
               RowSpacing="20"
@@ -85,5 +85,5 @@
                 CornerRadius="5" FontFamily="MontserratMedium"
                 FontSize="14"
                 Style="{StaticResource PrimaryButtonStyle}" />
-    </Grid>
+    </Grid>-->
 </views:ContentPageBase>

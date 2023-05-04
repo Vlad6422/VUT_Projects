@@ -22,7 +22,7 @@ namespace Time2Plan.App.Services;
         new("//Users/edit", typeof(ProjectEditView), typeof(ProjectEditViewModel)),
         new("//Users/detail/edit", typeof(ProjectEditView), typeof(ProjectEditViewModel)),
 
-        new("//Users/detail/edit/Activities", typeof(ProjectActivitiesEditView), typeof(ProjectActivitiesEditViewModel)),
+        new("//Users/detail/edit/Activities", typeof(UserEditView), typeof(UserEditViewModel)),
     };
 
         public async Task GoToAsync<TViewModel>()

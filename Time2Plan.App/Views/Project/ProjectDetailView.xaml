@@ -10,7 +10,7 @@
                        Style="{StaticResource ContentPageStyle}"
                        x:Name="ProjectDetailViewRoot"
                        x:DataType="vm:ProjectDetailViewModel">
-    <Grid RowDefinitions="Auto, *"
+    <!--<Grid RowDefinitions="Auto, *"
           RowSpacing="20">
         <Grid Grid.Row="0"
               ColumnDefinitions="*, Auto, Auto"
@@ -125,5 +125,5 @@
                 </Frame>
             </Grid>
         </Grid>
-    </Grid>
+    </Grid>-->
 </views:ContentPageBase>
