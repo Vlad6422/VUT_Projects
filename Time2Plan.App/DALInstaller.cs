@@ -4,7 +4,6 @@ using Time2Plan.App.Options;
 using Time2Plan.DAL;
 using Time2Plan.DAL.Mappers;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace Time2Plan.App;
 
@@ -12,21 +11,24 @@ public static class DALInstaller
 {
     public static IServiceCollection AddDALServices(this IServiceCollection services, IConfiguration configuration)
     {
-        DALOptions dalOptions = new();
+        // DALOptions dalOptions = new();
 
-        //services.Configure<LocalDbOptions>(configuration.GetSection("Time2Plan:DAL"));
-        configuration.GetSection("TimePlan:DAL").Bind(dalOptions);
+        DALSettings dalSettings = new();
 
-        services.AddSingleton<DALOptions>(dalOptions);
+        configuration.GetSection("Time2Plan:DAL").Bind(dalSettings);
 
-        if (dalOptions.LocalDb is null)
+        //services.Configure<DALSettings>(configuration.GetSection("Time2Plan:DAL"));
+
+        services.AddSingleton<DALSettings>(dalSettings);
+
+        if (dalSettings is null)
         {
             throw new InvalidOperationException("No persistence provider configured");
         } else
         {
             services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider =>
             { 
-                return new SqlServerDbContextFactory(dalOptions.LocalDb.ConnectionString, dalOptions.LocalDb.SeedDemoData);
+                return new SqlServerDbContextFactory("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog = Time2Plan;MultipleActiveResultSets = True;Integrated Security = True;");
             });
             services.AddSingleton<IDbMigrator, LocalDbMigrator>();
         }

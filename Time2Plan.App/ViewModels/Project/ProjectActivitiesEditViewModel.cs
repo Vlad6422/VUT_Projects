@@ -33,12 +33,12 @@ public partial class ProjectActivitiesEditViewModel : ViewModelBase
     {
         await base.LoadDataAsync();
 
-        Activities.Clear();
-        var Activities = await _ActivityFacade.GetAsync();
-        foreach (var Activity in Activities)
-        {
-            Activities.Add(Activity);
-        }
+        //Activities.Clear();
+        //var Activities = await _ActivityFacade.GetAsync();
+        //foreach (var Activity in Activities)
+        //{
+        //    Activities.Add(Activity);
+        //}
     }
 
     [RelayCommand]

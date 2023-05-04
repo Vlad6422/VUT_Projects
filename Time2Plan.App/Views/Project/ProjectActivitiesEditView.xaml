@@ -8,11 +8,11 @@
              xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
              xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Time2Plan.App.Views.Project.ProjectActivitesEditView"
-             Title="{x:Static texts:ProjectActivitesEditViewTexts.Page_Title}"
              Style="{StaticResource ContentPageStyle}"
-             x:DataType="vm:ProjectActivitesEditViewModel"
+             x:DataType="vm:ProjectActivitiesEditViewModel"
              x:Name="ProjectActivitesEditViewRoot">
-    <Grid RowDefinitions="Auto, Auto, Auto, *"
+             <!--Title="{x:Static texts:ProjectActivitesEditViewTexts.Page_Title}"-->
+    <!--<Grid RowDefinitions="Auto, Auto, Auto, *"
           HorizontalOptions="Fill"
           RowSpacing="20">
         <HorizontalStackLayout Grid.Row="0"
@@ -114,5 +114,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </Grid>
+    </Grid>-->
 </views:ContentPageBase>

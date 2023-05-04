@@ -1,5 +1,11 @@
 ﻿namespace Time2Plan.App.Options;
 
+public class DALSettings
+{
+    public string ConnectionString { get; set; }
+    public bool SeedDemoData { get; set; }
+}
+
 public record DALOptions
 {
     public LocalDbOptions LocalDb { get; init; }

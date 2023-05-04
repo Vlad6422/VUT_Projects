@@ -10,7 +10,7 @@
                        Style="{StaticResource ContentPageStyle}"
                        x:Name="ActivityListViewRoot"
                        x:DataType="vm:ActivityListViewModel">
-    <Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
+    <!--<Grid HorizontalOptions="FillAndExpand" RowDefinitions="Auto, *"
           RowSpacing="20">
         <Label Grid.Row="0"
                FontSize="24"
@@ -60,5 +60,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </Grid>
+    </Grid>-->
 </views:ContentPageBase>

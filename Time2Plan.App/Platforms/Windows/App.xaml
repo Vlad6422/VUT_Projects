@@ -1,8 +1,8 @@
 ﻿<maui:MauiWinUIApplication
-    x:Class="Time2Plan.App.WinUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:maui="using:Microsoft.Maui"
+    x:Class="Time2Plan.App.Platforms.Windows.App"
     xmlns:local="using:Time2Plan.App.WinUI">
-
+    
 </maui:MauiWinUIApplication>
