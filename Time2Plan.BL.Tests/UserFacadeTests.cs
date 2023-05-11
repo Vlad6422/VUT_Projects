@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using Time2Plan.BL.Facades;
-using Time2Plan.BL.Facades.Interfaces;
+using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
@@ -15,7 +15,7 @@ public class UserFacadeTests : FacadeTestBase
     private readonly IUserFacade _userFacadeSUT;
     public UserFacadeTests(ITestOutputHelper output) : base(output)
     {
-        _userFacadeSUT = new UserFasade(UnitOfWorkFactory, UserModelMapper);
+        _userFacadeSUT = new UserFacade(UnitOfWorkFactory, UserModelMapper);
     }
     [Fact]
     public async Task CreateNewUser()

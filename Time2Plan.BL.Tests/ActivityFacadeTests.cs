@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using Time2Plan.BL.Facades;
-using Time2Plan.BL.Facades.Interfaces;
+using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;

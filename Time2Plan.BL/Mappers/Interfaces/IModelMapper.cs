@@ -1,4 +1,4 @@
-﻿namespace Time2Plan.BL.Mappers.Interfaces;
+﻿namespace Time2Plan.BL.Mappers;
 
 public interface IModelMapper<TEntity, out TListModel, TDetailModel>
 {

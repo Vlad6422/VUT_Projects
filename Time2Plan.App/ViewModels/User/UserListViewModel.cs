@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
-using Time2Plan.BL.Facades.Interfaces;
+using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
