@@ -11,60 +11,43 @@ public static class DALInstaller
 {
     public static IServiceCollection AddDALServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // DALOptions dalOptions = new();
+        DALOptions dalOptions = new();
+        configuration.GetSection("TimePlan:DAL").Bind(dalOptions);
 
-        DALSettings dalSettings = new();
+        services.AddSingleton<DALOptions>(dalOptions);
 
-        configuration.GetSection("Time2Plan:DAL").Bind(dalSettings);
-
-        //services.Configure<DALSettings>(configuration.GetSection("Time2Plan:DAL"));
-
-        services.AddSingleton<DALSettings>(dalSettings);
-
-        if (dalSettings is null)
+        if (dalOptions.LocalDb is null && dalOptions.Sqlite is null)
         {
             throw new InvalidOperationException("No persistence provider configured");
-        } else
+        }
+
+        if (dalOptions.LocalDb?.Enabled == false && dalOptions.Sqlite?.Enabled == false)
         {
-            services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider =>
-            { 
-                return new SqlServerDbContextFactory(dalSettings.ConnectionString);
-            });
+            throw new InvalidOperationException("No persistence provider enabled");
+        }
+
+        if ((dalOptions.LocalDb?.Enabled == true) && (dalOptions.Sqlite?.Enabled == true))
+        {
+            throw new InvalidOperationException("Both persistence providers enabled");
+        }
+
+        if (dalOptions.LocalDb?.Enabled == true)
+        {
+            services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider => new SqlServerDbContextFactory(dalOptions.LocalDb.ConnectionString));
             services.AddSingleton<IDbMigrator, LocalDbMigrator>();
         }
 
-        //if (dalOptions.LocalDb is null && dalOptions.Sqlite is null)
-        //{
-        //    throw new InvalidOperationException("No persistence provider configured");
-        //}
+        if (dalOptions.Sqlite?.Enabled == true)
+        {
+            if (dalOptions.Sqlite.DatabaseName is null)
+            {
+                throw new InvalidOperationException($"{nameof(dalOptions.Sqlite.DatabaseName)} is not set");
 
-        //if (dalOptions.LocalDb?.Enabled == false && dalOptions.Sqlite?.Enabled == false)
-        //{
-        //    throw new InvalidOperationException("No persistence provider enabled");
-        //}
-
-        //if ((dalOptions.LocalDb?.Enabled == true) && (dalOptions.Sqlite?.Enabled == true))
-        //{
-        //    throw new InvalidOperationException("Both persistence providers enabled");
-        //}
-
-        //if (dalOptions.LocalDb?.Enabled == true)
-        //{
-        //    services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider => new SqlServerDbContextFactory(dalOptions.LocalDb.ConnectionString));
-        //    services.AddSingleton<IDbMigrator, LocalDbMigrator>();
-        //}
-
-        //if (dalOptions.Sqlite?.Enabled == true)
-        //{
-        //    if (dalOptions.Sqlite.DatabaseName is null)
-        //    {
-        //        throw new InvalidOperationException($"{nameof(dalOptions.Sqlite.DatabaseName)} is not set");
-
-        //    }
-        //    string databaseFilePath = Path.Combine(FileSystem.AppDataDirectory, dalOptions.Sqlite.DatabaseName!);
-        //    services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider => new DbContextSqLiteFactory(databaseFilePath, dalOptions?.Sqlite?.SeedDemoData ?? false));
-        //    services.AddSingleton<IDbMigrator, SqliteDbMigrator>();
-        //}
+            }
+            string databaseFilePath = Path.Combine(FileSystem.AppDataDirectory, dalOptions.Sqlite.DatabaseName!);
+            services.AddSingleton<IDbContextFactory<Time2PlanDbContext>>(provider => new DbContextSqLiteFactory(databaseFilePath, dalOptions?.Sqlite?.SeedDemoData ?? false));
+            services.AddSingleton<IDbMigrator, SqliteDbMigrator>();
+        }
 
         services.AddSingleton<UserEntityMapper>();
         services.AddSingleton<ProjectEntityMapper>();
