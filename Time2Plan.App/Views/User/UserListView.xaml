@@ -76,6 +76,7 @@
         <Button Style="{StaticResource ButtonAdd}"
                 Grid.Row="0"
                 HorizontalOptions="End" VerticalOptions="Start"
-                Text="Add User"/>
+                Text="Add User"
+                Command="{Binding GoToCreateCommand}"/>
     </Grid>
 </views:ContentPageBase>

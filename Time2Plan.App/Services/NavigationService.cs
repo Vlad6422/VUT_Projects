@@ -11,6 +11,7 @@ namespace Time2Plan.App.Services;
         public IEnumerable<RouteModel> Routes { get; } = new List<RouteModel>
     {
         new("//Users", typeof(UserListView), typeof(UserListViewModel)),
+        new("//Users/edit", typeof(UserEditView), typeof(UserEditViewModel)),
         //new("//Activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
         //new("//Activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
 

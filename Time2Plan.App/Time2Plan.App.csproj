@@ -76,6 +76,9 @@
 	  <Compile Update="Views\ContentPageBase.xaml.cs">
 	    <DependentUpon>ContentPageBase.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\User\UserEditView.xaml.cs">
+	    <DependentUpon>UserEditView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\User\UserListView.xaml.cs">
 	    <DependentUpon>UserListView.xaml</DependentUpon>
 	  </Compile>
@@ -95,6 +98,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Projects\ProjectListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\User\UserEditView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
