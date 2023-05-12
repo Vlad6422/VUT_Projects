@@ -4,7 +4,7 @@ using Time2Plan.App.ViewModels;
 
 namespace Time2Plan.App.Shells;
 
-public partial class AppShell
+public partial class AppShell : Shell
 {
     private readonly INavigationService _navigationService;
 
