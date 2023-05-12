@@ -44,5 +44,6 @@
     <Color x:Key="RedCustom">#ff0021</Color>
     <Color x:Key="DefaultTextDark">#000000</Color>
     <Color x:Key="DefaultTextLight">#ffffff</Color>
+    <Color x:Key="BackgroundOfText">#80404040</Color>
 
 </ResourceDictionary>
