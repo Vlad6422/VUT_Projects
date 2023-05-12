@@ -9,11 +9,64 @@
                         x:Class="Time2Plan.App.Views.User.UserEditView"
                         x:Name="UserEditViewRoot"
                         x:DataType="vm:UserEditViewModel"
-                        Title="USER EDIT">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to USER EDIT"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+                        Style="{StaticResource ContentPageStyle}"
+                        Title = "User create/edit">
+
+    <Grid RowDefinitions="70, *">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="15">
+
+            <Button Style="{StaticResource ButtonAdd}"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                HeightRequest="30"
+                Text="Save"
+                Command="{Binding SaveCommand}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              RowDefinitions="170, *" ColumnDefinitions="Auto, *"
+              RowSpacing="20" ColumnSpacing="20">
+
+            <Image HorizontalOptions="Fill" 
+                   Grid.Column="1"
+                    VerticalOptions="Fill"
+                    Aspect="AspectFill"
+                    WidthRequest="320" HeightRequest="240"
+                    BackgroundColor="LightGray"
+                    Source="{Binding User.Photo, TargetNullValue='user_default.png'}"/>
+
+
+            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Name"
+                       TextColor="Black" />
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding User.Name}" 
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="Surname"
+                       TextColor="Black" />
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding User.Surname}"
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="NickName"
+                       TextColor="Black" />
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding User.NickName}" 
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="Photo"
+                       TextColor="Black" />
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding User.Photo}" 
+                       BackgroundColor="LightGray"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </views:ContentPageBase>

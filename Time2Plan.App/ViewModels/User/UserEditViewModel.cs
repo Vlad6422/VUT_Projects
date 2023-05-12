@@ -28,9 +28,7 @@ public partial class UserEditViewModel : ViewModelBase
     private async Task SaveAsync()
     {
         await _UserFacade.SaveAsync(User);
-
-        //MessengerService.Send(new UserEditMessage { UserId = User.Id });
-
+        MessengerService.Send(new UserEditMessage { UserId = User.Id });
         _navigationService.SendBackButtonPressed();
     }
 }
