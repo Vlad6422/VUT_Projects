@@ -19,7 +19,7 @@ namespace Time2Plan.App.Services;
         //new("//Activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
 
         //new("//Users", typeof(ProjectListView), typeof(ProjectListViewModel)),
-        //new("//Users/detail", typeof(ProjectDetailView), typeof(ProjectDetailViewModel)),
+        new("//Users/detail", typeof(UserDetailView), typeof(UserDetailViewModel)),
 
         //new("//Users/edit", typeof(UserEditView), typeof(UserEditViewModel)),
         //new("//Users/detail/edit", typeof(UserEditView), typeof(UserEditViewModel)),

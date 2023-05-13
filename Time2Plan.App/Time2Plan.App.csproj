@@ -100,6 +100,9 @@
 	  <MauiXaml Update="Views\Projects\ProjectListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\User\UserDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\User\UserEditView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
