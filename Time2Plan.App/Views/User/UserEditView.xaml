@@ -43,26 +43,22 @@
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="Name"
-                       TextColor="Black" />
+                <Label Text="Name"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.Name}" 
                        BackgroundColor="LightGray"/>
 
-                <Label Text="Surname"
-                       TextColor="Black" />
+                <Label Text="Surname"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.Surname}"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="NickName"
-                       TextColor="Black" />
+                <Label Text="NickName"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.NickName}" 
                        BackgroundColor="LightGray"/>
 
-                <Label Text="Photo"
-                       TextColor="Black" />
+                <Label Text="Photo"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.Photo}" 
                        BackgroundColor="LightGray"/>
