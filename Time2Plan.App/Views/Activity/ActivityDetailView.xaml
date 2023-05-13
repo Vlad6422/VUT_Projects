@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        x:Class="Time2Plan.App.Views.Activity.ActivityDetailView"
+                        xmlns:views="clr-namespace:Time2Plan.App.Views" 
+                        xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        x:DataType="vm:ActivityDetailViewModel"
+                        x:Name="ActivityDetailViewRoot"
+                        Title="ActivityDetailView"
+                        Style="{StaticResource ContentPageStyle}">
+    <VerticalStackLayout>
+        <Label Text="Type:" />
+        <Label Text="{Binding Activity.Type}" FontSize="32"/>
+
+        <Label Text="Start:"/>
+        <Label Text="{Binding Activity.Start}" FontSize="32"/>
+
+        <Label Text="End:"/>
+        <Label Text="{Binding Activity.End}" FontSize="32"/>
+
+        <Label Text="Tag:" />
+        <Label Text="{Binding Activity.Tag}" FontSize="32"/>
+        
+        <Label Text="Description" />
+        <Label Text="{Binding Activity.Description}" FontSize="32"/>
+    </VerticalStackLayout>
+</views:ContentPageBase>

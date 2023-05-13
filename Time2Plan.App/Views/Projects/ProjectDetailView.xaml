@@ -8,7 +8,7 @@
              Title="ProjectDetailView"
              x:DataType="vm:ProjectDetailViewModel"
              x:Name="ProjectDetailViewRoot"
-              Style="{StaticResource ContentPageStyle}">
+             Style="{StaticResource ContentPageStyle}">
     <VerticalStackLayout>
         <Label Text="Name:" />
         <Label Text="{Binding Project.Name}" FontSize="32" />

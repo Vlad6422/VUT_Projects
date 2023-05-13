@@ -17,7 +17,7 @@ public partial  class ActivityListViewModel : ViewModelBase, IRecipient<Activity
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
 
-    public IEnumerable<ActivityListModel> Activitys { get; set; } = null!;
+    public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
     public ActivityListViewModel(
        IActivityFacade ingredientFacade,
        INavigationService navigationService,
@@ -32,20 +32,20 @@ public partial  class ActivityListViewModel : ViewModelBase, IRecipient<Activity
     {
         await base.LoadDataAsync();
 
-        Activitys = await _activityFacade.GetAsync();
+        Activities = await _activityFacade.GetAsync();
     }
    /* [RelayCommand]
     private async Task GoToCreateAsync()
     {
         await _navigationService.GoToAsync("/edit");
-    }
+    }*/
 
     [RelayCommand]
     private async Task GoToDetailAsync(Guid id)
     {
         await _navigationService.GoToAsync<ActivityDetailViewModel>(
             new Dictionary<string, object?> { [nameof(ActivityDetailViewModel.Id)] = id });
-    }*/
+    }
 
     public async void Receive(ActivityEditMessage message)
     {

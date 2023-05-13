@@ -1,5 +1,6 @@
 ﻿using Time2Plan.App.Models;
 using Time2Plan.App.ViewModels;
+using Time2Plan.App.Views.Activity;
 using Time2Plan.App.Views.Projects;
 //using Time2Plan.App.Views.Activity;
 using Time2Plan.App.Views.User;
@@ -28,7 +29,11 @@ namespace Time2Plan.App.Services;
         //new("//Users/detail/edit/Activities", typeof(UserEditView), typeof(UserEditViewModel)),
 
         new("//Projects", typeof(ProjectListView), typeof(ProjectListViewModel)),
-        new("//Projects/detail", typeof(ProjectDetailView), typeof(ProjectDetailViewModel))
+        new("//Projects/detail", typeof(ProjectDetailView), typeof(ProjectDetailViewModel)),
+
+        new("//Activity", typeof(ActivityListView), typeof(ActivityListViewModel)),
+        new("//Activity/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel))
+
     };
 
         public async Task GoToAsync<TViewModel>()

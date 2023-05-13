@@ -91,6 +91,9 @@
 	  <MauiXaml Update="Resources\Styles\ContentPageStyle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Activity\ActivityDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Activity\ActivityListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
