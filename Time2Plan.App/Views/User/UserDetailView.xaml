@@ -7,9 +7,7 @@
                         xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                         xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
                         x:DataType="vm:UserDetailViewModel"
+                        xmlns:models="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
              Title="UserDetailView">
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding User.Name}"/>
-    </VerticalStackLayout>
+    
 </views:ContentPageBase>
