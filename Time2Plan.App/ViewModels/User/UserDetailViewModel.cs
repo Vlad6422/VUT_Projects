@@ -15,12 +15,12 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
     public UserDetailModel? User { get; set; }
 
     public UserDetailViewModel(
-        IUserFacade recipeFacade,
+        IUserFacade userFacade,
         INavigationService navigationService,
         IMessengerService messengerService)
         : base(messengerService)
     {
-        _userFacade = recipeFacade;
+        _userFacade = userFacade;
         _navigationService = navigationService;
     }
 
