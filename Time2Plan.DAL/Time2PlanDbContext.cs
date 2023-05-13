@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Time2Plan.Common.Tests.Seeds;
 using Time2Plan.DAL.Entities;
 using Time2Plan.DAL.Seeds;
 
@@ -43,6 +44,8 @@ public class Time2PlanDbContext : DbContext
         if (_seedTestData)
         {
             UserSeeds.Seed(modelBuilder);
+            ProjectSeeds.Seed(modelBuilder);
+            ActivitySeeds.Seed(modelBuilder);
         }
     }
 }
