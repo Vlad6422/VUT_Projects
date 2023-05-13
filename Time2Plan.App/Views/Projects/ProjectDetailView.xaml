@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
+             xmlns:views="clr-namespace:Time2Plan.App.Views" 
+             xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+             x:Class="Time2Plan.App.Views.Projects.ProjectDetailView"
+             Title="ProjectDetailView"
+             x:DataType="vm:ProjectDetailViewModel"
+             x:Name="ProjectDetailViewRoot"
+              Style="{StaticResource ContentPageStyle}">
+    <VerticalStackLayout>
+        <Label Text="Name:" />
+        <Label Text="{Binding Project.Name}" FontSize="32" />
+        
+        <Label Text="Description:" />
+        <Label Text="{Binding Project.Description}" FontSize="32" />
+    </VerticalStackLayout>
+</views:ContentPageBase>

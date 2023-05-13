@@ -6,14 +6,17 @@ using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
-public partial class ProjectListViewModel : ViewModelBase
+[QueryProperty(nameof(Id), nameof(Id))]
+
+public partial class ProjectDetailViewModel : ViewModelBase
 {
     private readonly IProjectFacade _projectFacade;
     private readonly INavigationService _navigationService;
 
-    public IEnumerable<ProjectListModel> Projects { get; set; } = null!;
+    public Guid Id { get; set; }
+    public ProjectDetailModel? Project { get; set; }
 
-    public ProjectListViewModel(
+    public ProjectDetailViewModel(
         IProjectFacade projectFacade,
         INavigationService navigationService,
         IMessengerService messengerService)
@@ -23,22 +26,24 @@ public partial class ProjectListViewModel : ViewModelBase
         _navigationService = navigationService;
     }
 
-    [RelayCommand]
-    private async Task GoToDetailAsync(Guid id)
-            => await _navigationService.GoToAsync<ProjectDetailViewModel>(
-                new Dictionary<string, object?> { [nameof(ProjectDetailViewModel.Id)] = id });
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
-        Projects = await _projectFacade.GetAsync();
-    }
-    public async void Receive(UserEditMessage message)
-    {
-        await LoadDataAsync();
+
+        Project = await _projectFacade.GetAsync(Id);
     }
 
-    public async void Receive(UserDeleteMessage message)
+    [RelayCommand]
+    private async Task DeleteAsync()
     {
-        await LoadDataAsync();
+        if (Project is not null) 
+        {
+            await _projectFacade.DeleteAsync(Id);
+
+            MessengerService.Send(new ProjectDeleteMessage());
+
+            _navigationService.SendBackButtonPressed();
+        }
     }
+
 }

@@ -14,7 +14,11 @@
         <CollectionView ItemsSource="{Binding Projects}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="m:ProjectListModel">
-                   
+                    <Frame Padding="0" CornerRadius="10" >
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference ProjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                      CommandParameter="{Binding Id}" />
+                        </Frame.GestureRecognizers>
                         <Label  Grid.Row="0"
                                 Padding="0, 10"
                                 FontSize="20" LineBreakMode="WordWrap"
@@ -25,7 +29,7 @@
                                 <Binding Path="Name"/>
                             </Label.Text>
                         </Label>
-                   
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
