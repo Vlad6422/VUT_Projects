@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Time2Plan.Common.Tests.Seeds;
+using Time2Plan.DAL.Seeds;
 using Time2Plan.DAL.Entities;
 using Time2Plan.DAL.Seeds;
 

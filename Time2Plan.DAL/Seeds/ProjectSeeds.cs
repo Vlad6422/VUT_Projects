@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Time2Plan.DAL.Entities;
 
-namespace Time2Plan.Common.Tests.Seeds;
+namespace Time2Plan.DAL.Seeds;
 
 public static class ProjectSeeds
 {
