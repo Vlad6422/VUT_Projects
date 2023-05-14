@@ -10,30 +10,30 @@
                         xmlns:models="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
              Title="UserDetailView">
 
-    <Grid RowDefinitions="70, *">
-        <Grid Grid.Row="0"
+    <Grid RowDefinitions="100, *">
+        <Grid Grid.Column="1"
               ColumnDefinitions="*, Auto"
-              ColumnSpacing="15">
+              ColumnSpacing="10"
+              Padding="20, 0">
 
             <Button Style="{StaticResource ButtonEdit}"
-                Grid.Column="1"
+                Grid.Column="0"
                 VerticalOptions="Start"
+                    HorizontalOptions="End"
                 HeightRequest="30"
+                    WidthRequest="80"
                 Text="Edit"
                 Command="{Binding GoToEditCommand}"/>
-        </Grid>
 
-        <Grid Grid.Row="1"
-            ColumnDefinitions="*, Auto"
-            ColumnSpacing="15">
-                <Button Style="{StaticResource ButtonRemove}"
-                Grid.Column="2"
+            <Button Style="{StaticResource ButtonRemove}"
+                Grid.Column="1"
                 VerticalOptions="Start"
+                    HorizontalOptions="End"
                 HeightRequest="30"
                 Text="Delete"
                 Command="{Binding DeleteCommand}"/>
-           
         </Grid>
+
         <Grid Grid.Row="2"
               HorizontalOptions="Fill" VerticalOptions="Start"
               RowDefinitions="170, *" ColumnDefinitions="Auto, *"
@@ -42,9 +42,9 @@
             <Image HorizontalOptions="Fill" 
                    Grid.Column="1"
                     VerticalOptions="Fill"
-                    Aspect="AspectFill"
-                    WidthRequest="320" HeightRequest="240"
-                    BackgroundColor="LightGray"
+                    Aspect="AspectFit"
+                    WidthRequest="320"
+                    BackgroundColor="white"
                     Source="{Binding User.Photo, TargetNullValue='user_default.png'}"/>
 
 
