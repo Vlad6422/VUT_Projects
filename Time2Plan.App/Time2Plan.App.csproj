@@ -46,11 +46,16 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\AppIcon\appicon.png" />
 	  <None Remove="Resources\Images\user_default.png" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="AppSettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\appicon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
