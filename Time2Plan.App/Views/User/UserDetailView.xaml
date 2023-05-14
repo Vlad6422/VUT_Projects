@@ -15,14 +15,26 @@
               ColumnDefinitions="*, Auto"
               ColumnSpacing="15">
 
-            <Button Style="{StaticResource ButtonRemove}"
+            <Button Style="{StaticResource ButtonEdit}"
                 Grid.Column="1"
+                VerticalOptions="Start"
+                HeightRequest="30"
+                Text="Edit"
+                Command="{Binding GoToEditCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+            ColumnDefinitions="*, Auto"
+            ColumnSpacing="15">
+                <Button Style="{StaticResource ButtonRemove}"
+                Grid.Column="2"
                 VerticalOptions="Start"
                 HeightRequest="30"
                 Text="Delete"
                 Command="{Binding DeleteCommand}"/>
+           
         </Grid>
-        <Grid Grid.Row="1"
+        <Grid Grid.Row="2"
               HorizontalOptions="Fill" VerticalOptions="Start"
               RowDefinitions="170, *" ColumnDefinitions="Auto, *"
               RowSpacing="20" ColumnSpacing="20">
@@ -36,7 +48,7 @@
                     Source="{Binding User.Photo, TargetNullValue='user_default.png'}"/>
 
 
-            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+            <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
                                  Grid.Column="1"
                                  HorizontalOptions="Fill"
                                  Spacing="10"
