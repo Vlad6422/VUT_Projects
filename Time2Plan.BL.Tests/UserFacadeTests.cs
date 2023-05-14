@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using Time2Plan.BL.Facades;
-using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;

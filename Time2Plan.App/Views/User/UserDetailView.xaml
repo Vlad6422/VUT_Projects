@@ -9,5 +9,48 @@
                         x:DataType="vm:UserDetailViewModel"
                         xmlns:models="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
              Title="UserDetailView">
-    
+
+    <Grid RowDefinitions="70, *">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="15">
+
+            <Button Style="{StaticResource ButtonRemove}"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                HeightRequest="30"
+                Text="Delete"
+                Command="{Binding DeleteCommand}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              RowDefinitions="170, *" ColumnDefinitions="Auto, *"
+              RowSpacing="20" ColumnSpacing="20">
+
+            <Image HorizontalOptions="Fill" 
+                   Grid.Column="1"
+                    VerticalOptions="Fill"
+                    Aspect="AspectFill"
+                    WidthRequest="320" HeightRequest="240"
+                    BackgroundColor="LightGray"
+                    Source="{Binding User.Photo, TargetNullValue='user_default.png'}"/>
+
+
+            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Name: "/>
+                <Label Text="{Binding User.Name}" FontSize="Large"/>
+
+                <Label Text="Surname: "/>
+                <Label Text="{Binding User.Surname}" FontSize="Large"/>
+
+                <Label Text="NickName: "/>
+                <Label Text="{Binding User.NickName, TargetNullValue= {Binding User.Name}}" FontSize="Large"/>
+                
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </views:ContentPageBase>

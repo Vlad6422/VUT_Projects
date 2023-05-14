@@ -1,8 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Time2Plan.BL.Facades;
-using Time2Plan.BL.Facades;
-using Time2Plan.BL.Mappers;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
