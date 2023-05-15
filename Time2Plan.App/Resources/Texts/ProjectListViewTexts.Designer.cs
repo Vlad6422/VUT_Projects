@@ -22,14 +22,14 @@ namespace Time2Plan.App.Resources.Texts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ActivityEditViewTexts {
+    internal class ProjectListViewTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActivityEditViewTexts() {
+        internal ProjectListViewTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Time2Plan.App.Resources.Texts {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.ActivityEditViewTexts", typeof(ActivityEditViewTexts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.ProjectListViewTexts", typeof(ProjectListViewTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,24 +61,6 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        internal static string Description_label {
-            get {
-                return ResourceManager.GetString("Description_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to End .
-        /// </summary>
-        internal static string End_label {
-            get {
-                return ResourceManager.GetString("End_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Time2Plan.
         /// </summary>
         internal static string Page_Title {
@@ -88,29 +70,11 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start.
+        ///   Looks up a localized string similar to Projects.
         /// </summary>
-        internal static string Start_label {
+        internal static string Title_Label {
             get {
-                return ResourceManager.GetString("Start_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tag.
-        /// </summary>
-        internal static string Tag_label {
-            get {
-                return ResourceManager.GetString("Tag_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        internal static string Type_label {
-            get {
-                return ResourceManager.GetString("Type_label", resourceCulture);
+                return ResourceManager.GetString("Title_Label", resourceCulture);
             }
         }
     }

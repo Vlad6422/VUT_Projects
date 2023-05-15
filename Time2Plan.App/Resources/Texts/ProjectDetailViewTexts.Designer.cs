@@ -22,14 +22,14 @@ namespace Time2Plan.App.Resources.Texts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ActivityEditViewTexts {
+    internal class ProjectDetailViewTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActivityEditViewTexts() {
+        internal ProjectDetailViewTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Time2Plan.App.Resources.Texts {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.ActivityEditViewTexts", typeof(ActivityEditViewTexts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.ProjectDetailViewTexts", typeof(ProjectDetailViewTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,29 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
+        ///   Looks up a localized string similar to Activities.
         /// </summary>
-        internal static string Description_label {
+        internal static string Activites_Label_Text {
             get {
-                return ResourceManager.GetString("Description_label", resourceCulture);
+                return ResourceManager.GetString("Activites_Label_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End .
+        ///   Looks up a localized string similar to Description.
         /// </summary>
-        internal static string End_label {
+        internal static string Description_Label_Text {
             get {
-                return ResourceManager.GetString("End_label", resourceCulture);
+                return ResourceManager.GetString("Description_Label_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Name_Label_Text {
+            get {
+                return ResourceManager.GetString("Name_Label_Text", resourceCulture);
             }
         }
         
@@ -88,29 +97,11 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start.
+        ///   Looks up a localized string similar to Users.
         /// </summary>
-        internal static string Start_label {
+        internal static string Users_Label_Text {
             get {
-                return ResourceManager.GetString("Start_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tag.
-        /// </summary>
-        internal static string Tag_label {
-            get {
-                return ResourceManager.GetString("Tag_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        internal static string Type_label {
-            get {
-                return ResourceManager.GetString("Type_label", resourceCulture);
+                return ResourceManager.GetString("Users_Label_Text", resourceCulture);
             }
         }
     }

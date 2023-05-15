@@ -61,29 +61,11 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        internal static string Delete_Button_Text {
-            get {
-                return ResourceManager.GetString("Delete_Button_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description_label {
             get {
                 return ResourceManager.GetString("Description_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
-        internal static string Edit_Button_Text {
-            get {
-                return ResourceManager.GetString("Edit_Button_Text", resourceCulture);
             }
         }
         

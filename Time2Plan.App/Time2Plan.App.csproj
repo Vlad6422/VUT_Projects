@@ -65,7 +65,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
-		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All"/>
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
 		<PackageReference Include="Scrutor" Version="4.2.2" />
 	</ItemGroup>
 
@@ -79,15 +79,30 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ActivityDetailViewModelTexts.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Resources\Texts\ProjectDetailViewTexts.Designer.cs">
+	    <DependentUpon>ProjectDetailViewTexts.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
 	  <Compile Update="Resources\Texts\ActivityDetailViewTexts.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ActivityDetailViewTexts.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Resources\Texts\ProjectEditViewTexts.Designer.cs">
+	    <DependentUpon>ProjectEditViewTexts.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
 	  <Compile Update="Resources\Texts\ActivityEditViewTexts.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ActivityEditViewTexts.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Texts\ProjectListViewTexts.Designer.cs">
+	    <DependentUpon>ProjectListViewTexts.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
 	  </Compile>
 	  <Compile Update="Resources\Texts\ActivityListViewTexts.Designer.cs">
 	    <DesignTime>True</DesignTime>
@@ -136,13 +151,25 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ActivityDetailViewModelTexts.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\ProjectDetailViewTexts.resx">
+	    <LastGenOutput>ProjectDetailViewTexts.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources\Texts\ActivityDetailViewTexts.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ActivityDetailViewTexts.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\ProjectEditViewTexts.resx">
+	    <LastGenOutput>ProjectEditViewTexts.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources\Texts\ActivityEditViewTexts.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ActivityEditViewTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\ProjectListViewTexts.resx">
+	    <LastGenOutput>ProjectListViewTexts.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources\Texts\ActivityListViewTexts.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
