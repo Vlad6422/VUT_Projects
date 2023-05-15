@@ -6,7 +6,7 @@
                         xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                         xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
                         x:Class="Time2Plan.App.Views.Projects.ProjectListView"
-                        Title="ProjectListView"
+                        Title="{x:Static t:ProjectListViewTexts.Page_Title}"
                         x:DataType="vm:ProjectListViewModel"
                         x:Name="ProjectListViewRoot"
                         Style="{StaticResource ContentPageStyle}">
@@ -51,7 +51,6 @@
 
             <Button Style="{StaticResource ButtonAdd}"
                 HorizontalOptions="End" VerticalOptions="Start"
-                Text="Add"
                 Command="{Binding GoToCreateCommand}"/>
         </HorizontalStackLayout>
 

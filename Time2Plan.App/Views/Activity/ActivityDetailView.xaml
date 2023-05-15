@@ -7,7 +7,7 @@
                         xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
                         x:DataType="vm:ActivityDetailViewModel"
                         x:Name="ActivityDetailViewRoot"
-                        Title="ActivityDetailView"
+                        Title="{x:Static t:ActivityDetailViewTexts.Page_Title}"
                         Style="{StaticResource ContentPageStyle}">
 
     <Grid RowDefinitions="100, *">
@@ -22,7 +22,6 @@
                     HorizontalOptions="End"
                 HeightRequest="30"
                     WidthRequest="80"
-                Text="{x:Static t:ActivityDetailViewTexts.Edit_Button_Text}"
                 Command="{Binding GoToEditCommand}"/>
 
             <Button Style="{StaticResource ButtonRemove}"
@@ -30,7 +29,6 @@
                 VerticalOptions="Start"
                     HorizontalOptions="End"
                 HeightRequest="30"
-                Text="{x:Static t:ActivityDetailViewTexts.Delete_Button_Text}"
                 Command="{Binding DeleteCommand}"/>
         </Grid>
 

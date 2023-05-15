@@ -9,7 +9,7 @@
                         x:DataType="vm:ActivityListViewModel"
                         x:Name="ActivityListViewRoot"
                         Style="{StaticResource ContentPageStyle}"
-                        Title="ActivityListView">
+                        Title="{x:Static t:ActivityListViewTexts.Page_Title}">
     <Grid>
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
@@ -53,7 +53,6 @@
 
             <Button Style="{StaticResource ButtonAdd}"
                 HorizontalOptions="End" VerticalOptions="Start"
-                Text="Add"
                 Command="{Binding GoToCreateCommand}"/>
         </HorizontalStackLayout>
 

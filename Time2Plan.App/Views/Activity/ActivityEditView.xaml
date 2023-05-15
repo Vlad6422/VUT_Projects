@@ -9,7 +9,7 @@
                         x:Name="ActivityEditViewRoot"
                         x:DataType="vm:ActivityEditViewModel"
                         Style="{StaticResource ContentPageStyle}"
-                        Title = "Activity create/edit">
+                        Title = "{x:Static t:ActivityEditViewTexts.Page_Title}">
 
     <Grid>
         <Grid Grid.Row="0"
@@ -20,7 +20,6 @@
                 Grid.Column="1"
                 VerticalOptions="Start"
                 HeightRequest="30"
-                Text="Save"
                 Command="{Binding SaveCommand}"/>
         </Grid>
         <Grid Grid.Row="1"
@@ -32,31 +31,31 @@
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="Type"/>
+                <Label Text="{x:Static t:ActivityEditViewTexts.Type_label}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Type}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="Tag"/>
+                <Label Text="{x:Static t:ActivityEditViewTexts.Tag_label}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Tag}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="Start time"/>
+                <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Start}"
                        TextColor="Black"
                        BackgroundColor="LightGray" />
 
-                <Label Text="End time"/>
+                <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.End}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="Description"/>
+                <Label Text="{x:Static t:ActivityEditViewTexts.Description_label}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Description}"
                        TextColor="Black"

@@ -5,6 +5,7 @@
              xmlns:views="clr-namespace:Time2Plan.App.Views" 
              xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
              x:Class="Time2Plan.App.Views.Projects.ProjectDetailView"
+             xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
              Title="ProjectDetailView"
              x:DataType="vm:ProjectDetailViewModel"
              x:Name="ProjectDetailViewRoot"
@@ -22,7 +23,6 @@
                     HorizontalOptions="End"
                 HeightRequest="30"
                     WidthRequest="80"
-                Text="Edit"
                 Command="{Binding GoToEditCommand}"/>
 
             <Button Style="{StaticResource ButtonRemove}"
@@ -30,7 +30,6 @@
                 VerticalOptions="Start"
                     HorizontalOptions="End"
                 HeightRequest="30"
-                Text="Delete"
                 Command="{Binding DeleteCommand}"/>
         </Grid>
 
@@ -43,10 +42,10 @@
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="Name:" />
+                <Label Text="{x:Static t:ProjectDetailViewTexts.Name_Label_Text}" />
                 <Label Text="{Binding Project.Name}" FontSize="Medium" />
-        
-                <Label Text="Description:" />
+
+                <Label Text="{x:Static t:ProjectDetailViewTexts.Description_Label_Text}" />
                 <Label Text="{Binding Project.Description}" FontSize="Medium" />
             </VerticalStackLayout>
         </Grid>
