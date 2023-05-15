@@ -10,7 +10,11 @@
                         x:DataType="vm:ProjectListViewModel"
                         x:Name="ProjectListViewRoot"
                         Style="{StaticResource ContentPageStyle}">
-    <VerticalStackLayout>
+    <Grid>
+        <Grid HorizontalOptions="FillAndExpand"
+              RowDefinitions="auto, *"
+              RowSpacing="50">
+        <VerticalStackLayout Grid.Row="1">
         <CollectionView ItemsSource="{Binding Projects}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="m:ProjectListModel">
@@ -34,4 +38,13 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
+        </Grid>
+
+        <Button Style="{StaticResource ButtonAdd}"
+        Grid.Column="1" Grid.Row="0"
+        HorizontalOptions="End" VerticalOptions="Start"
+        Text="Add"
+        Command="{Binding GoToCreateCommand}"/>
+
+</Grid>
 </views:ContentPageBase>

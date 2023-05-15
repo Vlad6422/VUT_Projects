@@ -9,11 +9,46 @@
              x:DataType="vm:ProjectDetailViewModel"
              x:Name="ProjectDetailViewRoot"
              Style="{StaticResource ContentPageStyle}">
-    <VerticalStackLayout>
-        <Label Text="Name:" />
-        <Label Text="{Binding Project.Name}" FontSize="32" />
+
+    <Grid RowDefinitions="100, *">
+        <Grid Grid.Column="1"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="10"
+              Padding="20, 0">
+
+            <Button Style="{StaticResource ButtonEdit}"
+                Grid.Column="0"
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                    WidthRequest="80"
+                Text="Edit"
+                Command="{Binding GoToEditCommand}"/>
+
+            <Button Style="{StaticResource ButtonRemove}"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                Text="Delete"
+                Command="{Binding DeleteCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              ColumnDefinitions="Auto, *" >
+
+            <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Name:" />
+                <Label Text="{Binding Project.Name}" FontSize="32" />
         
-        <Label Text="Description:" />
-        <Label Text="{Binding Project.Description}" FontSize="32" />
-    </VerticalStackLayout>
+                <Label Text="Description:" />
+                <Label Text="{Binding Project.Description}" FontSize="32" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </views:ContentPageBase>

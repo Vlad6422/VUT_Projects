@@ -1,27 +1,68 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        x:Class="Time2Plan.App.Views.Activity.ActivityEditView"
-                        xmlns:views="clr-namespace:Time2Plan.App.Views" 
+                        xmlns:views="clr-namespace:Time2Plan.App.Views"
+                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
+                        xmlns:controls="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+                        xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                         xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
-                        x:DataType="vm:ActivityEditViewModel"
+                        x:Class="Time2Plan.App.Views.Activity.ActivityEditView"
                         x:Name="ActivityEditViewRoot"
-                        Title="ActivityEditView"
-                        Style="{StaticResource ContentPageStyle}">
-    <VerticalStackLayout>
-        <Label Text="Type:" />
-        <Label Text="{Binding Activity.Type}" FontSize="32"/>
+                        x:DataType="vm:ActivityEditViewModel"
+                        Style="{StaticResource ContentPageStyle}"
+                        Title = "Activity create/edit">
 
-        <Label Text="Start:"/>
-        <Label Text="{Binding Activity.Start}" FontSize="32"/>
+    <Grid>
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="15">
 
-        <Label Text="End:"/>
-        <Label Text="{Binding Activity.End}" FontSize="32"/>
+            <Button Style="{StaticResource ButtonAdd}"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                HeightRequest="30"
+                Text="Save"
+                Command="{Binding SaveCommand}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              RowDefinitions="100, *" ColumnDefinitions="Auto, *">
 
-        <Label Text="Tag:" />
-        <Label Text="{Binding Activity.Tag}" FontSize="32"/>
-        
-        <Label Text="Description" />
-        <Label Text="{Binding Activity.Description}" FontSize="32"/>
-    </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Type"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Type}" 
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="Tag"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Tag}"
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="Start time"/>
+                <controls:MauiDatePicker HorizontalOptions="Fill"
+                                Date="{Binding Activity.Start}"
+                                MinimumDate="1900-01-01"
+                                MaximumDate="2100-12-31" />
+
+                <Label Text="End time"/>
+                <controls:MauiDatePicker HorizontalOptions="Fill"
+                                Date="{Binding Activity.End}"
+                                MinimumDate="1900-01-01"
+                                MaximumDate="2100-12-31" />
+
+                <Label Text="Description"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Description}"
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </views:ContentPageBase>

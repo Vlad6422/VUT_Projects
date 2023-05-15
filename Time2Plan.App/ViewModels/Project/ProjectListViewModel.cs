@@ -27,6 +27,13 @@ public partial class ProjectListViewModel : ViewModelBase
     private async Task GoToDetailAsync(Guid id)
             => await _navigationService.GoToAsync<ProjectDetailViewModel>(
                 new Dictionary<string, object?> { [nameof(ProjectDetailViewModel.Id)] = id });
+
+    [RelayCommand]
+    private async Task GoToCreateAsync()
+    {
+        await _navigationService.GoToAsync("/edit");
+    }
+
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
