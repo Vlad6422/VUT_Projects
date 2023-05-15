@@ -53,4 +53,9 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         await LoadDataAsync();
     }
 
+    [RelayCommand]
+    private async Task GoToRefreshAsync()
+    {
+        await LoadDataAsync();
+    }
 }

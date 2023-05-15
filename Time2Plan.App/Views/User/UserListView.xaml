@@ -74,13 +74,16 @@
         </Grid>
 
         <HorizontalStackLayout HorizontalOptions="End">
-            <Button Style="{StaticResource ButtonDefault}"
-                HorizontalOptions="End" VerticalOptions="Start"
-                Text="Refresh"
-                Command="{Binding GoToRefreshCommand}"/>
-
+            <ImageButton Source="refresh_icon.png" 
+                         HeightRequest="30" 
+                         WidthRequest="30" 
+                         HorizontalOptions="End" 
+                         VerticalOptions="Start" 
+                         Margin="0,0,10,0"
+                        Command="{Binding GoToRefreshCommand}"/>
+            
             <Button Style="{StaticResource ButtonAdd}"
-                HorizontalOptions="End" VerticalOptions="Start" Margin="10,0,0,0"
+                HorizontalOptions="End" VerticalOptions="Start"
                 Text="Add"
                 Command="{Binding GoToCreateCommand}"/>
         </HorizontalStackLayout>
