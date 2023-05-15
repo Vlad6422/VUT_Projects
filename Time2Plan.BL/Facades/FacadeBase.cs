@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Reflection;
-using Time2Plan.BL.Facades;
 using Time2Plan.BL.Mappers;
 using Time2Plan.BL.Models;
 using Time2Plan.DAL.Entities;

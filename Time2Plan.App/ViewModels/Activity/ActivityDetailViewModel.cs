@@ -10,26 +10,26 @@ namespace Time2Plan.App.ViewModels;
 [QueryProperty(nameof(Id), nameof(Id))]
 public partial class ActivityDetailViewModel : ViewModelBase, IRecipient<ActivityEditMessage>
 {
-	private readonly IActivityFacade _activityFacade;
-	private readonly INavigationService _navigationService;
+    private readonly IActivityFacade _activityFacade;
+    private readonly INavigationService _navigationService;
 
-	public Guid Id { get; set; }
-	public ActivityDetailModel Activity { get; set; }
-	public ActivityDetailViewModel(
-		IActivityFacade activityFacade,
-		INavigationService navigationService,
-		IMessengerService messengerService)
-		: base(messengerService)
-	{
-		_activityFacade = activityFacade;
-		_navigationService = navigationService;
-	}
+    public Guid Id { get; set; }
+    public ActivityDetailModel Activity { get; set; }
+    public ActivityDetailViewModel(
+        IActivityFacade activityFacade,
+        INavigationService navigationService,
+        IMessengerService messengerService)
+        : base(messengerService)
+    {
+        _activityFacade = activityFacade;
+        _navigationService = navigationService;
+    }
 
-	protected override async Task LoadDataAsync()
-	{
-		await base.LoadDataAsync();
-		Activity = await _activityFacade.GetAsync(Id);
-	}
+    protected override async Task LoadDataAsync()
+    {
+        await base.LoadDataAsync();
+        Activity = await _activityFacade.GetAsync(Id);
+    }
 
     [RelayCommand]
     private async Task DeleteAsync()
@@ -50,7 +50,7 @@ public partial class ActivityDetailViewModel : ViewModelBase, IRecipient<Activit
         if (Activity is not null)
         {
             await _navigationService.GoToAsync("/edit",
-                new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Activity)] = Activity with { } });
+                new Dictionary<string, object> { [nameof(ActivityEditViewModel.Activity)] = Activity with { } });
         }
     }
     public async void Receive(ActivityEditMessage message)

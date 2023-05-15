@@ -34,7 +34,7 @@
     </Style>
 
     <Style x:Key="ButtonDefault" TargetType="Button">
-        <Setter Property="TextColor" Value="{StaticResource DefaultTextDark}" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Gray300}" />
         <Setter Property="Padding" Value="12, 6" />
         <Setter Property="CornerRadius" Value="5" />
@@ -42,7 +42,7 @@
     </Style>
 
     <Style x:Key="ButtonEdit" TargetType="Button">
-        <Setter Property="TextColor" Value="{StaticResource DefaultTextDark}" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Gray400}" />
         <Setter Property="Text" Value="{Static t:AppShellTexts.Edit_Button_Text}"/>
         <Setter Property="Padding" Value="12, 6" />

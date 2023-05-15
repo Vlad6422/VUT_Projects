@@ -4,8 +4,8 @@ namespace Time2Plan.App.Views.Activity;
 
 public partial class ActivityEditView
 {
-	public ActivityEditView(ActivityEditViewModel viewModel) : base(viewModel)
-	{
-		InitializeComponent();
-	}
+    public ActivityEditView(ActivityEditViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
 }
