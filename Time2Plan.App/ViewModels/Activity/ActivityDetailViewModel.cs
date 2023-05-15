@@ -50,7 +50,7 @@ public partial class ActivityDetailViewModel : ViewModelBase, IRecipient<Activit
         if (Activity is not null)
         {
             await _navigationService.GoToAsync("/edit",
-                new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Activity)] = Activity with { } });
+                new Dictionary<string, object> { [nameof(ActivityEditViewModel.Activity)] = Activity with { } });
         }
     }
     public async void Receive(ActivityEditMessage message)

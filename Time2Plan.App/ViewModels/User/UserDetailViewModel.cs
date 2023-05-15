@@ -12,7 +12,7 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
     private readonly INavigationService _navigationService;
 
     public Guid Id { get; set; }
-    public UserDetailModel? User { get; set; }
+    public UserDetailModel User { get; set; }
 
     public UserDetailViewModel(
         IUserFacade userFacade,
@@ -50,7 +50,7 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
         if (User is not null)
         {
             await _navigationService.GoToAsync("/edit",
-                new Dictionary<string, object?> { [nameof(UserEditViewModel.User)] = User with { } });
+                new Dictionary<string, object> { [nameof(UserEditViewModel.User)] = User with { } });
         }
     }
     public async void Receive(UserEditMessage message)
