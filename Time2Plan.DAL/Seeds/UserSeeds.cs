@@ -29,10 +29,7 @@ public static class UserSeeds
         NickName = "UserAgent007",
         Photo = "https://nickelodeonuniverse.com/wp-content/uploads/Patrick.png"
     };
-    static UserSeeds()
-    {
 
-    }
     public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<UserEntity>().HasData(
             StepanUser,

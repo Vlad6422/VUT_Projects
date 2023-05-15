@@ -32,7 +32,7 @@ public static class ActivitySeeds
         Id = Guid.NewGuid(),
         Start = new DateTime(2022, 1, 2, 13, 0, 0),
         End = new DateTime(2022, 1, 2, 16, 0, 0),
-        Type = "Runnin",
+        Type = "Running",
         Tag = "Sport",
         Description = "5 km run",
     };
