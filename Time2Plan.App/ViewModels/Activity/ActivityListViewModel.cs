@@ -40,7 +40,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     private async Task GoToDetailAsync(Guid id)
     {
         await _navigationService.GoToAsync<ActivityDetailViewModel>(
-            new Dictionary<string, object?> { [nameof(ActivityDetailViewModel.Id)] = id });
+            new Dictionary<string, object> { [nameof(ActivityDetailViewModel.Id)] = id });
     }
 
     public async void Receive(ActivityEditMessage message)

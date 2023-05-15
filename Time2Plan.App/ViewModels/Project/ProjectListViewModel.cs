@@ -27,7 +27,7 @@ public partial class ProjectListViewModel : ViewModelBase, IRecipient<ProjectEdi
     [RelayCommand]
     private async Task GoToDetailAsync(Guid id)
             => await _navigationService.GoToAsync<ProjectDetailViewModel>(
-                new Dictionary<string, object?> { [nameof(ProjectDetailViewModel.Id)] = id });
+                new Dictionary<string, object> { [nameof(ProjectDetailViewModel.Id)] = id });
 
     [RelayCommand]
     private async Task GoToCreateAsync()

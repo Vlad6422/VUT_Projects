@@ -15,7 +15,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     private readonly INavigationService _navigationService;
 
     public Guid Id { get; set; }
-    public ProjectDetailModel? Project { get; set; }
+    public ProjectDetailModel Project { get; set; }
 
     public ProjectDetailViewModel(
         IProjectFacade projectFacade,
@@ -53,7 +53,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
         if (Project is not null)
         {
             await _navigationService.GoToAsync("/edit",
-                new Dictionary<string, object?> { [nameof(ProjectEditViewModel.Project)] = Project with { } });
+                new Dictionary<string, object> { [nameof(ProjectEditViewModel.Project)] = Project with { } });
         }
     }
     public async void Receive(ProjectEditMessage message)
