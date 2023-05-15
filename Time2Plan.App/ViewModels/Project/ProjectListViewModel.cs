@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
 using Time2Plan.BL.Facades;
@@ -6,7 +7,7 @@ using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
-public partial class ProjectListViewModel : ViewModelBase
+public partial class ProjectListViewModel : ViewModelBase, IRecipient<ProjectEditMessage>, IRecipient<ProjectDeleteMessage>
 {
     private readonly IProjectFacade _projectFacade;
     private readonly INavigationService _navigationService;
@@ -39,12 +40,12 @@ public partial class ProjectListViewModel : ViewModelBase
         await base.LoadDataAsync();
         Projects = await _projectFacade.GetAsync();
     }
-    public async void Receive(UserEditMessage message)
+    public async void Receive(ProjectEditMessage message)
     {
         await LoadDataAsync();
     }
 
-    public async void Receive(UserDeleteMessage message)
+    public async void Receive(ProjectDeleteMessage message)
     {
         await LoadDataAsync();
     }
