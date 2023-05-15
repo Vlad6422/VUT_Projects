@@ -30,7 +30,7 @@
                 VerticalOptions="Start"
                     HorizontalOptions="End"
                 HeightRequest="30"
-                Text="Delete"
+          
                 Command="{Binding DeleteCommand}"/>
         </Grid>
 

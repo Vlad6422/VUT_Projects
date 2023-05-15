@@ -73,6 +73,46 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Resources\Texts\ActivityDetailViewModelTexts.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ActivityDetailViewModelTexts.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Texts\ActivityDetailViewTexts.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ActivityDetailViewTexts.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Texts\ActivityEditViewTexts.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ActivityEditViewTexts.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Texts\ActivityListViewTexts.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ActivityListViewTexts.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Texts\AppShellTexts.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AppShellTexts.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Texts\UserEditViewTexts.Designer.cs">
+	    <DependentUpon>UserEditViewTexts.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Resources\Texts\UserDetailViewTexts.Designer.cs">
+	    <DependentUpon>UserDetailViewTexts.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Resources\Texts\UserListViewTexts.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>UserListViewTexts.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Activity\ActivityEditView.xaml.cs">
 	    <DependentUpon>ActivityEditView.xaml</DependentUpon>
 	  </Compile>
@@ -88,6 +128,41 @@
 	  <Compile Update="Views\User\UserListView.xaml.cs">
 	    <DependentUpon>UserListView.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Texts\ActivityDetailViewModelTexts.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ActivityDetailViewModelTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\ActivityDetailViewTexts.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ActivityDetailViewTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\ActivityEditViewTexts.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ActivityEditViewTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\ActivityListViewTexts.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ActivityListViewTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\AppShellTexts.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AppShellTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\UserEditViewTexts.resx">
+	    <LastGenOutput>UserEditViewTexts.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\UserDetailViewTexts.resx">
+	    <LastGenOutput>UserDetailViewTexts.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Texts\UserListViewTexts.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>UserListViewTexts.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

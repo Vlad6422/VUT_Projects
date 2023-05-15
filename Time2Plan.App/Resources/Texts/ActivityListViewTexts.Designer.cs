@@ -77,14 +77,5 @@ namespace Time2Plan.App.Resources.Texts {
                 return ResourceManager.GetString("Page_Title", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activities.
-        /// </summary>
-        internal static string Title_Label {
-            get {
-                return ResourceManager.GetString("Title_Label", resourceCulture);
-            }
-        }
     }
 }

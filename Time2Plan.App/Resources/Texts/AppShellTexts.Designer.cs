@@ -63,9 +63,54 @@ namespace Time2Plan.App.Resources.Texts {
         /// <summary>
         ///   Looks up a localized string similar to Activities.
         /// </summary>
-        internal static string Projects_Tab_Title{
+        internal static string Activities_Tab_Title {
+            get {
+                return ResourceManager.GetString("Activities_Tab_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Add_Button_Text {
+            get {
+                return ResourceManager.GetString("Add_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Delete_Button_Text {
+            get {
+                return ResourceManager.GetString("Delete_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string Edit_Button_Text {
+            get {
+                return ResourceManager.GetString("Edit_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects.
+        /// </summary>
+        internal static string Projects_Tab_Title {
             get {
                 return ResourceManager.GetString("Projects_Tab_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Save_Button_Text {
+            get {
+                return ResourceManager.GetString("Save_Button_Text", resourceCulture);
             }
         }
         

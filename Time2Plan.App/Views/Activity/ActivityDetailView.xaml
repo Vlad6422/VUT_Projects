@@ -4,6 +4,7 @@
                         x:Class="Time2Plan.App.Views.Activity.ActivityDetailView"
                         xmlns:views="clr-namespace:Time2Plan.App.Views" 
                         xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
                         x:DataType="vm:ActivityDetailViewModel"
                         x:Name="ActivityDetailViewRoot"
                         Title="ActivityDetailView"
@@ -21,7 +22,7 @@
                     HorizontalOptions="End"
                 HeightRequest="30"
                     WidthRequest="80"
-                Text="Edit"
+                Text="{x:Static t:ActivityDetailViewTexts.Edit_Button_Text}"
                 Command="{Binding GoToEditCommand}"/>
 
             <Button Style="{StaticResource ButtonRemove}"
@@ -29,7 +30,7 @@
                 VerticalOptions="Start"
                     HorizontalOptions="End"
                 HeightRequest="30"
-                Text="Delete"
+                Text="{x:Static t:ActivityDetailViewTexts.Delete_Button_Text}"
                 Command="{Binding DeleteCommand}"/>
         </Grid>
 
@@ -42,20 +43,20 @@
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="Type:" />
+                <Label Text="{x:Static t:ActivityDetailViewTexts.Type_label}" />
                     <Label Text="{Binding Activity.Type}" FontSize="Medium"/>
 
-                    <Label Text="Start:"/>
+                    <Label Text="{x:Static t:ActivityDetailViewTexts.Start_label}"/>
                     <Label Text="{Binding Activity.Start}" FontSize="Medium"/>
 
-                    <Label Text="End:"/>
+                    <Label Text="{x:Static t:ActivityDetailViewTexts.End_label}"/>
                     <Label Text="{Binding Activity.End}" FontSize="Medium"/>
 
-                    <Label Text="Tag:" />
+                    <Label Text="{x:Static t:ActivityDetailViewTexts.Tag_label}" />
                     <Label Text="{Binding Activity.Tag}" FontSize="Medium"/>
 
-                    <Label Text="Description" />
-                <Label Text="{Binding Activity.Description}" FontSize="Medium"/>
+                    <Label Text="{x:Static t:ActivityDetailViewTexts.Description_label}" />
+                    <Label Text="{Binding Activity.Description}" FontSize="Medium"/>
             </VerticalStackLayout>
         </Grid>
     </Grid>
