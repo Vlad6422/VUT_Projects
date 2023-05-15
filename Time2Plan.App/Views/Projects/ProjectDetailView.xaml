@@ -44,10 +44,10 @@
                                  Spacing="10"
                                  WidthRequest="1000">
                 <Label Text="Name:" />
-                <Label Text="{Binding Project.Name}" FontSize="32" />
+                <Label Text="{Binding Project.Name}" FontSize="Medium" />
         
                 <Label Text="Description:" />
-                <Label Text="{Binding Project.Description}" FontSize="32" />
+                <Label Text="{Binding Project.Description}" FontSize="Medium" />
             </VerticalStackLayout>
         </Grid>
     </Grid>

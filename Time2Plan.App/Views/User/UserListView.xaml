@@ -73,10 +73,17 @@
             </CollectionView>
         </Grid>
 
-        <Button Style="{StaticResource ButtonAdd}"
-                Grid.Row="0"
+        <HorizontalStackLayout HorizontalOptions="End">
+            <Button Style="{StaticResource ButtonDefault}"
                 HorizontalOptions="End" VerticalOptions="Start"
+                Text="Refresh"
+                Command="{Binding GoToRefreshCommand}"/>
+
+            <Button Style="{StaticResource ButtonAdd}"
+                HorizontalOptions="End" VerticalOptions="Start" Margin="10,0,0,0"
                 Text="Add"
                 Command="{Binding GoToCreateCommand}"/>
+        </HorizontalStackLayout>
+        
     </Grid>
 </views:ContentPageBase>

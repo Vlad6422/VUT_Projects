@@ -51,4 +51,10 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     {
         await LoadDataAsync();
     }
+
+    [RelayCommand]
+    private async Task GoToRefreshAsync()
+    {
+        await LoadDataAsync();
+    }
 }

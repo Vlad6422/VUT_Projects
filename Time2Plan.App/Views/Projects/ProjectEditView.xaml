@@ -26,7 +26,7 @@
             </Grid>
             <Grid Grid.Row="1"
                   HorizontalOptions="Fill" VerticalOptions="Start"
-                  RowDefinitions="170, *" ColumnDefinitions="Auto, *"
+                  RowDefinitions="100, *" ColumnDefinitions="Auto, *"
                   RowSpacing="20" ColumnSpacing="20">
             <VerticalStackLayout Grid.Row="1"
                                  Grid.RowSpan="2"
