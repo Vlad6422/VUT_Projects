@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Time2Plan.DAL.Entities;
 
 namespace Time2Plan.DAL.Seeds;
@@ -40,7 +35,7 @@ public static class UserSeeds
     }
     public static void Seed(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<UserEntity>().HasData(
-            StepanUser, 
+            StepanUser,
             AnnaUser,
             PatrickUser
         );

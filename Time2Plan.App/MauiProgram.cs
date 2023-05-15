@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui;
-using Time2Plan.BL;
 using Time2Plan.App.Services;
+using Time2Plan.BL;
 
 namespace Time2Plan.App
 {
@@ -18,10 +18,10 @@ namespace Time2Plan.App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-             builder.Services
-                 .AddDALServices(builder.Configuration)
-                 .AddAppServices()
-                 .AddBLServices();
+            builder.Services
+                .AddDALServices(builder.Configuration)
+                .AddAppServices()
+                .AddBLServices();
 
             var app = builder.Build();
 

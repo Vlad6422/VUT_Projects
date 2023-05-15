@@ -4,8 +4,8 @@ namespace Time2Plan.App.Views.Activity;
 
 public partial class ActivityDetailView
 {
-	public ActivityDetailView(ActivityDetailViewModel viewModel) : base(viewModel)
-	{
-		InitializeComponent();
-	}
+    public ActivityDetailView(ActivityDetailViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
 }

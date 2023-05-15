@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Time2Plan.App.Messages;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
-public partial  class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>,IRecipient<ActivityDeleteMessage>
+public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>
 {
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;

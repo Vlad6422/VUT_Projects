@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Time2Plan.BL.Mappers;
+﻿namespace Time2Plan.BL.Mappers;
 
 public abstract class
     ModelMapperBase<TEntity, TListModel, TDetailModel> : IModelMapper<TEntity, TListModel, TDetailModel>

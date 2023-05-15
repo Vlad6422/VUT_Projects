@@ -9,19 +9,19 @@ namespace Time2Plan.App.ViewModels;
 [QueryProperty(nameof(Project), nameof(Project))]
 public partial class ProjectEditViewModel : ViewModelBase
 {
-	private readonly IProjectFacade _ProjectFacade;
-	private readonly INavigationService _navigationService;
+    private readonly IProjectFacade _ProjectFacade;
+    private readonly INavigationService _navigationService;
 
-	public ProjectDetailModel Project { get; init; } = ProjectDetailModel.Empty;
-	public ProjectEditViewModel(
-		IProjectFacade ProjectFacade,
-		INavigationService navigationService,
-		IMessengerService messengerService)
-		: base(messengerService)
-	{
-		_ProjectFacade = ProjectFacade;
-		_navigationService = navigationService;
-	}
+    public ProjectDetailModel Project { get; init; } = ProjectDetailModel.Empty;
+    public ProjectEditViewModel(
+        IProjectFacade ProjectFacade,
+        INavigationService navigationService,
+        IMessengerService messengerService)
+        : base(messengerService)
+    {
+        _ProjectFacade = ProjectFacade;
+        _navigationService = navigationService;
+    }
 
     [RelayCommand]
     private async Task SaveAsync()

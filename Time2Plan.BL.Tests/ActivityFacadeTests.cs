@@ -32,7 +32,7 @@ public class ActivityFacadeTests : FacadeTestBase
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
         var activityFromDb = await dbxAssert.Activities.SingleAsync(i => i.Id == activity.Id);
-       
+
         DeepAssert.Equal(activity, ActivityModelMapper.MapToDetailModel(activityFromDb));
     }
 
@@ -78,7 +78,7 @@ public class ActivityFacadeTests : FacadeTestBase
     }
 
     [Fact]
-    public async Task GetFilterAsyncDatesAll() 
+    public async Task GetFilterAsyncDatesAll()
     {
         var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
         var toDate = new DateTime(2022, 12, 30);
@@ -99,7 +99,7 @@ public class ActivityFacadeTests : FacadeTestBase
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.ThisYearActivity), activity);
     }
-    
+
 
     [Fact]
     public async Task GetById_SeededCode()

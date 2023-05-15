@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Time2Plan.App.Services;
+using Time2Plan.App.Shells;
 using Time2Plan.App.ViewModels;
 using Time2Plan.App.Views;
-using Time2Plan.App.Shells;
 
 namespace Time2Plan.App;
 
@@ -29,7 +29,7 @@ public static class AppInstaller
             .AsSelfWithInterfaces()
             .WithTransientLifetime());
 
-        services.AddTransient<INavigationService,NavigationService> ();
+        services.AddTransient<INavigationService, NavigationService>();
 
         return services;
     }
