@@ -6,14 +6,14 @@ using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
-[QueryProperty(nameof(Id), nameof(Id))]
+[QueryProperty(nameof(Activity), nameof(Activity))]
 public partial class ActivityEditViewModel : ViewModelBase
 {
 	private readonly IActivityFacade _activityFacade;
 	private readonly INavigationService _navigationService;
 
-	public Guid Id { get; set; }
-	public ActivityDetailModel Activity { get; set; }
+	public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
+
 	public ActivityEditViewModel(
 		IActivityFacade activityFacade,
 		INavigationService navigationService,
