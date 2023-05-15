@@ -54,13 +54,13 @@
                                  Spacing="10"
                                  WidthRequest="1000">
                 <Label Text="Name: "/>
-                <Label Text="{Binding User.Name}" FontSize="Large"/>
+                <Label Text="{Binding User.Name}" FontSize="Medium"/>
 
                 <Label Text="Surname: "/>
-                <Label Text="{Binding User.Surname}" FontSize="Large"/>
+                <Label Text="{Binding User.Surname}" FontSize="Medium"/>
 
                 <Label Text="NickName: "/>
-                <Label Text="{Binding User.NickName, TargetNullValue= {Binding User.Name}}" FontSize="Large"/>
+                <Label Text="{Binding User.NickName}" FontSize="Medium"/>
                 
             </VerticalStackLayout>
         </Grid>
