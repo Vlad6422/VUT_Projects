@@ -49,4 +49,10 @@ public partial class ProjectListViewModel : ViewModelBase, IRecipient<ProjectEdi
     {
         await LoadDataAsync();
     }
+
+    [RelayCommand]
+    private async Task GoToRefreshAsync()
+    {
+        await LoadDataAsync();
+    }
 }
