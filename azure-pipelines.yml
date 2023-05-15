@@ -11,13 +11,13 @@ pool:
 
 steps:
 
-- task: NuGetCommand@2
-  displayName: NuGet v2 Restore
-  inputs:
-    command: restore                      
-    restoreSolution: '**/*.sln'             ## Required when command = restore. Path to solution, packages.config, or project.json. Default: **/*.sln.
-    feedsToUse: 'select'                    ## Required. Feeds to use. 'select' | 'config'. Alias: selectOrConfig. Default: select.
-    includeNuGetOrg: true                   ## Use packages from upstream (NuGet.org)
+#- task: NuGetCommand@2
+#  displayName: NuGet v2 Restore
+#  inputs:
+#    command: restore                      
+#    restoreSolution: '**/*.sln'             ## Required when command = restore. Path to solution, packages.config, or project.json. Default: **/*.sln.
+#    feedsToUse: 'select'                    ## Required. Feeds to use. 'select' | 'config'. Alias: selectOrConfig. Default: select.
+#    includeNuGetOrg: true                   ## Use packages from upstream (NuGet.org)
 
 #needs to run only once
 #command to include the .NET 7 SDK
@@ -27,9 +27,9 @@ steps:
     packageType: sdk
     version: 7.x
 #command to include maui
-#- task: CmdLine@2
-#  inputs:
-#    script: 'dotnet workload install maui'
+- task: CmdLine@2
+  inputs:
+    script: 'dotnet workload install maui'
 
 - task: DotNetCoreCLI@2
   name: 'Build'
