@@ -2,21 +2,14 @@
 
 public record DALOptions
 {
-    public LocalDbOptions? LocalDb { get; init; }
-    public SqliteOptions? Sqlite { get; init; }
-}
-
-public record LocalDbOptions
-{
-    public bool Enabled { get; init; }
-    public string ConnectionString { get; init; } = null!;
+    public SqliteOptions Sqlite = new SqliteOptions();
 }
 
 public record SqliteOptions
 {
-    public bool Enabled { get; init; }
+    public bool Enabled { get; init; } = true;
 
-    public string DatabaseName { get; init; } = null!;
+    public string DatabaseName { get; init; } = "time2plan.db";
     /// <summary>
     /// Deletes database before application startup
     /// </summary>
@@ -25,5 +18,5 @@ public record SqliteOptions
     /// <summary>
     /// Seeds DemoData from DbContext on database creation.
     /// </summary>
-    public bool SeedDemoData { get; init; } = false;
+    public bool SeedDemoData { get; init; } = true;
 }

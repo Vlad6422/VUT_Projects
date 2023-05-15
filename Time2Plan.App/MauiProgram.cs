@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using Microsoft.Extensions.Configuration;
-using System.Reflection;
 using Time2Plan.BL;
 using Time2Plan.App.Services;
 
@@ -20,8 +18,6 @@ namespace Time2Plan.App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-                ConfigureAppSettings(builder);
-
              builder.Services
                  .AddDALServices(builder.Configuration)
                  .AddAppServices()
@@ -33,22 +29,6 @@ namespace Time2Plan.App
             RegisterRouting(app.Services.GetRequiredService<INavigationService>());
 
             return app;
-        }
-
-        private static void ConfigureAppSettings(MauiAppBuilder builder)
-        {
-            var configurationBuilder = new ConfigurationBuilder();
-
-            var assembly = Assembly.GetExecutingAssembly();
-            const string appSettingsFilePath = "Time2Plan.App.AppSettings.json";
-            using var appSettingsStream = assembly.GetManifestResourceStream(appSettingsFilePath);
-            if (appSettingsStream is not null)
-            {
-                configurationBuilder.AddJsonStream(appSettingsStream);
-            }
-
-            var configuration = configurationBuilder.Build();
-            builder.Configuration.AddConfiguration(configuration);
         }
 
         private static void RegisterRouting(INavigationService navigationService)
