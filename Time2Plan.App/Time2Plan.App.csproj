@@ -46,6 +46,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\appicon.png" />
+	  <None Remove="Resources\Images\refresh_icon.png" />
 	  <None Remove="Resources\Images\user_default.png" />
 	</ItemGroup>
 
