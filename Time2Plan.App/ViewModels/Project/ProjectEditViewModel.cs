@@ -6,13 +6,12 @@ using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
-[QueryProperty(nameof(Id), nameof(Id))]
+[QueryProperty(nameof(Project), nameof(Project))]
 public partial class ProjectEditViewModel : ViewModelBase
 {
 	private readonly IProjectFacade _ProjectFacade;
 	private readonly INavigationService _navigationService;
 
-	public Guid Id { get; set; }
 	public ProjectDetailModel Project { get; set; }
 	public ProjectEditViewModel(
 		IProjectFacade ProjectFacade,
