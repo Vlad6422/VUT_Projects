@@ -8,20 +8,55 @@
                         x:Name="ActivityDetailViewRoot"
                         Title="ActivityDetailView"
                         Style="{StaticResource ContentPageStyle}">
-    <VerticalStackLayout>
-        <Label Text="Type:" />
-        <Label Text="{Binding Activity.Type}" FontSize="32"/>
 
-        <Label Text="Start:"/>
-        <Label Text="{Binding Activity.Start}" FontSize="32"/>
+    <Grid RowDefinitions="100, *">
+        <Grid Grid.Column="1"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="10"
+              Padding="20, 0">
 
-        <Label Text="End:"/>
-        <Label Text="{Binding Activity.End}" FontSize="32"/>
+            <Button Style="{StaticResource ButtonEdit}"
+                Grid.Column="0"
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                    WidthRequest="80"
+                Text="Edit"
+                Command="{Binding GoToEditCommand}"/>
 
-        <Label Text="Tag:" />
-        <Label Text="{Binding Activity.Tag}" FontSize="32"/>
-        
-        <Label Text="Description" />
-        <Label Text="{Binding Activity.Description}" FontSize="32"/>
-    </VerticalStackLayout>
+            <Button Style="{StaticResource ButtonRemove}"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                Text="Delete"
+                Command="{Binding DeleteCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              ColumnDefinitions="Auto, *" >
+
+            <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Type:" />
+                    <Label Text="{Binding Activity.Type}" FontSize="Medium"/>
+
+                    <Label Text="Start:"/>
+                    <Label Text="{Binding Activity.Start}" FontSize="Medium"/>
+
+                    <Label Text="End:"/>
+                    <Label Text="{Binding Activity.End}" FontSize="Medium"/>
+
+                    <Label Text="Tag:" />
+                    <Label Text="{Binding Activity.Tag}" FontSize="Medium"/>
+
+                    <Label Text="Description" />
+                <Label Text="{Binding Activity.Description}" FontSize="Medium"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </views:ContentPageBase>

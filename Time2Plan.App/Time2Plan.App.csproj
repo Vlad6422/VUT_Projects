@@ -78,6 +78,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Activity\ActivityEditView.xaml.cs">
+	    <DependentUpon>ActivityEditView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ContentPageBase.xaml.cs">
 	    <DependentUpon>ContentPageBase.xaml</DependentUpon>
 	  </Compile>
@@ -94,6 +97,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\ContentPageStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Activity\ActivityEditView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Activity\ActivityDetailView.xaml">

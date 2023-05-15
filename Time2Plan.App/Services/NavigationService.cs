@@ -2,9 +2,7 @@
 using Time2Plan.App.ViewModels;
 using Time2Plan.App.Views.Activity;
 using Time2Plan.App.Views.Projects;
-//using Time2Plan.App.Views.Activity;
 using Time2Plan.App.Views.User;
-//using Time2Plan.App.Views.Project;
 
 namespace Time2Plan.App.Services;
 
@@ -14,25 +12,15 @@ namespace Time2Plan.App.Services;
     {
         new("//Users", typeof(UserListView), typeof(UserListViewModel)),
         new("//Users/edit", typeof(UserEditView), typeof(UserEditViewModel)),
-        //new("//Activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
-        //new("//Activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
-
-        //new("//Activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
-        //new("//Activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
-
-        //new("//Users", typeof(ProjectListView), typeof(ProjectListViewModel)),
         new("//Users/detail", typeof(UserDetailView), typeof(UserDetailViewModel)),
-
-        //new("//Users/edit", typeof(UserEditView), typeof(UserEditViewModel)),
-        //new("//Users/detail/edit", typeof(UserEditView), typeof(UserEditViewModel)),
-
-        //new("//Users/detail/edit/Activities", typeof(UserEditView), typeof(UserEditViewModel)),
 
         new("//Projects", typeof(ProjectListView), typeof(ProjectListViewModel)),
         new("//Projects/detail", typeof(ProjectDetailView), typeof(ProjectDetailViewModel)),
+        //new("//Projects/edit", typeof(ProjectEditView), typeof(ProjectEditViewModel)),
 
-        new("//Activity", typeof(ActivityListView), typeof(ActivityListViewModel)),
-        new("//Activity/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel))
+        new("//Activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
+        new("//Activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
+        new("//Activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
 
     };
 
