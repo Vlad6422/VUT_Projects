@@ -4,8 +4,8 @@ namespace Time2Plan.App.Views.Projects;
 
 public partial class ProjectListView
 {
-	public ProjectListView(ProjectListViewModel viewModel) : base(viewModel)
-	{
-		InitializeComponent();
-	}
+    public ProjectListView(ProjectListViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
 }

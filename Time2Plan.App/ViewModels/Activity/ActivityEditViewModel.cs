@@ -9,20 +9,20 @@ namespace Time2Plan.App.ViewModels;
 [QueryProperty(nameof(Activity), nameof(Activity))]
 public partial class ActivityEditViewModel : ViewModelBase
 {
-	private readonly IActivityFacade _activityFacade;
-	private readonly INavigationService _navigationService;
+    private readonly IActivityFacade _activityFacade;
+    private readonly INavigationService _navigationService;
 
-	public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
+    public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
 
-	public ActivityEditViewModel(
-		IActivityFacade activityFacade,
-		INavigationService navigationService,
-		IMessengerService messengerService)
-		: base(messengerService)
-	{
-		_activityFacade = activityFacade;
-		_navigationService = navigationService;
-	}
+    public ActivityEditViewModel(
+        IActivityFacade activityFacade,
+        INavigationService navigationService,
+        IMessengerService messengerService)
+        : base(messengerService)
+    {
+        _activityFacade = activityFacade;
+        _navigationService = navigationService;
+    }
 
     [RelayCommand]
     private async Task SaveAsync()

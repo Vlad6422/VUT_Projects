@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Time2Plan.DAL.Seeds;
 using Time2Plan.DAL.Entities;
+using Time2Plan.DAL.Seeds;
 
 namespace Time2Plan.DAL;
 

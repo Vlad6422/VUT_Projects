@@ -4,8 +4,8 @@ namespace Time2Plan.App.Views.Projects;
 
 public partial class ProjectDetailView
 {
-	public ProjectDetailView(ProjectDetailViewModel viewModel) : base(viewModel)
-	{
-		InitializeComponent();
-	}
+    public ProjectDetailView(ProjectDetailViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
 }

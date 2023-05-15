@@ -37,7 +37,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     [RelayCommand]
     private async Task DeleteAsync()
     {
-        if (Project is not null) 
+        if (Project is not null)
         {
             await _projectFacade.DeleteAsync(Project.Id);
 

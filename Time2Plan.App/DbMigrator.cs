@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Time2Plan.DAL;
 using Time2Plan.App.Options;
+using Time2Plan.DAL;
 
 namespace Time2Plan.App;
 
