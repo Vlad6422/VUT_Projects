@@ -123,4 +123,7 @@
   <data name="Add_Button_Text" xml:space="preserve">
     <value>Add Activity</value>
   </data>
+  <data name="Title_Label" xml:space="preserve">
+    <value>Activites</value>
+  </data>
 </root>
