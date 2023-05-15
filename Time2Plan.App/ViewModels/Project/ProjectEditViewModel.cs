@@ -12,7 +12,7 @@ public partial class ProjectEditViewModel : ViewModelBase
 	private readonly IProjectFacade _ProjectFacade;
 	private readonly INavigationService _navigationService;
 
-	public ProjectDetailModel Project { get; set; }
+	public ProjectDetailModel Project { get; init; } = ProjectDetailModel.Empty;
 	public ProjectEditViewModel(
 		IProjectFacade ProjectFacade,
 		INavigationService navigationService,
