@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Time2Plan.App.Views.User.UserDetailView"
+                       xmlns:views="clr-namespace:Time2Plan.App.Views"
+                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
+                        xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
+                        xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        x:DataType="vm:UserDetailViewModel"
+                        xmlns:models="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
+             Title="UserDetailView">
+
+    <Grid RowDefinitions="100, *">
+        <Grid Grid.Column="1"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="10"
+              Padding="20, 0">
+
+            <Button Style="{StaticResource ButtonEdit}"
+                Grid.Column="0"
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                    WidthRequest="80"
+                Text="Edit"
+                Command="{Binding GoToEditCommand}"/>
+
+            <Button Style="{StaticResource ButtonRemove}"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                Text="Delete"
+                Command="{Binding DeleteCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="2"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              RowDefinitions="170, *" ColumnDefinitions="Auto, *"
+              RowSpacing="20" ColumnSpacing="20">
+
+            <Image HorizontalOptions="Fill" 
+                   Grid.Column="1"
+                    VerticalOptions="Fill"
+                    Aspect="AspectFit"
+                    WidthRequest="320"
+                    BackgroundColor="white"
+                    Source="{Binding User.Photo, TargetNullValue='user_default.png'}"/>
+
+
+            <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Name: "/>
+                <Label Text="{Binding User.Name}" FontSize="Medium"/>
+
+                <Label Text="Surname: "/>
+                <Label Text="{Binding User.Surname}" FontSize="Medium"/>
+
+                <Label Text="NickName: "/>
+                <Label Text="{Binding User.NickName}" FontSize="Medium"/>
+                
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</views:ContentPageBase>

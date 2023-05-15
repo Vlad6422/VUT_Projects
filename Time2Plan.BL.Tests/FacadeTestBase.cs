@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Time2Plan.BL.Mappers;
-using Time2Plan.BL.Mappers.Interfaces;
+using Time2Plan.BL.Mappers;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Factories;
 using Time2Plan.DAL;
@@ -26,9 +26,9 @@ public class FacadeTestBase : IAsyncLifetime
         UserEntityMapper = new UserEntityMapper();
 
         ActivityModelMapper = new ActivityModelMapper();
-        ProjectModelMapper = new ProjectModelMapper(ActivityModelMapper);
-        UserModelMapper = new UserModelMapper(ActivityModelMapper);
         UserProjectModelMapper = new UserProjectModelMapper();
+        ProjectModelMapper = new ProjectModelMapper(UserProjectModelMapper,ActivityModelMapper);
+        UserModelMapper = new UserModelMapper(UserProjectModelMapper,ActivityModelMapper);
 
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
     }

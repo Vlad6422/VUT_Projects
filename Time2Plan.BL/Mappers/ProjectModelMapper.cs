@@ -1,5 +1,4 @@
-﻿using Time2Plan.BL.Mappers.Interfaces;
-using Time2Plan.BL.Models;
+﻿using Time2Plan.BL.Models;
 using Time2Plan.DAL.Entities;
 
 namespace Time2Plan.BL.Mappers;
@@ -9,11 +8,11 @@ public class ProjectModelMapper : ModelMapperBase<ProjectEntity, ProjectListMode
     private readonly IUserProjectModelMapper? _userProjectModelMapper;
     private readonly IActivityModelMapper? _activityModelMapper;
 
-    public ProjectModelMapper(IUserProjectModelMapper userProjectModelMapper) =>
+    public ProjectModelMapper(IUserProjectModelMapper userProjectModelMapper, IActivityModelMapper activityModelMapper)
+    {
         _userProjectModelMapper = userProjectModelMapper;
-
-    public ProjectModelMapper(IActivityModelMapper activityModelMapper) =>
         _activityModelMapper = activityModelMapper;
+    }
 
     public override ProjectListModel MapToListModel(ProjectEntity? entity)
         => entity is null

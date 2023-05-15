@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:views="clr-namespace:Time2Plan.App.Views"
+                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
+                        xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
+                        xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        x:Class="Time2Plan.App.Views.Projects.ProjectListView"
+                        Title="ProjectListView"
+                        x:DataType="vm:ProjectListViewModel"
+                        x:Name="ProjectListViewRoot"
+                        Style="{StaticResource ContentPageStyle}">
+    <Grid>
+        <Grid HorizontalOptions="FillAndExpand"
+              RowDefinitions="auto, *"
+              RowSpacing="50">
+        <VerticalStackLayout Grid.Row="1">
+        <CollectionView ItemsSource="{Binding Projects}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:ProjectListModel">
+                    <Frame Padding="0" CornerRadius="10" >
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference ProjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                      CommandParameter="{Binding Id}" />
+                        </Frame.GestureRecognizers>
+                        <Label  Grid.Row="0"
+                                Padding="0, 10"
+                                FontSize="20" LineBreakMode="WordWrap"
+                                FontAttributes="Bold"
+                                BackgroundColor="{StaticResource BackgroundOfText}" 
+                                TextColor="White" VerticalOptions="Start" HorizontalTextAlignment="Center">
+                            <Label.Text>
+                                <Binding Path="Name"/>
+                            </Label.Text>
+                        </Label>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+        </Grid>
+
+        <Button Style="{StaticResource ButtonAdd}"
+        Grid.Column="1" Grid.Row="0"
+        HorizontalOptions="End" VerticalOptions="Start"
+        Text="Add"
+        Command="{Binding GoToCreateCommand}"/>
+
+</Grid>
+</views:ContentPageBase>

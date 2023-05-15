@@ -1,4 +1,4 @@
-﻿using Time2Plan.BL.Mappers.Interfaces;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Time2Plan.BL.Models;
 using Time2Plan.DAL.Entities;
 
@@ -9,11 +9,12 @@ public class UserModelMapper : ModelMapperBase<UserEntity, UserListModel, UserDe
 {
     private readonly IUserProjectModelMapper? _userProjectModelMapper;
     private readonly IActivityModelMapper? _activityModelMapper;
-    public UserModelMapper(IUserProjectModelMapper userProjectModelMapper)
-        => _userProjectModelMapper = userProjectModelMapper;
 
-    public UserModelMapper(IActivityModelMapper activityModelMapper)
-        => _activityModelMapper = activityModelMapper;
+    public UserModelMapper(IUserProjectModelMapper userProjectModelMapper, IActivityModelMapper activityModelMapper)
+    {
+        _userProjectModelMapper = userProjectModelMapper;
+        _activityModelMapper = activityModelMapper;
+    }
 
     public override UserListModel MapToListModel(UserEntity? entity)
         => entity is null

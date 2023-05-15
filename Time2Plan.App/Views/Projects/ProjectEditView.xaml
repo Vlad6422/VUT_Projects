@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:views="clr-namespace:Time2Plan.App.Views"
+                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
+                        xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
+                        xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        x:Class="Time2Plan.App.Views.Projects.ProjectEditView"
+                        x:Name="ProjectEditViewRoot"
+                        x:DataType="vm:ProjectEditViewModel"
+                        Style="{StaticResource ContentPageStyle}"
+                        Title = "Project create/edit">
+
+
+<Grid RowDefinitions="70, *">
+            <Grid Grid.Row="0"
+                  ColumnDefinitions="*, Auto"
+                  ColumnSpacing="15">
+
+                <Button Style="{StaticResource ButtonAdd}"
+                    Grid.Column="1"
+                    VerticalOptions="Start"
+                    HeightRequest="30"
+                    Text="Save"
+                    Command="{Binding SaveCommand}"/>
+            </Grid>
+            <Grid Grid.Row="1"
+                  HorizontalOptions="Fill" VerticalOptions="Start"
+                  RowDefinitions="100, *" ColumnDefinitions="Auto, *"
+                  RowSpacing="20" ColumnSpacing="20">
+            <VerticalStackLayout Grid.Row="1"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Name:" />
+                <Entry Text="{Binding Project.Name}"
+                       HorizontalOptions="Fill"
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+        
+                <Label Text="Description:" />
+                <Entry Text="{Binding Project.Description}"
+                       HorizontalOptions="Fill"
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</views:ContentPageBase>

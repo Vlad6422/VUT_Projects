@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
+    xmlns:u="clr-namespace:Time2Plan.App.Views.User"
+    xmlns:a="clr-namespace:Time2Plan.App.Views.Activity"
+    xmlns:p="clr-namespace:Time2Plan.App.Views.Projects"
+    x:Class="Time2Plan.App.Shells.AppShell"
+    x:Name="AppShellRoot"
+    FlyoutBehavior="Disabled">
+    <TabBar>
+        <Tab Title="Users">
+            <ShellContent 
+                Title="Users"
+                ContentTemplate="{DataTemplate u:UserListView}"
+                Route="Users"/>
+        </Tab>
+        <Tab Title="Activities">
+            <ShellContent 
+                Title="Activities"
+                ContentTemplate="{DataTemplate a:ActivityListView}"
+                Route="Activities"/>
+        </Tab>
+        <Tab Title="Projects">
+             <ShellContent 
+                 Title="Projects"
+                 ContentTemplate="{DataTemplate p:ProjectListView}"
+                 Route="Projects"/>
+        </Tab>
+    </TabBar>
+    
+</Shell>

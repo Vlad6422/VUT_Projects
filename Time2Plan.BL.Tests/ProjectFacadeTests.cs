@@ -1,8 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Time2Plan.BL.Facades;
-using Time2Plan.BL.Facades.Interfaces;
-using Time2Plan.BL.Mappers;
 using Time2Plan.BL.Models;
 using Time2Plan.Common.Tests;
 using Time2Plan.Common.Tests.Seeds;
@@ -14,10 +11,10 @@ namespace Time2Plan.BL.Tests;
 
 public sealed class ProjectFacadeTest : FacadeTestBase
 {
-    private readonly IProjectFacade _projectFasadeSUT;
+    private readonly IProjectFacade _ProjectFacadeSUT;
     public ProjectFacadeTest(ITestOutputHelper output) : base(output)
     {
-        _projectFasadeSUT = new ProjectFasade(UnitOfWorkFactory, ProjectModelMapper);
+        _ProjectFacadeSUT = new ProjectFacade(UnitOfWorkFactory, ProjectModelMapper);
     }
 
     [Fact]
@@ -31,7 +28,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         };
 
         //Act
-        project = await _projectFasadeSUT.SaveAsync(project);
+        project = await _ProjectFacadeSUT.SaveAsync(project);
 
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
@@ -42,7 +39,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     [Fact]
     public async Task GetById_Single_ProjectAlpha()
     {
-        var projects = await _projectFasadeSUT.GetAsync();
+        var projects = await _ProjectFacadeSUT.GetAsync();
         var project = projects.Single(i => i.Id == ProjectSeeds.ProjectAlpha.Id);
         DeepAssert.Equal(ProjectModelMapper.MapToListModel(ProjectSeeds.ProjectAlpha), project);
     }
@@ -50,7 +47,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     [Fact]
     public async Task GetById_ProjectAlpha()
     {
-        var project = await _projectFasadeSUT.GetAsync(ProjectSeeds.ProjectAlpha.Id);
+        var project = await _ProjectFacadeSUT.GetAsync(ProjectSeeds.ProjectAlpha.Id);
         DeepAssert.Equal(ProjectModelMapper.MapToDetailModel(ProjectSeeds.ProjectAlpha), project);
     }
 
@@ -58,7 +55,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     public async Task ProjectAlpha_DeleteById_Deleted()
     {
         var projectId = ProjectSeeds.ProjectAlphaDelete.Id;
-        await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectAlphaDelete.Id);
+        await _ProjectFacadeSUT.DeleteAsync(ProjectSeeds.ProjectAlphaDelete.Id);
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
         Assert.False(await dbxAssert.Projects.AnyAsync<ProjectEntity>(i => i.Id == projectId));
     }
@@ -67,7 +64,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
     public async Task Delete_Project_With_Activities()
     {
         var projectId = ProjectSeeds.ProjectWithActivitiesDelete.Id;
-        await _projectFasadeSUT.DeleteAsync(ProjectSeeds.ProjectWithActivitiesDelete.Id);
+        await _ProjectFacadeSUT.DeleteAsync(ProjectSeeds.ProjectWithActivitiesDelete.Id);
 
 
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
@@ -88,7 +85,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         };
 
         //Act
-        project = await _projectFasadeSUT.SaveAsync(project);
+        project = await _ProjectFacadeSUT.SaveAsync(project);
 
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
@@ -110,7 +107,7 @@ public sealed class ProjectFacadeTest : FacadeTestBase
         project.Description += "updated";
 
         //Act
-        project = await _projectFasadeSUT.SaveAsync(project);
+        project = await _ProjectFacadeSUT.SaveAsync(project);
 
         //Assert
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();

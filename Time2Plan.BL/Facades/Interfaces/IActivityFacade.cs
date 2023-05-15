@@ -2,7 +2,7 @@
 using Time2Plan.DAL.Entities;
 using static Time2Plan.BL.Facades.ActivityFacade;
 
-namespace Time2Plan.BL.Facades.Interfaces;
+namespace Time2Plan.BL.Facades;
 
 public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, ActivityDetailModel>
 {

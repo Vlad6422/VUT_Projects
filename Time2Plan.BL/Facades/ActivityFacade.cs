@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Time2Plan.BL.Facades.Interfaces;
-using Time2Plan.BL.Mappers.Interfaces;
+using Time2Plan.BL.Mappers;
 using Time2Plan.BL.Models;
 using Time2Plan.DAL.Entities;
 using Time2Plan.DAL.Mappers;

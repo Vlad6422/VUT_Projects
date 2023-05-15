@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:views="clr-namespace:Time2Plan.App.Views"
+                        xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
+                        xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
+                        xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        x:Class="Time2Plan.App.Views.Activity.ActivityEditView"
+                        x:Name="ActivityEditViewRoot"
+                        x:DataType="vm:ActivityEditViewModel"
+                        Style="{StaticResource ContentPageStyle}"
+                        Title = "Activity create/edit">
+
+    <Grid>
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="15">
+
+            <Button Style="{StaticResource ButtonAdd}"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                HeightRequest="30"
+                Text="Save"
+                Command="{Binding SaveCommand}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              RowDefinitions="100, *" ColumnDefinitions="Auto, *">
+
+            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                <Label Text="Type"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Type}" 
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="Tag"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Tag}"
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="Start time"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Start}"
+                       TextColor="Black"
+                       BackgroundColor="LightGray" />
+
+                <Label Text="End time"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.End}"
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+
+                <Label Text="Description"/>
+                <Entry HorizontalOptions="Fill"
+                       Text="{Binding Activity.Description}"
+                       TextColor="Black"
+                       BackgroundColor="LightGray"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</views:ContentPageBase>
