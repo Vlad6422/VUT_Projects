@@ -34,11 +34,12 @@ public partial  class ActivityListViewModel : ViewModelBase, IRecipient<Activity
 
         Activities = await _activityFacade.GetAsync();
     }
-   /* [RelayCommand]
+
+    [RelayCommand]
     private async Task GoToCreateAsync()
     {
         await _navigationService.GoToAsync("/edit");
-    }*/
+    }
 
     [RelayCommand]
     private async Task GoToDetailAsync(Guid id)
