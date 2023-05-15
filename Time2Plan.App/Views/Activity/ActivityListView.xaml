@@ -18,7 +18,7 @@
             <CollectionView ItemsSource="{Binding Activities}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:ActivityListModel">
-                        <Frame Padding="0" CornerRadius="10">
+                            <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                                           CommandParameter="{Binding Id}" />
