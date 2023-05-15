@@ -29,7 +29,7 @@ public static class ProjectSeeds
     public static readonly ProjectEntity ProjectWithActivities = new()
     {
         Id = Guid.NewGuid(),
-        Name = "Pojrect with activities",
+        Name = "Project with activities",
         Description = "Coding and running"
     };
 
