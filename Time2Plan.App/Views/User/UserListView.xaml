@@ -19,7 +19,7 @@
               >
             <Label Grid.Row="0"
                    FontSize="24"
-                   Text="Users:" />
+                   Text="{x:Static t:UserListViewTexts.Title_Label}" />
 
             <CollectionView Grid.Row="1" ItemsSource="{Binding Users}"
                             VerticalOptions="StartAndExpand">
@@ -84,7 +84,6 @@
             
             <Button Style="{StaticResource ButtonAdd}"
                 HorizontalOptions="End" VerticalOptions="Start"
-                Text="Add"
                 Command="{Binding GoToCreateCommand}"/>
         </HorizontalStackLayout>
         

@@ -88,6 +88,15 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        internal static string Photo_Label_Text {
+            get {
+                return ResourceManager.GetString("Photo_Label_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Surname.
         /// </summary>
         internal static string Surname_Label_Text {

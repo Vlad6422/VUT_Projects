@@ -129,4 +129,7 @@
   <data name="Surname_Label_Text" xml:space="preserve">
     <value>Surname</value>
   </data>
+  <data name="Photo_Label_Text" xml:space="preserve">
+    <value>Photo</value>
+  </data>
 </root>

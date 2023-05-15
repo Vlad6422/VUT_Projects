@@ -9,18 +9,17 @@
                         x:Name="UserEditViewRoot"
                         x:DataType="vm:UserEditViewModel"
                         Style="{StaticResource ContentPageStyle}"
-                        Title = "User create/edit">
+                        Title = "{x:Static t:UserEditViewTexts.Page_Title}">
 
     <Grid RowDefinitions="70, *">
         <Grid Grid.Row="0"
               ColumnDefinitions="*, Auto"
               ColumnSpacing="15">
 
-            <Button Style="{StaticResource ButtonAdd}"
+            <Button Style="{StaticResource ButtonSave}"
                 Grid.Column="1"
                 VerticalOptions="Start"
                 HeightRequest="30"
-                Text="Save"
                 Command="{Binding SaveCommand}"/>
         </Grid>
         <Grid Grid.Row="1"
@@ -42,27 +41,28 @@
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="Name"/>
+                <Label Text="{x:Static t:UserEditViewTexts.Name_Label_Text}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.Name}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="Surname"/>
+                <Label Text="{x:Static t:UserEditViewTexts.Surname_Label_Text}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.Surname}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="NickName"/>
+                <Label Text="{x:Static t:UserEditViewTexts.Nickname_Label_Text}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.NickName}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="Photo"/>
+                <Label Text="{x:Static t:UserEditViewTexts.Photo_Label_Text}"/>
                 <Entry HorizontalOptions="Fill"
                        Text="{Binding User.Photo}" 
+                       TextColor="Black"
                        BackgroundColor="LightGray"/>
             </VerticalStackLayout>
         </Grid>

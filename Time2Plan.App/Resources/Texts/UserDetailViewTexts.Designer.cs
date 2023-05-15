@@ -61,24 +61,6 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        internal static string Delete_Button_Text {
-            get {
-                return ResourceManager.GetString("Delete_Button_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
-        internal static string Edit_Button_Text {
-            get {
-                return ResourceManager.GetString("Edit_Button_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name_Label_Text {
@@ -102,6 +84,15 @@ namespace Time2Plan.App.Resources.Texts {
         internal static string Page_Title {
             get {
                 return ResourceManager.GetString("Page_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        internal static string Photo_Label_Text {
+            get {
+                return ResourceManager.GetString("Photo_Label_Text", resourceCulture);
             }
         }
         

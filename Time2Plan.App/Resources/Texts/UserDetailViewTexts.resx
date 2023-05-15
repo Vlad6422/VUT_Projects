@@ -120,12 +120,6 @@
   <data name="Page_Title" xml:space="preserve">
     <value>Time2Plan</value>
   </data>
-  <data name="Delete_Button_Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Edit_Button_Text" xml:space="preserve">
-    <value>Edit</value>
-  </data>
   <data name="Name_Label_Text" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -134,5 +128,8 @@
   </data>
   <data name="Surname_Label_Text" xml:space="preserve">
     <value>Surname</value>
+  </data>
+  <data name="Photo_Label_Text" xml:space="preserve">
+    <value>Photo</value>
   </data>
 </root>
