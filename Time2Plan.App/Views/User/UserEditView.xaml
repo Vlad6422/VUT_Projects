@@ -5,6 +5,7 @@
                         xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
                         xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                         xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        xmlns:converters="clr-namespace:Time2Plan.App.Converters"
                         x:Class="Time2Plan.App.Views.User.UserEditView"
                         x:Name="UserEditViewRoot"
                         x:DataType="vm:UserEditViewModel"
@@ -20,7 +21,9 @@
                 Grid.Column="1"
                 VerticalOptions="Start"
                 HeightRequest="30"
-                Command="{Binding SaveCommand}"/>
+                Command="{Binding SaveCommand}"
+                IsEnabled="{Binding Text, Source={x:Reference NameIsOn,SurnameIsOn,NickNameIsOn}, Converter={StaticResource NotEmptyConverter}}"/>
+            
         </Grid>
         <Grid Grid.Row="1"
               HorizontalOptions="Fill" VerticalOptions="Start"
@@ -42,19 +45,23 @@
                                  Spacing="10"
                                  WidthRequest="1000">
                 <Label Text="{x:Static t:UserEditViewTexts.Name_Label_Text}"/>
-                <Entry HorizontalOptions="Fill"
+                <Entry 
+                    x:Name="NameIsOn"
+                    HorizontalOptions="Fill"
                        Text="{Binding User.Name}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
                 <Label Text="{x:Static t:UserEditViewTexts.Surname_Label_Text}"/>
-                <Entry HorizontalOptions="Fill"
+                <Entry x:Name="SurnameIsOn"
+                       HorizontalOptions="Fill"
                        Text="{Binding User.Surname}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
                 <Label Text="{x:Static t:UserEditViewTexts.Nickname_Label_Text}"/>
-                <Entry HorizontalOptions="Fill"
+                <Entry x:Name="NickNameIsOn"
+                       HorizontalOptions="Fill"
                        Text="{Binding User.NickName}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
