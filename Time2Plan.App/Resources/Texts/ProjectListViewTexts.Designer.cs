@@ -22,14 +22,14 @@ namespace Time2Plan.App.Resources.Texts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UnitTexts {
+    internal class ProjectListViewTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UnitTexts() {
+        internal ProjectListViewTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Time2Plan.App.Resources.Texts {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.UnitTexts", typeof(UnitTexts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.ProjectListViewTexts", typeof(ProjectListViewTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,20 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to g.
+        ///   Looks up a localized string similar to Time2Plan.
         /// </summary>
-        internal static string G {
+        internal static string Page_Title {
             get {
-                return ResourceManager.GetString("G", resourceCulture);
+                return ResourceManager.GetString("Page_Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to kg.
+        ///   Looks up a localized string similar to Projects.
         /// </summary>
-        internal static string Kg {
+        internal static string Title_Label {
             get {
-                return ResourceManager.GetString("Kg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to l.
-        /// </summary>
-        internal static string L {
-            get {
-                return ResourceManager.GetString("L", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ml.
-        /// </summary>
-        internal static string Ml {
-            get {
-                return ResourceManager.GetString("Ml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to none.
-        /// </summary>
-        internal static string None {
-            get {
-                return ResourceManager.GetString("None", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to pieces.
-        /// </summary>
-        internal static string Pieces {
-            get {
-                return ResourceManager.GetString("Pieces", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to spoons.
-        /// </summary>
-        internal static string Spoons {
-            get {
-                return ResourceManager.GetString("Spoons", resourceCulture);
+                return ResourceManager.GetString("Title_Label", resourceCulture);
             }
         }
     }

@@ -1,20 +1,32 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts">
     <Style x:Key="ButtonAdd" TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
         <Setter Property="BackgroundColor" Value="{StaticResource GreenCustom}" />
+        <Setter Property="Text" Value="{Static t:AppShellTexts.Add_Button_Text}"/>
         <Setter Property="Padding" Value="12, 6" />
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="WidthRequest" Value="80" />
+    </Style>
 
+    <Style x:Key="ButtonSave" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource GreenCustom}" />
+        <Setter Property="Text" Value="{Static t:AppShellTexts.Save_Button_Text}"/>
+        <Setter Property="Padding" Value="12, 6" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="WidthRequest" Value="80" />
     </Style>
 
     <Style x:Key="ButtonRemove" TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
         <Setter Property="BackgroundColor" Value="{StaticResource RedCustom}" />
+        <Setter Property="Text" Value="{Static t:AppShellTexts.Delete_Button_Text}"/>
         <Setter Property="Padding" Value="12, 6" />
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="FontSize" Value="16" />
@@ -22,7 +34,7 @@
     </Style>
 
     <Style x:Key="ButtonDefault" TargetType="Button">
-        <Setter Property="TextColor" Value="{StaticResource DefaultTextDark}" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Gray300}" />
         <Setter Property="Padding" Value="12, 6" />
         <Setter Property="CornerRadius" Value="5" />
@@ -30,8 +42,9 @@
     </Style>
 
     <Style x:Key="ButtonEdit" TargetType="Button">
-        <Setter Property="TextColor" Value="{StaticResource DefaultTextDark}" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Gray400}" />
+        <Setter Property="Text" Value="{Static t:AppShellTexts.Edit_Button_Text}"/>
         <Setter Property="Padding" Value="12, 6" />
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="FontSize" Value="16" />

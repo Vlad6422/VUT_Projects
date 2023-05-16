@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Time2Plan.Common.Tests.Seeds;
 using Time2Plan.Common.Tests;
+using Time2Plan.Common.Tests.Seeds;
 using Xunit;
 using Xunit.Abstractions;
 

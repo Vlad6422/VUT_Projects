@@ -8,7 +8,7 @@
                         xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
                         x:DataType="vm:UserDetailViewModel"
                         xmlns:models="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
-             Title="UserDetailView">
+                        Title="{x:Static t:UserDetailViewTexts.Page_Title}">
 
     <Grid RowDefinitions="100, *">
         <Grid Grid.Column="1"
@@ -22,7 +22,6 @@
                     HorizontalOptions="End"
                 HeightRequest="30"
                     WidthRequest="80"
-                Text="Edit"
                 Command="{Binding GoToEditCommand}"/>
 
             <Button Style="{StaticResource ButtonRemove}"
@@ -30,7 +29,6 @@
                 VerticalOptions="Start"
                     HorizontalOptions="End"
                 HeightRequest="30"
-                Text="Delete"
                 Command="{Binding DeleteCommand}"/>
         </Grid>
 
@@ -53,15 +51,14 @@
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="Name: "/>
+                <Label Text="{x:Static t:UserDetailViewTexts.Name_Label_Text}"/>
                 <Label Text="{Binding User.Name}" FontSize="Medium"/>
 
-                <Label Text="Surname: "/>
+                <Label Text="{x:Static t:UserDetailViewTexts.Surname_Label_Text}"/>
                 <Label Text="{Binding User.Surname}" FontSize="Medium"/>
 
-                <Label Text="NickName: "/>
+                <Label Text="{x:Static t:UserDetailViewTexts.Nickname_Label_Text}"/>
                 <Label Text="{Binding User.NickName}" FontSize="Medium"/>
-                
             </VerticalStackLayout>
         </Grid>
     </Grid>

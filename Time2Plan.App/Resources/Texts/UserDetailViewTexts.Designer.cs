@@ -22,14 +22,14 @@ namespace Time2Plan.App.Resources.Texts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ProjectDetailViewTexts {
+    internal class UserDetailViewTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ProjectDetailViewTexts() {
+        internal UserDetailViewTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Time2Plan.App.Resources.Texts {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.ProjectDetailViewTexts", typeof(ProjectDetailViewTexts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.UserDetailViewTexts", typeof(UserDetailViewTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,20 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt; Back.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
-        internal static string Back_Button_Text {
+        internal static string Name_Label_Text {
             get {
-                return ResourceManager.GetString("Back_Button_Text", resourceCulture);
+                return ResourceManager.GetString("Name_Label_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Nickname.
         /// </summary>
-        internal static string Delete_Button_Text {
+        internal static string Nickname_Label_Text {
             get {
-                return ResourceManager.GetString("Delete_Button_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        internal static string Description_Label_Text {
-            get {
-                return ResourceManager.GetString("Description_Label_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
-        internal static string Edit_Button_Text {
-            get {
-                return ResourceManager.GetString("Edit_Button_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activities.
-        /// </summary>
-        internal static string Activities_Label_Text {
-            get {
-                return ResourceManager.GetString("Activities_Label_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} Activities.
-        /// </summary>
-        internal static string ActivitiesAmount_Label_StringFormat {
-            get {
-                return ResourceManager.GetString("ActivitiesAmount_Label_StringFormat", resourceCulture);
+                return ResourceManager.GetString("Nickname_Label_Text", resourceCulture);
             }
         }
         
@@ -120,6 +84,24 @@ namespace Time2Plan.App.Resources.Texts {
         internal static string Page_Title {
             get {
                 return ResourceManager.GetString("Page_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        internal static string Photo_Label_Text {
+            get {
+                return ResourceManager.GetString("Photo_Label_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surname.
+        /// </summary>
+        internal static string Surname_Label_Text {
+            get {
+                return ResourceManager.GetString("Surname_Label_Text", resourceCulture);
             }
         }
     }

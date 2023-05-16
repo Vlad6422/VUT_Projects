@@ -9,7 +9,7 @@
                         x:Name="ProjectEditViewRoot"
                         x:DataType="vm:ProjectEditViewModel"
                         Style="{StaticResource ContentPageStyle}"
-                        Title = "Project create/edit">
+                        Title = "{x:Static t:ProjectEditViewTexts.Page_Title}">
 
 
 <Grid RowDefinitions="70, *">
@@ -21,7 +21,6 @@
                     Grid.Column="1"
                     VerticalOptions="Start"
                     HeightRequest="30"
-                    Text="Save"
                     Command="{Binding SaveCommand}"/>
             </Grid>
             <Grid Grid.Row="1"
@@ -34,13 +33,13 @@
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="Name:" />
+                <Label Text="{x:Static t:ProjectEditViewTexts.Name_Label_Text}" />
                 <Entry Text="{Binding Project.Name}"
                        HorizontalOptions="Fill"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
-        
-                <Label Text="Description:" />
+
+                <Label Text="{x:Static t:ProjectEditViewTexts.Description_Label_Text}" />
                 <Entry Text="{Binding Project.Description}"
                        HorizontalOptions="Fill"
                        TextColor="Black"

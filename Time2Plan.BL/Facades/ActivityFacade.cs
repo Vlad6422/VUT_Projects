@@ -18,20 +18,20 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
 
         IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
 
-        
-        if(fromDate != null)
+
+        if (fromDate != null)
         {
             query = query.Where(e => e.Start > fromDate);
         }
-        if(toDate != null)
+        if (toDate != null)
         {
-            query = query.Where(e => e.Start < toDate);            
+            query = query.Where(e => e.Start < toDate);
         }
-        if(tag != null)
+        if (tag != null)
         {
             query = query.Where(e => e.Tag == tag);
         }
-        if(project != null)
+        if (project != null)
         {
             query = query.Where(e => e.Project == project);
 
@@ -61,7 +61,7 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
     {
         DateTime toDate = DateTime.Now;
         DateTime fromDate;
-        
+
         switch (interval)
         {
             case Interval.Daily:

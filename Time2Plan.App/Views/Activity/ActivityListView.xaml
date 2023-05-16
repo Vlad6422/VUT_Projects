@@ -9,7 +9,7 @@
                         x:DataType="vm:ActivityListViewModel"
                         x:Name="ActivityListViewRoot"
                         Style="{StaticResource ContentPageStyle}"
-                        Title="ActivityListView">
+                        Title="{x:Static t:ActivityListViewTexts.Page_Title}">
     <Grid>
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
@@ -18,7 +18,7 @@
             <CollectionView ItemsSource="{Binding Activities}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:ActivityListModel">
-                        <Frame Padding="0" CornerRadius="10">
+                            <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                                           CommandParameter="{Binding Id}" />
@@ -42,11 +42,19 @@
         </VerticalStackLayout>
         </Grid>
 
-        <Button Style="{StaticResource ButtonAdd}"
-        Grid.Column="1" Grid.Row="0"
-        HorizontalOptions="End" VerticalOptions="Start"
-        Text="Add"
-        Command="{Binding GoToCreateCommand}"/>
+        <HorizontalStackLayout HorizontalOptions="End">
+            <ImageButton Source="refresh_icon.png" 
+                         HeightRequest="30" 
+                         WidthRequest="30" 
+                         HorizontalOptions="End" 
+                         VerticalOptions="Start" 
+                         Margin="0,0,10,0"
+                        Command="{Binding GoToRefreshCommand}"/>
 
-</Grid>
+            <Button Style="{StaticResource ButtonAdd}"
+                HorizontalOptions="End" VerticalOptions="Start"
+                Command="{Binding GoToCreateCommand}"/>
+        </HorizontalStackLayout>
+
+    </Grid>
 </views:ContentPageBase>

@@ -79,7 +79,7 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activities.
+        ///   Looks up a localized string similar to Activites.
         /// </summary>
         internal static string Title_Label {
             get {

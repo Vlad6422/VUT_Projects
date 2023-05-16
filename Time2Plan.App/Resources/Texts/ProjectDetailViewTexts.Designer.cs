@@ -22,14 +22,14 @@ namespace Time2Plan.App.Resources.Texts {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class FoodTypeTexts {
+    internal class ProjectDetailViewTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal FoodTypeTexts() {
+        internal ProjectDetailViewTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Time2Plan.App.Resources.Texts {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.FoodTypeTexts", typeof(FoodTypeTexts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Time2Plan.App.Resources.Texts.ProjectDetailViewTexts", typeof(ProjectDetailViewTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,47 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dessert.
+        ///   Looks up a localized string similar to Activities.
         /// </summary>
-        internal static string Dessert {
+        internal static string Activites_Label_Text {
             get {
-                return ResourceManager.GetString("Dessert", resourceCulture);
+                return ResourceManager.GetString("Activites_Label_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to drink.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
-        internal static string Drink {
+        internal static string Description_Label_Text {
             get {
-                return ResourceManager.GetString("Drink", resourceCulture);
+                return ResourceManager.GetString("Description_Label_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to main dish.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
-        internal static string MainDish {
+        internal static string Name_Label_Text {
             get {
-                return ResourceManager.GetString("MainDish", resourceCulture);
+                return ResourceManager.GetString("Name_Label_Text", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to none.
+        ///   Looks up a localized string similar to Time2Plan.
         /// </summary>
-        internal static string None {
+        internal static string Page_Title {
             get {
-                return ResourceManager.GetString("None", resourceCulture);
+                return ResourceManager.GetString("Page_Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to soup.
+        ///   Looks up a localized string similar to Users.
         /// </summary>
-        internal static string Soup {
+        internal static string Users_Label_Text {
             get {
-                return ResourceManager.GetString("Soup", resourceCulture);
+                return ResourceManager.GetString("Users_Label_Text", resourceCulture);
             }
         }
     }

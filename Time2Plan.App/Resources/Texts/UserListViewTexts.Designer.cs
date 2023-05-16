@@ -61,7 +61,7 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add User.
+        ///   Looks up a localized string similar to Add Project.
         /// </summary>
         internal static string Add_Button_Text {
             get {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,25 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="G" xml:space="preserve">
-    <value>g</value>
+  <data name="Page_Title" xml:space="preserve">
+    <value>Time2Plan</value>
   </data>
-  <data name="Kg" xml:space="preserve">
-    <value>kg</value>
+  <data name="Name_Label_Text" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="L" xml:space="preserve">
-    <value>l</value>
+  <data name="Nickname_Label_Text" xml:space="preserve">
+    <value>Nickname</value>
   </data>
-  <data name="Ml" xml:space="preserve">
-    <value>ml</value>
+  <data name="Surname_Label_Text" xml:space="preserve">
+    <value>Surname</value>
   </data>
-  <data name="Pieces" xml:space="preserve">
-    <value>pieces</value>
-  </data>
-  <data name="Spoons" xml:space="preserve">
-    <value>spoons</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>none</value>
+  <data name="Photo_Label_Text" xml:space="preserve">
+    <value>Photo</value>
   </data>
 </root>

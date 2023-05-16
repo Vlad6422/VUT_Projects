@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activities_Tab_Title" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="Add_Button_Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Delete_Button_Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit_Button_Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Projects_Tab_Title" xml:space="preserve">
     <value>Projects</value>
+  </data>
+  <data name="Save_Button_Text" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Users_Tab_Title" xml:space="preserve">
     <value>Users</value>

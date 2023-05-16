@@ -61,56 +61,20 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activities.
+        /// </summary>
+        internal static string Activites_Label_Text {
+            get {
+                return ResourceManager.GetString("Activites_Label_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description_Label_Text {
             get {
                 return ResourceManager.GetString("Description_Label_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Duration.
-        /// </summary>
-        internal static string Duration_Label_Text {
-            get {
-                return ResourceManager.GetString("Duration_Label_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Activities.
-        /// </summary>
-        internal static string EditActivities_Button_Text {
-            get {
-                return ResourceManager.GetString("EditActivities_Button_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activities can only be edited for Project that is already saved.
-        /// </summary>
-        internal static string ErrorUnsavedProject_Label_Text {
-            get {
-                return ResourceManager.GetString("ErrorUnsavedProject_Label_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Food Type.
-        /// </summary>
-        internal static string FoodType_Label_Text {
-            get {
-                return ResourceManager.GetString("FoodType_Label_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Image URL.
-        /// </summary>
-        internal static string ImageUrl_Label_Text {
-            get {
-                return ResourceManager.GetString("ImageUrl_Label_Text", resourceCulture);
             }
         }
         
@@ -133,11 +97,11 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
+        ///   Looks up a localized string similar to Users.
         /// </summary>
-        internal static string Save_Button_Text {
+        internal static string Users_Label_Text {
             get {
-                return ResourceManager.GetString("Save_Button_Text", resourceCulture);
+                return ResourceManager.GetString("Users_Label_Text", resourceCulture);
             }
         }
     }

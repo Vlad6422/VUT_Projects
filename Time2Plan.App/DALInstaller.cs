@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Time2Plan.DAL.Factories;
+using Microsoft.Extensions.Configuration;
 using Time2Plan.App.Options;
 using Time2Plan.DAL;
+using Time2Plan.DAL.Factories;
 using Time2Plan.DAL.Mappers;
-using Microsoft.Extensions.Configuration;
 
 namespace Time2Plan.App;
 

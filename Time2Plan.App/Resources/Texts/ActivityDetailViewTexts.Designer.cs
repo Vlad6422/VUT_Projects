@@ -61,20 +61,20 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
-        internal static string Delete_Button_Text {
+        internal static string Description_label {
             get {
-                return ResourceManager.GetString("Delete_Button_Text", resourceCulture);
+                return ResourceManager.GetString("Description_label", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to End .
         /// </summary>
-        internal static string Edit_Button_Text {
+        internal static string End_label {
             get {
-                return ResourceManager.GetString("Edit_Button_Text", resourceCulture);
+                return ResourceManager.GetString("End_label", resourceCulture);
             }
         }
         
@@ -84,6 +84,33 @@ namespace Time2Plan.App.Resources.Texts {
         internal static string Page_Title {
             get {
                 return ResourceManager.GetString("Page_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        internal static string Start_label {
+            get {
+                return ResourceManager.GetString("Start_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tag.
+        /// </summary>
+        internal static string Tag_label {
+            get {
+                return ResourceManager.GetString("Tag_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string Type_label {
+            get {
+                return ResourceManager.GetString("Type_label", resourceCulture);
             }
         }
     }
