@@ -14,7 +14,10 @@
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
               RowSpacing="50">
-        <VerticalStackLayout Grid.Row="1">
+        <Label Grid.Row="0"
+                FontSize="24"
+                Text="{x:Static t:ProjectListViewTexts.Title_Label}" />
+            <VerticalStackLayout Grid.Row="1">
         <CollectionView ItemsSource="{Binding Projects}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="m:ProjectListModel">
