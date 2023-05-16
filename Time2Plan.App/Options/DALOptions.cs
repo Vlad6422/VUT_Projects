@@ -18,5 +18,5 @@ public record SqliteOptions
     /// <summary>
     /// Seeds DemoData from DbContext on database creation.
     /// </summary>
-    public bool SeedDemoData { get; init; } = true;
+    public bool SeedDemoData { get; init; } = false;
 }
