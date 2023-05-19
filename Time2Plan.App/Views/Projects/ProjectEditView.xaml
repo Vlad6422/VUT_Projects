@@ -17,13 +17,18 @@
                   ColumnDefinitions="*, Auto"
                   ColumnSpacing="15">
 
-                <Button Style="{StaticResource ButtonSave}"
+            <Button Style="{StaticResource ButtonSave}"
                     Grid.Column="1"
                     VerticalOptions="Start"
                     HeightRequest="30"
-                    Command="{Binding SaveCommand}"
-                         IsEnabled="{Binding Text, Source={x:Reference Name}, Converter={StaticResource NotEmptyConverter}}"/>
-            </Grid>
+                    Command="{Binding SaveCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference  Name}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+        </Grid>
             <Grid Grid.Row="1"
                   HorizontalOptions="Fill" VerticalOptions="Start"
                   RowDefinitions="100, *" ColumnDefinitions="Auto, *"

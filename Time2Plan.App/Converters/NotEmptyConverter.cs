@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace Time2Plan.App.Converters;
 
-public class NotEmptyConverter : IValueConverter
+public class NotEmptyConverter : IMultiValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is string str)
+        if (values.All(v => v is string str && !string.IsNullOrEmpty(str)))
         {
-            return !string.IsNullOrEmpty(str);
+            return true;
         }
 
         return false;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

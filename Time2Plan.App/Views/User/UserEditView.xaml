@@ -21,9 +21,15 @@
                 Grid.Column="1"
                 VerticalOptions="Start"
                 HeightRequest="30"
-                Command="{Binding SaveCommand}"
-                IsEnabled="{Binding Text, Source={x:Reference NameIsOn,SurnameIsOn,NickNameIsOn}, Converter={StaticResource NotEmptyConverter}}"/>
-            
+                Command="{Binding SaveCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference  NameIsOn}" Path="Text" />
+                        <Binding Source="{x:Reference NickNameIsOn}" Path="Text" />
+                        <Binding Source="{x:Reference  SurnameIsOn}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled> 
+            </Button>
         </Grid>
         <Grid Grid.Row="1"
               HorizontalOptions="Fill" VerticalOptions="Start"
