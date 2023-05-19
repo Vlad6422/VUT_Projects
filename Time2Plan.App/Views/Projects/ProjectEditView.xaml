@@ -17,11 +17,12 @@
                   ColumnDefinitions="*, Auto"
                   ColumnSpacing="15">
 
-                <Button Style="{StaticResource ButtonAdd}"
+                <Button Style="{StaticResource ButtonSave}"
                     Grid.Column="1"
                     VerticalOptions="Start"
                     HeightRequest="30"
-                    Command="{Binding SaveCommand}"/>
+                    Command="{Binding SaveCommand}"
+                         IsEnabled="{Binding Text, Source={x:Reference Name}, Converter={StaticResource NotEmptyConverter}}"/>
             </Grid>
             <Grid Grid.Row="1"
                   HorizontalOptions="Fill" VerticalOptions="Start"
@@ -37,13 +38,15 @@
                 <Entry Text="{Binding Project.Name}"
                        HorizontalOptions="Fill"
                        TextColor="Black"
-                       BackgroundColor="LightGray"/>
+                       BackgroundColor="LightGray"
+                       x:Name="Name"/>
 
                 <Label Text="{x:Static t:ProjectEditViewTexts.Description_Label_Text}" />
                 <Entry Text="{Binding Project.Description}"
                        HorizontalOptions="Fill"
                        TextColor="Black"
-                       BackgroundColor="LightGray"/>
+                       BackgroundColor="LightGray"
+                       />
             </VerticalStackLayout>
         </Grid>
     </Grid>

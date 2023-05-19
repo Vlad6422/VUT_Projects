@@ -1,3 +1,4 @@
+using Time2Plan.App.Converters;
 using Time2Plan.App.ViewModels;
 
 namespace Time2Plan.App.Views.Projects;
@@ -6,6 +7,7 @@ public partial class ProjectEditView
 {
     public ProjectEditView(ProjectEditViewModel viewModel) : base(viewModel)
     {
+        Resources.Add("NotEmptyConverter", new NotEmptyConverter());
         InitializeComponent();
     }
 }
