@@ -15,62 +15,65 @@
         
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
-              RowSpacing="20"
+              RowSpacing="20" ColumnSpacing="20"
               >
             <Label Grid.Row="0"
                    FontSize="24"
                    Text="{x:Static t:UserListViewTexts.Title_Label}" />
+            
+            <ScrollView Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand">
+            <FlexLayout Grid.Row="1" Direction="Row" Wrap="Wrap"
+            JustifyContent="Start" AlignItems="Start"
+            HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+                
+                <BindableLayout.ItemsSource>
+                    <Binding Path="Users" />
+                </BindableLayout.ItemsSource>
 
-            <CollectionView Grid.Row="1" ItemsSource="{Binding Users}"
-                            HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"
-                                     HorizontalItemSpacing="10" VerticalItemSpacing="10"
-                                     Span="3"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:UserListModel">
-                        <Frame Padding="0"
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="m:UserListModel">
+                            <Frame Padding="0"
+                               Margin="15, 15"
                                CornerRadius="10"
                                IsClippedToBounds="True" 
                                 WidthRequest="320" HeightRequest="240">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference UserListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference UserListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                                       CommandParameter="{Binding Id}" />
-                            </Frame.GestureRecognizers>
+                                </Frame.GestureRecognizers>
 
-                            <Grid>
-                                <Image Grid.Row="0"
+                                <Grid>
+                                    <Image Grid.Row="0"
                                        HorizontalOptions="Fill" VerticalOptions="Fill"
                                        Aspect="AspectFill"
                                        WidthRequest="320" HeightRequest="240"
                                        Source="{Binding Photo, TargetNullValue='user_default.png'}" />
 
-                                <BoxView Grid.Row="0"
+                                    <BoxView Grid.Row="0"
                                          Opacity="0.25"
                                          Color="Black" />
 
-                                <Label Grid.Row="0"
+                                    <Label Grid.Row="0"
                                        Padding="0, 10"
                                        FontSize="20" LineBreakMode="WordWrap"
                                        FontAttributes="Bold"
                                        BackgroundColor="{StaticResource BackgroundOfText}" 
                                        TextColor="White" VerticalOptions="Start" HorizontalTextAlignment="Center">
-                                    <Label.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="Name"/>
-                                            <Binding Path="Surname"/>
-                                        </MultiBinding>
-                                    </Label.Text>
-                                </Label>
-                            </Grid>
-                            
-                        </Frame>
-                        
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="Surname"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </Grid>
 
-            </CollectionView>
+                            </Frame>
+
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
         </Grid>
 
         <HorizontalStackLayout HorizontalOptions="End">
