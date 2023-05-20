@@ -52,25 +52,7 @@
                        TextColor="Black"
                        BackgroundColor="LightGray"
                        />
-                    <!--<Grid Grid.Row="0">
-                        <Grid Grid.Column="0">
-                            <HorizontalStackLayout>
-                                <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}"/>
-                                <DatePicker Date="{Binding Activity.Start.Date}"/>
-                                <TimePicker Time="{Binding Activity.Start.TimeOfDay}"/>
-                            </HorizontalStackLayout>
-
-                        </Grid>
-
-                        <Grid Grid.Column="2">
-                            <HorizontalStackLayout>
-                                <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"/>
-                                <DatePicker Date="{Binding Activity.Start.Date}"/>
-                                <TimePicker Time="{Binding Activity.Start.TimeOfDay}"/>
-                            </HorizontalStackLayout>
-                        </Grid>
-                    </Grid>-->
-
+                    
                     <Grid Padding="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />

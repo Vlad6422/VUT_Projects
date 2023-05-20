@@ -126,4 +126,7 @@
   <data name="Title_Label" xml:space="preserve">
     <value>Activites</value>
   </data>
+  <data name="Filter_Label" xml:space="preserve">
+    <value>Select filter</value>
+  </data>
 </root>

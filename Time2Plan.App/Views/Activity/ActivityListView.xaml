@@ -15,9 +15,27 @@
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
               RowSpacing="50">
-        <Label Grid.Row="0"
-            FontSize="24"
-            Text="{x:Static t:ActivityListViewTexts.Title_Label}" />
+        
+            <Grid Padding="0,5" ColumnDefinitions="*,*,*,*,*">
+
+                <Label Grid.Row="0" FontSize="24" Text="{x:Static t:ActivityListViewTexts.Title_Label}" />
+                
+                <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="1">
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}" VerticalOptions="Center"/>
+                    <DatePicker></DatePicker>
+                </StackLayout>
+
+                <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="15">
+                    <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"  VerticalOptions="Center"/>
+                    <DatePicker></DatePicker>
+                </StackLayout>
+
+                <StackLayout Grid.Column="3" Orientation="Horizontal" Spacing="15">
+                    <Label Text="{x:Static t:ActivityListViewTexts.Filter_Label}"  VerticalOptions="Center"/>
+                    <Picker></Picker>
+                </StackLayout>
+            </Grid>
+
             <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <VerticalStackLayout Grid.Row="1">
                     <CollectionView ItemsSource="{Binding Activities}">
