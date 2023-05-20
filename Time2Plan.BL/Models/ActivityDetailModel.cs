@@ -11,7 +11,7 @@ public record ActivityDetailModel : ModelBase
     public static ActivityDetailModel Empty => new()
     {
         Id = Guid.Empty,
-        Start = new DateTime(),
-        End = new DateTime()
+        Start = DateTime.Now,
+        End = DateTime.Now.AddHours(1),
     };
 }
