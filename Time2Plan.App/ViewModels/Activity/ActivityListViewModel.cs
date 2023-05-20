@@ -35,9 +35,9 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     }
 
     [RelayCommand]
-    private async Task GoToCreateAsync()
+    private async Task GoToCreateAsync(Guid userId)
     {
-        await _navigationService.GoToAsync("/edit");
+        await _navigationService.GoToAsync($"/edit?userId={userId}");
     }
 
     [RelayCommand]

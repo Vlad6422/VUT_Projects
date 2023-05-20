@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
 using System.Web;
 using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
@@ -8,7 +9,7 @@ using Time2Plan.BL.Models;
 namespace Time2Plan.App.ViewModels;
 
 [QueryProperty(nameof(Activity), nameof(Activity))]
-public partial class ActivityEditViewModel : ViewModelBase, IQueryAttributable
+public partial class ActivityEditViewModel : ViewModelBase, IQueryAttributable, INotifyPropertyChanged
 {
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
@@ -28,7 +29,7 @@ public partial class ActivityEditViewModel : ViewModelBase, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        UserId = HttpUtility.UrlDecode(query["UserId"].ToString());
+        UserId = HttpUtility.UrlDecode(query["userId"].ToString());
     }
 
     [RelayCommand]
