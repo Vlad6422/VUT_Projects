@@ -45,21 +45,22 @@
                     BackgroundColor="white"
                     Source="{Binding User.Photo, TargetNullValue='user_default.png'}"/>
 
-
-            <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
+            <ScrollView Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
                                  Grid.Column="1"
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="{x:Static t:UserDetailViewTexts.Name_Label_Text}"/>
-                <Label Text="{Binding User.Name}" FontSize="Medium"/>
+                    <Label Text="{x:Static t:UserDetailViewTexts.Name_Label_Text}"/>
+                    <Label Text="{Binding User.Name}" FontSize="Medium"/>
 
-                <Label Text="{x:Static t:UserDetailViewTexts.Surname_Label_Text}"/>
-                <Label Text="{Binding User.Surname}" FontSize="Medium"/>
+                    <Label Text="{x:Static t:UserDetailViewTexts.Surname_Label_Text}"/>
+                    <Label Text="{Binding User.Surname}" FontSize="Medium"/>
 
-                <Label Text="{x:Static t:UserDetailViewTexts.Nickname_Label_Text}"/>
-                <Label Text="{Binding User.NickName}" FontSize="Medium"/>
-            </VerticalStackLayout>
+                    <Label Text="{x:Static t:UserDetailViewTexts.Nickname_Label_Text}"/>
+                    <Label Text="{Binding User.NickName}" FontSize="Medium"/>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </views:ContentPageBase>

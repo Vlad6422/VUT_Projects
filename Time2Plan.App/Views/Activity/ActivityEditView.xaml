@@ -32,46 +32,48 @@
         <Grid Grid.Row="1"
               HorizontalOptions="Fill" VerticalOptions="Start"
               RowDefinitions="100, *" ColumnDefinitions="Auto, *">
+            <ScrollView Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+                <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
                                  Grid.Column="1"
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="{x:Static t:ActivityEditViewTexts.Type_label}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Type_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Type}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"
                        />
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.Tag_label}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Tag_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Tag}"
                        TextColor="Black"
                        BackgroundColor="LightGray"
                        />
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Start}"
                        TextColor="Black"
                        BackgroundColor="LightGray"
                         x:Name="Start"/>
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.End}"
                        TextColor="Black"
                        BackgroundColor="LightGray"
                         x:Name="End"/>
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.Description_label}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Description_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Description}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
-            </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </views:ContentPageBase>

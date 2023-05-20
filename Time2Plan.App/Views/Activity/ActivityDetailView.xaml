@@ -35,13 +35,13 @@
         <Grid Grid.Row="1"
               HorizontalOptions="Fill" VerticalOptions="Start"
               ColumnDefinitions="Auto, *" >
-
-            <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
+            <ScrollView Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
                                  Grid.Column="1"
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="{x:Static t:ActivityDetailViewTexts.Type_label}" />
+                    <Label Text="{x:Static t:ActivityDetailViewTexts.Type_label}" />
                     <Label Text="{Binding Activity.Type}" FontSize="Medium"/>
 
                     <Label Text="{x:Static t:ActivityDetailViewTexts.Start_label}"/>
@@ -55,7 +55,8 @@
 
                     <Label Text="{x:Static t:ActivityDetailViewTexts.Description_label}" />
                     <Label Text="{Binding Activity.Description}" FontSize="Medium"/>
-            </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </views:ContentPageBase>
