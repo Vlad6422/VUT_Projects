@@ -18,6 +18,6 @@ public record UserDetailModel : ModelBase
         Name = string.Empty,
         Surname = string.Empty,
         NickName = string.Empty,
-        Photo = string.Empty
+        Photo = null
     };
 }
