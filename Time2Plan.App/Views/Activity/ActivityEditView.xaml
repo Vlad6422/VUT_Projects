@@ -25,6 +25,7 @@
                     <MultiBinding Converter="{StaticResource NotEmptyConverter}">
                         <Binding Source="{x:Reference  Start}" Path="Text" />
                         <Binding Source="{x:Reference End}" Path="Text" />
+                        <Binding Source="{x:Reference Type}" Path="Text" />
                     </MultiBinding>
                 </Button.IsEnabled>
             </Button>
@@ -44,7 +45,7 @@
                        Text="{Binding Activity.Type}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"
-                       />
+                       x:Name="Type"/>
 
                     <Label Text="{x:Static t:ActivityEditViewTexts.Tag_label}"/>
                     <Entry HorizontalOptions="Fill"
