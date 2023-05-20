@@ -17,32 +17,34 @@
         <Label Grid.Row="0"
             FontSize="24"
             Text="{x:Static t:ActivityListViewTexts.Title_Label}" />
-            <VerticalStackLayout Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Activities}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:ActivityListModel">
-                            <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+            <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Grid.Row="1">
+                    <CollectionView ItemsSource="{Binding Activities}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="m:ActivityListModel">
+                                <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                                           CommandParameter="{Binding Id}" />
-                            </Frame.GestureRecognizers>
-                            <Grid RowDefinitions="auto, *">
-                                <Label  Grid.Row="0"
+                                    </Frame.GestureRecognizers>
+                                    <Grid RowDefinitions="auto, *">
+                                        <Label  Grid.Row="0"
                                         Padding="10, 10"
                                         FontSize="20" LineBreakMode="WordWrap"
                                         FontAttributes="Bold"
                                         BackgroundColor="{StaticResource BackgroundOfText}" 
                                         TextColor="White" VerticalOptions="Start">
-                                    <Label.Text>
-                                        <Binding Path="Type"/>
-                                    </Label.Text>
-                                </Label>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
+                                            <Label.Text>
+                                                <Binding Path="Type"/>
+                                            </Label.Text>
+                                        </Label>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
 
         <HorizontalStackLayout HorizontalOptions="End">

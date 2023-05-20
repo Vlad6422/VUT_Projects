@@ -17,30 +17,32 @@
         <Label Grid.Row="0"
                 FontSize="24"
                 Text="{x:Static t:ProjectListViewTexts.Title_Label}" />
-            <VerticalStackLayout Grid.Row="1">
-        <CollectionView ItemsSource="{Binding Projects}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="m:ProjectListModel">
-                    <Frame Padding="0" Margin="0, 5, 0, 0" CornerRadius="10" >
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={x:Reference ProjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+            <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Grid.Row="1">
+                    <CollectionView ItemsSource="{Binding Projects}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="m:ProjectListModel">
+                                <Frame Padding="0" Margin="0, 5, 0, 0" CornerRadius="10" >
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference ProjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                                       CommandParameter="{Binding Id}" />
-                        </Frame.GestureRecognizers>
-                        <Label  Grid.Row="0"
+                                    </Frame.GestureRecognizers>
+                                    <Label  Grid.Row="0"
                                 Padding="0, 10"
                                 FontSize="20" LineBreakMode="WordWrap"
                                 FontAttributes="Bold"
                                 BackgroundColor="{StaticResource BackgroundOfText}" 
                                 TextColor="White" VerticalOptions="Start" HorizontalTextAlignment="Center">
-                            <Label.Text>
-                                <Binding Path="Name"/>
-                            </Label.Text>
-                        </Label>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+                                        <Label.Text>
+                                            <Binding Path="Name"/>
+                                        </Label.Text>
+                                    </Label>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
 
         <HorizontalStackLayout HorizontalOptions="End">
