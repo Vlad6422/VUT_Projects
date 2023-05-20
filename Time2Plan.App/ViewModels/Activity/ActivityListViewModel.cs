@@ -7,12 +7,16 @@ using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
+[QueryProperty(nameof(UserId), nameof(UserId))]
 public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>
 {
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
 
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
+
+    public Guid UserId { get; set; }
+
     public ActivityListViewModel(
        IActivityFacade ingredientFacade,
        INavigationService navigationService,
@@ -27,13 +31,13 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     {
         await base.LoadDataAsync();
 
-        Activities = await _activityFacade.GetAsync();
+        Activities = await _activityFacade.GetAsyncListByUser(UserId);
     }
 
     [RelayCommand]
-    private async Task GoToCreateAsync()
+    private async Task GoToCreateAsync(Guid userId)
     {
-        await _navigationService.GoToAsync("/edit");
+        await _navigationService.GoToAsync($"/edit?userId={userId}");
     }
 
     [RelayCommand]

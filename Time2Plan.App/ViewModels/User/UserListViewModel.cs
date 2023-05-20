@@ -35,6 +35,11 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     private async Task GoToDetailAsync(Guid id)
         => await _navigationService.GoToAsync<UserDetailViewModel>(
             new Dictionary<string, object> { [nameof(UserDetailViewModel.Id)] = id });
+    
+    [RelayCommand]
+    private async Task GoToActivityListAsync(Guid userId)
+    => await _navigationService.GoToAsync<ActivityListViewModel>(
+        new Dictionary<string, object> { [nameof(ActivityListViewModel.UserId)] = userId });
 
     [RelayCommand]
     private async Task GoToCreateAsync()
