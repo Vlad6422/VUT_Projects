@@ -4,11 +4,8 @@ namespace Time2Plan.App.Views.User;
 
 public partial class UserEditView
 {
-    public UserEditView(UserEditViewModel viewModel)
-        : base(viewModel)
+    public UserEditView(UserEditViewModel viewModel) : base(viewModel)
     {
-        Resources.Add("NotEmptyConverter", new NotEmptyConverter());
-
         InitializeComponent();
     }
 }

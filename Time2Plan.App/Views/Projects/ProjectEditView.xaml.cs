@@ -7,7 +7,6 @@ public partial class ProjectEditView
 {
     public ProjectEditView(ProjectEditViewModel viewModel) : base(viewModel)
     {
-        Resources.Add("NotEmptyConverter", new NotEmptyConverter());
         InitializeComponent();
     }
 }

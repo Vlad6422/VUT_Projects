@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Time2Plan.App"
+             xmlns:converters="clr-namespace:Time2Plan.App.Converters"
              x:Class="Time2Plan.App.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,6 +12,7 @@
                 <ResourceDictionary Source="Resources/Styles/ContentPageStyle.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:NotEmptyConverter x:Key="NotEmptyConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -7,7 +7,6 @@ public partial class ActivityEditView
 {
     public ActivityEditView(ActivityEditViewModel viewModel) : base(viewModel)
     {
-        Resources.Add("NotEmptyConverter", new NotEmptyConverter());
         InitializeComponent();
     }
 }
