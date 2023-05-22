@@ -8,6 +8,10 @@ public record ActivityEntity : IEntity
     public string? Type { get; set; }
     public string? Tag { get; set; }
     public string? Description { get; set; }
+
+    public Guid ProjectId { get; set; }
+    public Guid UserId { get; set; }
+
     public ProjectEntity? Project { get; set; }
     public UserEntity? User { get; set; }
 }

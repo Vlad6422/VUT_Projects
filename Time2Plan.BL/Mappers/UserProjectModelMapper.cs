@@ -13,7 +13,10 @@ public class UserProjectModelMapper : ModelMapperBase<ProjectUserRelation, UserP
             UserId = entity.UserId,
             ProjectId = entity.ProjectId,
             UserName = entity.User.Name,
-            ProjectName = entity.Project.Name
+            ProjectName = entity.Project.Name,
+            Photo = entity.User.Photo,
+            UserSurname = entity.User.Surname,
+            UserNickname = entity.User.NickName
         };
 
     public UserProjectListModel MapToListModel(UserProjectDetailModel detailModel)
@@ -22,6 +25,11 @@ public class UserProjectModelMapper : ModelMapperBase<ProjectUserRelation, UserP
             Id = detailModel.Id,
             UserId = detailModel.UserId,
             ProjectId = detailModel.ProjectId,
+            ProjectName = detailModel.ProjectName, 
+            Photo = detailModel.Photo,
+            UserName = detailModel.UserName,
+            Nickname = detailModel.UserNickname,
+            Surname = detailModel.UserSurname,
         };
 
     public override ProjectUserRelation MapToEntity(UserProjectDetailModel model)
@@ -55,7 +63,12 @@ public class UserProjectModelMapper : ModelMapperBase<ProjectUserRelation, UserP
         {
             Id = entity.Id,
             UserId = entity.UserId,
-            ProjectId = entity.ProjectId
+            ProjectId = entity.ProjectId,
+            ProjectName = entity.Project.Name,
+            UserName = entity.User.Name,
+            Nickname = entity.User.NickName,
+            Photo = entity.User.Photo,
+            Surname = entity.User.Surname,
         };
 }
 

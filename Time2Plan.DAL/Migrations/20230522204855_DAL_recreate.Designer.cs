@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Time2Plan.DAL;
 
@@ -10,9 +11,11 @@ using Time2Plan.DAL;
 namespace Time2Plan.DAL.Migrations
 {
     [DbContext(typeof(Time2PlanDbContext))]
-    partial class Time2PlanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522204855_DAL_recreate")]
+    partial class DAL_recreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
