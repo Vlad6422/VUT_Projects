@@ -21,8 +21,3 @@ public partial class AppShell : Shell
     private async Task GoToUsersAsync()
         => await _navigationService.GoToAsync<UserListViewModel>();
 }
-
-//[RelayCommand]
-//private async Task GoToActivitiesAsync()
-//    => await _navigationService.GoToAsync<UserListViewModel>();
-//} 
