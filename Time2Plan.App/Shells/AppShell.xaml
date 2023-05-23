@@ -10,7 +10,7 @@
     x:Name="AppShellRoot"
     FlyoutBehavior="Disabled">
     <TabBar>
-        <Tab Title="Users">
+        <Tab Title="Users list">
             <ShellContent 
                 Title="Users"
                 ContentTemplate="{DataTemplate u:UserListView}"
@@ -27,6 +27,12 @@
                  Title="Projects"
                  ContentTemplate="{DataTemplate p:ProjectListView}"
                  Route="Projects"/>
+        </Tab>
+        <Tab Title="Profile">
+             <ShellContent 
+                 Title="Profile"
+                 ContentTemplate="{DataTemplate u:UserDetailView}"
+                 Route="Profile"/>
         </Tab>
     </TabBar>
     
