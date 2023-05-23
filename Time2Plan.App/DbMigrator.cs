@@ -40,7 +40,9 @@ public class SqliteDbMigrator : IDbMigrator
 
         // Ensures that database is created applying the latest state
         // Application of migration later on may fail
-        // If you want to use migrations, you should create database by calling  dbContext.Database.MigrateAsync(cancellationToken) instead
+        // If you want to use migrations, you should create database by calling
+        //
+        // await dbContext.Database.MigrateAsync(cancellationToken);
         await dbContext.Database.EnsureCreatedAsync(cancellationToken);
     }
 }
