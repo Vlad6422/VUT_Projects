@@ -24,7 +24,8 @@ public class ActivityFacadeTests : FacadeTestBase
             Start = new DateTime(2001, 1, 1, 8, 0, 0),
             End = new DateTime(2002, 1, 1, 10, 0, 0),
             Type = "test type of activity",
-            UserId = Guid.NewGuid(),
+            UserId = UserSeeds.UserEntity3.Id,
+            ProjectId = ProjectSeeds.ProjectBeta.Id
         };
 
         var savedActivity = await _activityFacadeSUT.SaveAsync(activity);
@@ -134,7 +135,8 @@ public class ActivityFacadeTests : FacadeTestBase
             Description = ActivitySeeds.Code.Description,
             Start = ActivitySeeds.Code.Start,
             End = ActivitySeeds.Code.End,
-            UserId = Guid.NewGuid(),
+            UserId = UserSeeds.User1.Id,
+            ProjectId = ProjectSeeds.ProjectBeta.Id,
         };
         activity.Description += "updated";
 
