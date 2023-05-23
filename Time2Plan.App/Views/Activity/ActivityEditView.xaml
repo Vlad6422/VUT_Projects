@@ -72,6 +72,11 @@
                         </StackLayout>
                     </Grid>
 
+                    <Label Text="Project"  VerticalOptions="Center"/>
+                    <Picker 
+                        ItemsSource ="{Binding Activity.ProjectId}" VerticalOptions="Center"/>
+
+
                     <Label Text="{x:Static t:ActivityEditViewTexts.Description_label}"/>
                     <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Description}"
