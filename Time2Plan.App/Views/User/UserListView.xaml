@@ -9,6 +9,7 @@
                         Title ="{x:Static t:UserListViewTexts.Page_Title}"
                         x:DataType="vm:UserListViewModel"
                         x:Name="UserListViewRoot"
+                        Shell.TabBarIsVisible="False"
                         Style="{StaticResource ContentPageStyle}">
 
     <Grid>
@@ -47,6 +48,7 @@
                                        HorizontalOptions="Fill" VerticalOptions="Fill"
                                        Aspect="AspectFill"
                                        WidthRequest="320" HeightRequest="240"
+                                       BackgroundColor="{StaticResource Gray200}"
                                        Source="{Binding Photo, TargetNullValue='user_default.png'}" />
 
                                     <BoxView Grid.Row="0"
