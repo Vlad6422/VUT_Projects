@@ -50,7 +50,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", (string)null);
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.ProjectEntity", b =>
@@ -68,7 +68,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.ProjectUserRelation", b =>
@@ -86,7 +86,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("UserProjects");
+                    b.ToTable("UserProjects", (string)null);
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.UserEntity", b =>
@@ -115,7 +115,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.ActivityEntity", b =>
