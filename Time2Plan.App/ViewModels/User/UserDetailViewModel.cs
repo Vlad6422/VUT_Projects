@@ -43,6 +43,11 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
         }
     }
 
+    [RelayCommand]
+    private async Task GoToChangeUserAsync()
+    {
+            await _navigationService.GoToAsync("//Users");
+    }
 
     [RelayCommand]
     private async Task GoToEditAsync()

@@ -14,8 +14,17 @@
         <Grid Grid.Column="1"
               ColumnDefinitions="*, Auto"
               ColumnSpacing="10"
-              Padding="20, 0">
+              Padding="30, 20">
 
+            <Button Style="{StaticResource ButtonDefault}"
+                Grid.Column="0"
+                VerticalOptions="Start"
+                    HorizontalOptions="Start"
+                HeightRequest="30"
+                    WidthRequest="150"
+                    Text="Switch profile"
+                Command="{Binding GoToChangeUserCommand}"/>
+            
             <Button Style="{StaticResource ButtonEdit}"
                 Grid.Column="0"
                 VerticalOptions="Start"
