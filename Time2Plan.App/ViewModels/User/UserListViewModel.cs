@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Diagnostics;
 using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
 using Time2Plan.BL.Facades;
@@ -13,6 +14,7 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     private readonly INavigationService _navigationService;
 
     public IEnumerable<UserListModel> Users { get; set; } = null!;
+    private AppShellViewModel _viewModel;
 
     public UserListViewModel(
         IUserFacade UserFacade,
@@ -22,6 +24,7 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     {
         _UserFacade = UserFacade;
         _navigationService = navigationService;
+        _viewModel = (AppShellViewModel)Shell.Current.BindingContext;
     }
 
     protected override async Task LoadDataAsync()
@@ -32,14 +35,14 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     }
 
     [RelayCommand]
-    private async Task GoToDetailAsync(Guid id)
-        => await _navigationService.GoToAsync<UserDetailViewModel>(
-            new Dictionary<string, object> { [nameof(UserDetailViewModel.Id)] = id });
-    
-    [RelayCommand]
-    private async Task GoToActivityListAsync(Guid userId)
-    => await _navigationService.GoToAsync<ActivityListViewModel>(
-        new Dictionary<string, object> { [nameof(ActivityListViewModel.UserId)] = userId });
+    private async Task GoToActivityListAsync(Guid Id)
+    {
+        _viewModel.UserId = Id;
+        MessengerService.Send(new UserChangeMessage { UserId = Id });
+        await _navigationService.GoToAsync<ActivityListViewModel>(
+            new Dictionary<string, object> { [nameof(ActivityListViewModel.UserId)] = Id });
+    }
+
 
     [RelayCommand]
     private async Task GoToCreateAsync()

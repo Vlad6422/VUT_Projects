@@ -5,13 +5,13 @@ using Time2Plan.App.Services;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
 namespace Time2Plan.App.ViewModels;
-[QueryProperty(nameof(Id), nameof(Id))]
-public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMessage>, IRecipient<ProjectActivityAddMessage>, IRecipient<ProjectActivityDeleteMessage>
+
+public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMessage>, IRecipient<UserChangeMessage>
 {
     private readonly IUserFacade _userFacade;
     private readonly INavigationService _navigationService;
 
-    public Guid Id { get; set; }
+    private Guid _userId;
     public UserDetailModel User { get; set; }
 
     public UserDetailViewModel(
@@ -22,13 +22,15 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
     {
         _userFacade = userFacade;
         _navigationService = navigationService;
+        var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
+        _userId = viewModel.UserId;
     }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        User = await _userFacade.GetAsync(Id);
+        User = await _userFacade.GetAsync(_userId);
     }
     [RelayCommand]
     private async Task DeleteAsync()
@@ -61,10 +63,17 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
         }
     }
 
+    public async void Receive(UserChangeMessage message)
+    {
+            _userId = message.UserId;
+            await LoadDataAsync();
+    }
+
     public async void Receive(ProjectActivityAddMessage message)
     {
         await LoadDataAsync();
     }
+
 
     public async void Receive(ProjectActivityDeleteMessage message)
     {
