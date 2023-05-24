@@ -38,10 +38,8 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
         if (User is not null)
         {
             await _userFacade.DeleteAsync(User.Id);
-
             MessengerService.Send(new UserDeleteMessage());
-
-            _navigationService.SendBackButtonPressed();
+            await _navigationService.GoToAsync("//Users");
         }
     }
 
@@ -51,7 +49,7 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
     {
         if (User is not null)
         {
-            await _navigationService.GoToAsync("/edit",
+            await _navigationService.GoToAsync("//Users/edit",
                 new Dictionary<string, object> { [nameof(UserEditViewModel.User)] = User with { } });
         }
     }
