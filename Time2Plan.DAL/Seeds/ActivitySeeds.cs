@@ -61,9 +61,20 @@ public static class ActivitySeeds
     public static readonly ActivityEntity CodeDelete = Code with { Id = Guid.NewGuid() };
     public static readonly ActivityEntity CodeUpdate = Code with { Id = Guid.NewGuid() };
 
+    public static readonly ActivityEntity ActivityViewTest = new()
+    {
+        Id = Guid.NewGuid(),
+        Tag = "PC",
+        Type = "PC gaming",
+        Start = new DateTime(2030, 9, 9, 9, 30, 0),
+        End = new DateTime(2031, 10, 10, 10, 31, 0),
+        UserId = UserSeeds.PatrickUser.Id,
+        ProjectId = ProjectSeeds.ProjectAlpha.Id,
+    };
+
 
     public static void Seed(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ActivityEntity>().HasData(Code, Run, ThisYearActivity, CodeDelete, CodeUpdate);
+        modelBuilder.Entity<ActivityEntity>().HasData(Code, Run, ThisYearActivity, CodeDelete, CodeUpdate, ActivityViewTest);
     }
 }

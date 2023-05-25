@@ -7,15 +7,14 @@ using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
-[QueryProperty(nameof(UserId), nameof(UserId))]
-public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>
+public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>, IRecipient<UserChangeMessage>
 {
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
 
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
-    public Guid UserId { get; set; }
+    public Guid _userId { get; set; }
 
     public ActivityListViewModel(
        IActivityFacade ingredientFacade,
@@ -25,13 +24,15 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     {
         _activityFacade = ingredientFacade;
         _navigationService = navigationService;
+        var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
+        _userId = viewModel.UserId;
     }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Activities = await _activityFacade.GetAsyncListByUser(UserId);
+        Activities = await _activityFacade.GetAsyncListByUser(_userId);
     }
 
     [RelayCommand]
@@ -60,6 +61,12 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     [RelayCommand]
     private async Task GoToRefreshAsync()
     {
+        await LoadDataAsync();
+    }
+
+    public async void Receive(UserChangeMessage message)
+    {
+        _userId = message.UserId;
         await LoadDataAsync();
     }
 }

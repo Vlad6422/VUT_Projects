@@ -62,18 +62,6 @@ where TEntityMapper : IEntityMapper<TEntity>, new()
             : ModelMapper.MapToDetailModel(entity);
     }
 
-    public virtual async Task<IEnumerable<TListModel>> GetAsyncListByUser(Guid userId)
-    {
-        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        List<TEntity> entities = await uow
-            .GetRepository<TEntity, TEntityMapper>()
-            .Get()
-            .Where(e => e.Id == userId)
-            .ToListAsync();
-
-        return ModelMapper.MapToListModel(entities);
-    }
-
     public virtual async Task<IEnumerable<TListModel>> GetAsync()
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();

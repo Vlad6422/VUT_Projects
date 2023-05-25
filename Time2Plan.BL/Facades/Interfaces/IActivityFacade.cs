@@ -17,4 +17,6 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
     Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval, string? tag, ProjectEntity? project);
 
     Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval);
+
+    Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid userId);
 }

@@ -39,8 +39,7 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     {
         _viewModel.UserId = Id;
         MessengerService.Send(new UserChangeMessage { UserId = Id });
-        await _navigationService.GoToAsync<ActivityListViewModel>(
-            new Dictionary<string, object> { [nameof(ActivityListViewModel.UserId)] = Id });
+        await _navigationService.GoToAsync("//Activities");
     }
 
 

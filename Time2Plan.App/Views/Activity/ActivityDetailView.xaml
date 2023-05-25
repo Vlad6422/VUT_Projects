@@ -55,6 +55,9 @@
 
                     <Label Text="{x:Static t:ActivityDetailViewTexts.Description_label}" />
                     <Label Text="{Binding Activity.Description}" FontSize="Medium"/>
+
+                    <Label Text="UserID: " />
+                    <Label Text="{Binding Activity.UserId}" FontSize="Medium" TextColor="DarkRed"/>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>
