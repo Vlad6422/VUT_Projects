@@ -68,6 +68,15 @@ public class ActivityFacadeTests : FacadeTestBase
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Run), activity);
     }
 
+    [Fact]
+    public async Task GetFilterAsyncProjectOnly()
+    {
+        Guid projectId = ActivitySeeds.Run.ProjectId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(projectId);
+        var activity = activities.Single(a => a.Id == ActivitySeeds.Run.Id);
+
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Run), activity);
+    }
 
     [Fact]
     public async Task GetFilterAsyncIntervalOnly()
