@@ -12,7 +12,7 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
     public ActivityFacade(IUnitOfWorkFactory unitOfWorkFactory, IActivityModelMapper modelMapper) : base(unitOfWorkFactory, modelMapper)
     {
     }
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? fromDate, DateTime? toDate, string? tag, ProjectEntity? project)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? fromDate, DateTime? toDate, string? tag, Guid? projectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
@@ -31,9 +31,9 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
         {
             query = query.Where(e => e.Tag == tag);
         }
-        if (project != null)
+        if (projectId != null)
         {
-            query = query.Where(e => e.Project == project);
+            query = query.Where(e => e.Project!.Id == projectId);
 
         }
         List<ActivityEntity> entities = await query.ToListAsync();
@@ -41,23 +41,23 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
         return ModelMapper.MapToListModel(entities);
     }
 
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime fromDate, DateTime toDate)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime fromDate, DateTime toDate)
     {
         return await GetAsyncFilter(fromDate, toDate, null, null);
     }
 
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(string tag)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(string tag)
     {
         return await GetAsyncFilter(null, null, tag, null);
     }
 
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(ProjectEntity project)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid projectId)
     {
-        return await GetAsyncFilter(null, null, null, project);
+        return await GetAsyncFilter(null, null, null, projectId);
     }
 
 
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval, string? tag, ProjectEntity? project)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval, string? tag, Guid? projectId)
     {
         DateTime toDate = DateTime.Now;
         DateTime fromDate;
@@ -79,10 +79,10 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
             default:
                 throw new Exception("Undefined interval");
         }
-        return await GetAsyncFilter(fromDate, toDate, tag, project);
+        return await GetAsyncFilter(fromDate, toDate, tag, projectId);
     }
 
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval)
     {
         return await GetAsyncFilter(interval, null, null);
     }
