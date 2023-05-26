@@ -135,4 +135,7 @@
   <data name="Type_label" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Type_Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
 </root>

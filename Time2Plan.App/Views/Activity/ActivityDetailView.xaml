@@ -53,6 +53,9 @@
                     <Label Text="{x:Static t:ActivityDetailViewTexts.Tag_label}" />
                     <Label Text="{Binding Activity.Tag}" FontSize="Medium"/>
 
+                    <Label Text="{x:Static t:ActivityDetailViewTexts.Type_Project}" />
+                    <Label Text="{Binding Project.Name}" FontSize="Medium"/>
+
                     <Label Text="{x:Static t:ActivityDetailViewTexts.Description_label}" />
                     <Label Text="{Binding Activity.Description}" FontSize="Medium"/>
 

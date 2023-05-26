@@ -11,24 +11,30 @@ namespace Time2Plan.App.ViewModels;
 public partial class ActivityDetailViewModel : ViewModelBase, IRecipient<ActivityEditMessage>
 {
     private readonly IActivityFacade _activityFacade;
+    private readonly IProjectFacade _projectFacade;
     private readonly INavigationService _navigationService;
 
     public Guid Id { get; set; }
     public ActivityDetailModel Activity { get; set; }
+
+    public ProjectDetailModel Project { get; set; }
     public ActivityDetailViewModel(
         IActivityFacade activityFacade,
+        IProjectFacade projectFacade,
         INavigationService navigationService,
         IMessengerService messengerService)
         : base(messengerService)
     {
         _activityFacade = activityFacade;
         _navigationService = navigationService;
+        _projectFacade = projectFacade;
     }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
         Activity = await _activityFacade.GetAsync(Id);
+        Project = await _projectFacade.GetAsync(Activity.ProjectId);
     }
 
     [RelayCommand]
