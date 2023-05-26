@@ -16,8 +16,8 @@ public partial class ActivityDetailViewModel : ViewModelBase, IRecipient<Activit
 
     public Guid Id { get; set; }
     public ActivityDetailModel Activity { get; set; }
-
     public ProjectDetailModel Project { get; set; }
+
     public ActivityDetailViewModel(
         IActivityFacade activityFacade,
         IProjectFacade projectFacade,

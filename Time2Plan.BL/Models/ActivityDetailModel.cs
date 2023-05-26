@@ -17,5 +17,6 @@ public record ActivityDetailModel : ModelBase
         Start = DateTime.Now,
         End = DateTime.Now.AddHours(1),
         UserId = default,
+        ProjectId = default,
     };
 }

@@ -16,6 +16,11 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
     public string UserId { get; set; }
     public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
+    public DateTime EndDate { get; set; } = DateTime.Today.AddHours(1);
+    public TimeSpan EndTime { get; set; }
+
+    public DateTime StartDate { get; set; } = DateTime.Today; 
+    public TimeSpan StartTime { get; set; }
 
     public ActivityEditViewModel(
         IActivityFacade activityFacade,
@@ -30,6 +35,8 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
     [RelayCommand]
     private async Task SaveAsync()
     {
+        Activity.Start = StartDate.Add(StartTime);
+        Activity.End = EndDate.Add(EndTime);
         await _activityFacade.SaveAsync(Activity);
         MessengerService.Send(new ActivityEditMessage { ActivityId = Activity.Id });
         _navigationService.SendBackButtonPressed();
