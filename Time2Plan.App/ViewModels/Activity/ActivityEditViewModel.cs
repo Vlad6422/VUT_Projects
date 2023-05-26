@@ -9,7 +9,7 @@ using Time2Plan.BL.Models;
 namespace Time2Plan.App.ViewModels;
 
 [QueryProperty(nameof(Activity), nameof(Activity))]
-public partial class ActivityEditViewModel : ViewModelBase, IQueryAttributable, INotifyPropertyChanged
+public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChanged
 {
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
@@ -25,11 +25,6 @@ public partial class ActivityEditViewModel : ViewModelBase, IQueryAttributable, 
     {
         _activityFacade = activityFacade;
         _navigationService = navigationService;
-    }
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        UserId = HttpUtility.UrlDecode(query["userId"].ToString());
     }
 
     [RelayCommand]
