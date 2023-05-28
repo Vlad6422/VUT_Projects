@@ -17,11 +17,11 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
     public Guid UserId { get; set; }
     public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
-    public DateTime EndDate { get; set; } = DateTime.Now;
-    public TimeSpan EndTime { get; set; } = DateTime.Now.TimeOfDay;
+    public DateTime EndDate { get; set; } 
+    public TimeSpan EndTime { get; set; }
 
-    public DateTime StartDate { get; set; } = DateTime.Now; 
-    public TimeSpan StartTime { get; set; } = DateTime.Now.TimeOfDay;
+    public DateTime StartDate { get; set; }
+    public TimeSpan StartTime { get; set; }
 
     public UserDetailModel User { get; set; }
     public string[] Projects { get; set; }
@@ -51,6 +51,11 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
         Projects = User.UserProjects.Select(up => up.ProjectName).ToArray();
         SelectedProject = User.UserProjects.Where(up => up.ProjectId == Activity.ProjectId).Select(up => up.ProjectName).FirstOrDefault();
+
+        EndDate = Activity?.End.Date ?? DateTime.Now;
+        EndTime = Activity?.End.TimeOfDay ?? DateTime.Now.TimeOfDay;
+        StartDate = Activity?.Start.Date ?? DateTime.Now;
+        StartTime = Activity?.Start.TimeOfDay ?? DateTime.Now.TimeOfDay;
     }
 
     [RelayCommand]
