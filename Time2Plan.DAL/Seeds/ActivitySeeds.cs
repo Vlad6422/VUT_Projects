@@ -26,7 +26,7 @@ public static class ActivitySeeds
         Tag = "Planning",
         Description = "Planning meeting with the team",
         UserId= UserSeeds.StepanUser.Id,
-        ProjectId= ProjectSeeds.ProjectBeta.Id,
+        ProjectId= ProjectSeeds.ProjectAlpha.Id,
     };
 
     public static readonly ActivityEntity Run = new()
@@ -46,8 +46,8 @@ public static class ActivitySeeds
         Start = new DateTime(2023, 1, 2, 13, 0, 0),
         End = new DateTime(2023, 1, 2, 16, 0, 0),
         Tag = "Activitying",
-        UserId = UserSeeds.StepanUser.Id,
-        ProjectId = ProjectSeeds.ProjectBeta.Id,
+        UserId = UserSeeds.AnnaUser.Id,
+        ProjectId = ProjectSeeds.ProjectWithActivities.Id,
     };
 
     public static readonly ActivityEntity ActivityWithProject = new()
@@ -58,8 +58,8 @@ public static class ActivitySeeds
         UserId = UserSeeds.StepanUser.Id,
         ProjectId = ProjectSeeds.ProjectBeta.Id,
     };
-    public static readonly ActivityEntity CodeDelete = Code with { Id = Guid.NewGuid() };
-    public static readonly ActivityEntity CodeUpdate = Code with { Id = Guid.NewGuid() };
+    public static readonly ActivityEntity CodeDelete = Code with { Id = Guid.NewGuid(), Type = "Delete"};
+    public static readonly ActivityEntity CodeUpdate = Code with { Id = Guid.NewGuid(), Type = "Update"};
 
     public static readonly ActivityEntity ActivityViewTest = new()
     {

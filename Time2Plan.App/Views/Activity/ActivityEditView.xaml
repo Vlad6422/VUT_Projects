@@ -52,7 +52,7 @@
                        TextColor="Black"
                        BackgroundColor="LightGray"
                        />
-                    
+
                     <Grid Padding="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -71,10 +71,8 @@
                             <TimePicker Time="{Binding EndTime}" VerticalOptions="Center"/>
                         </StackLayout>
                     </Grid>
-
-                    <Label Text="Project"  VerticalOptions="Center"/>
-                    <Picker 
-                        ItemsSource ="{Binding Activity.ProjectId}" VerticalOptions="Center"/>
+                    <Picker Title="Project" ItemsSource="{Binding Projects}"
+                    SelectedItem="{Binding SelectedProject}"></Picker>
 
 
                     <Label Text="{x:Static t:ActivityEditViewTexts.Description_label}"/>
@@ -82,6 +80,7 @@
                        Text="{Binding Activity.Description}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
+                    <Label Text="{Binding Project.Name}"/>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>
