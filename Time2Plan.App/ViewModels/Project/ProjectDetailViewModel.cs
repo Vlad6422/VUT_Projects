@@ -11,7 +11,7 @@ namespace Time2Plan.App.ViewModels;
 
 [QueryProperty(nameof(Id), nameof(Id))]
 
-public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectEditMessage>
+public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectEditMessage>, IRecipient<ProjectJoinMessage>
 {
     private readonly IProjectFacade _projectFacade;
     private readonly INavigationService _navigationService;
@@ -59,11 +59,19 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     {
         if (Project is not null)
         {
-            await _projectFacade.DeleteAsync(Project.Id);
+            try
+            {
+                await _projectFacade.DeleteAsync(Project.Id);
+                MessengerService.Send(new ProjectDeleteMessage());
+                _navigationService.SendBackButtonPressed();
 
-            MessengerService.Send(new ProjectDeleteMessage());
+            }
+            catch (Exception ex)
+            {
+                await _alertService.DisplayAsync("Project delete failed", "Failed to delete " + Project.Name + " because other users are joined.");
+            }
 
-            _navigationService.SendBackButtonPressed();
+
         }
     }
 
@@ -106,7 +114,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
         IsMember = true;
         IsNotMember = false;
 
-        await LoadDataAsync();
+        MessengerService.Send(new ProjectJoinMessage());
         await _alertService.DisplayAsync("Project joined", "Successfully joined to " + Project.Name + ".");
     }
     [RelayCommand]
@@ -132,6 +140,11 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
         {
             await LoadDataAsync();
         }
+    }
+
+    public async void Receive(ProjectJoinMessage message)
+    {
+            await LoadDataAsync();
     }
 
 }

@@ -13,6 +13,26 @@
 
     <Grid RowDefinitions="55, *">
         <Label Text="{Binding userId}"/>
+
+        <Grid Grid.Row="1"
+              HorizontalOptions="Fill" VerticalOptions="Start"
+              ColumnDefinitions="Auto, *" >
+            <ScrollView Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
+                                 Grid.Column="1"
+                                 HorizontalOptions="Fill"
+                                 Spacing="10"
+                                 WidthRequest="1000">
+                    <Label Text="{x:Static t:ProjectDetailViewTexts.Name_Label_Text}" />
+                    <Label Text="{Binding Project.Name}" FontSize="Medium" />
+
+                    <Label Text="{x:Static t:ProjectDetailViewTexts.Description_Label_Text}" />
+                    <Label Text="{Binding Project.Description}" FontSize="Medium" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+
         <Grid Grid.Column="1" Grid.Row="1"
               ColumnDefinitions="*, Auto"
               ColumnSpacing="10"
@@ -58,22 +78,6 @@
                 Command="{Binding LeaveProjectCommand}"/>
         </Grid>
 
-        <Grid Grid.Row="1"
-              HorizontalOptions="Fill" VerticalOptions="Start"
-              ColumnDefinitions="Auto, *" >
-            <ScrollView Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <VerticalStackLayout Grid.Row="2" Grid.RowSpan="2"
-                                 Grid.Column="1"
-                                 HorizontalOptions="Fill"
-                                 Spacing="10"
-                                 WidthRequest="1000">
-                    <Label Text="{x:Static t:ProjectDetailViewTexts.Name_Label_Text}" />
-                    <Label Text="{Binding Project.Name}" FontSize="Medium" />
-
-                    <Label Text="{x:Static t:ProjectDetailViewTexts.Description_Label_Text}" />
-                    <Label Text="{Binding Project.Description}" FontSize="Medium" />
-                </VerticalStackLayout>
-            </ScrollView>
-        </Grid>
+       
     </Grid>
 </views:ContentPageBase>

@@ -77,7 +77,14 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
             return;
         }
 
+        if (SelectedProject is null)
+        {
+            await _alertService.DisplayAsync("Project is not selected", "You must select a project when adding activity.");
+            return;
+        }
+
         Activity.ProjectId = User.UserProjects.Where(up => up.ProjectName == SelectedProject).Select(p => p.ProjectId).FirstOrDefault();
+        Activity.UserId = User.Id;
 
         await _activityFacade.SaveAsync(Activity);
         MessengerService.Send(new ActivityEditMessage { ActivityId = Activity.Id });

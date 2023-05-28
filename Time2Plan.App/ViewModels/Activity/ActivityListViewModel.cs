@@ -7,7 +7,7 @@ using Time2Plan.BL.Models;
 
 namespace Time2Plan.App.ViewModels;
 
-public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>, IRecipient<UserChangeMessage>
+public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>, IRecipient<UserChangeMessage>, IRecipient<ProjectDeleteMessage>
 {
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
@@ -16,13 +16,17 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public Guid userId { get; set; }
 
+    public string[] Filters { get; set; }
+
+    public string SelectedFilter { get; set; }
+
     public ActivityListViewModel(
-       IActivityFacade ingredientFacade,
+       IActivityFacade activityFacade,
        INavigationService navigationService,
        IMessengerService messengerService)
        : base(messengerService)
     {
-        _activityFacade = ingredientFacade;
+        _activityFacade = activityFacade;
         _navigationService = navigationService;
         var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
         userId = viewModel.UserId;
@@ -33,6 +37,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         await base.LoadDataAsync();
 
         Activities = await _activityFacade.GetAsyncListByUser(userId);
+        Filters = Enum.GetNames(typeof(IActivityFacade.Interval));
     }
 
     [RelayCommand]
@@ -67,6 +72,11 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     public async void Receive(UserChangeMessage message)
     {
         userId = message.UserId;
+        await LoadDataAsync();
+    }
+
+    public async void Receive(ProjectDeleteMessage message)
+    {
         await LoadDataAsync();
     }
 }
