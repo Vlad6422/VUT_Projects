@@ -81,7 +81,7 @@ public class ActivityFacadeTests : FacadeTestBase
     [Fact]
     public async Task GetFilterAsyncIntervalOnly()
     {
-        var interval = ActivityFacade.Interval.Yearly;
+        var interval = IActivityFacade.Interval.Yearly;
         var activities = await _activityFacadeSUT.GetAsyncFilter(interval);
         var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
 
@@ -103,7 +103,7 @@ public class ActivityFacadeTests : FacadeTestBase
     [Fact]
     public async Task GetFilterAsyncIntervalAll()
     {
-        var interval = ActivityFacade.Interval.Yearly;
+        var interval = IActivityFacade.Interval.Yearly;
         var tag = ActivitySeeds.ThisYearActivity.Tag;
         var activities = await _activityFacadeSUT.GetAsyncFilter(interval, tag, null); //doesnt work with project, seeds are broken rn
         var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
