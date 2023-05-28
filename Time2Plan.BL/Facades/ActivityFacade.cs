@@ -98,4 +98,16 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
 
         return ModelMapper.MapToListModel(entities);
     }
+
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid Id, DateTime Start, DateTime End)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        List<ActivityEntity> entities = uow
+            .GetRepository<ActivityEntity, ActivityEntityMapper>()
+            .Get()
+            .Where(e => e.UserId == Id && e.Start >= Start && e.End <= End) // find all activities by user
+            .ToList();
+
+        return ModelMapper.MapToListModel(entities);
+    }
 }

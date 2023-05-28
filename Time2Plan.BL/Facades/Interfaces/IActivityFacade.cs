@@ -20,12 +20,14 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
 
     Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid userId);
 
+    Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid userId, DateTime FilterStart, DateTime FileterEnd);
+
     enum Interval
     {
+        All,
         Daily,
         Weekly,
         Monthly,
-        Yearly,
-        All
+        Yearly
     }
 }

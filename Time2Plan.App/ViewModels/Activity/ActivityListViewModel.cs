@@ -20,6 +20,9 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public string SelectedFilter { get; set; }
 
+    public DateTime FilterStart { get; set; } = DateTime.Now;
+
+    public DateTime FilterEnd { get; set; } = DateTime.Now;
     public ActivityListViewModel(
        IActivityFacade activityFacade,
        INavigationService navigationService,
@@ -37,7 +40,12 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         await base.LoadDataAsync();
 
         Activities = await _activityFacade.GetAsyncListByUser(userId);
+        SelectedFilter = Enum.GetName(IActivityFacade.Interval.All);
         Filters = Enum.GetNames(typeof(IActivityFacade.Interval));
+        FilterEnd = GetMaxTime(Activities, FilterEnd);
+        OnPropertyChanged(nameof(FilterEnd));
+        FilterStart = GetMinTime(Activities, FilterStart);
+        Activities = await _activityFacade.GetAsyncListByUser(userId, FilterStart, FilterEnd);
     }
 
     [RelayCommand]
@@ -78,5 +86,34 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     public async void Receive(ProjectDeleteMessage message)
     {
         await LoadDataAsync();
+    }
+
+    public static DateTime GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime Start)
+    {
+        foreach (var userActivity in userActivities)
+        {
+            if (userActivity.Start < Start)
+            {
+                Start = userActivity.Start;
+            }
+        }
+        return Start;
+    }
+    public static DateTime GetMaxTime(IEnumerable<ActivityListModel> userActivities, DateTime End)
+    {
+        foreach (var userActivity in userActivities)
+        {
+            if (userActivity.End > End)
+            {
+                End = userActivity.End;
+            }
+        }
+        return End;
+    }
+
+    public async void DatePicker_PropertyChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var datePicker = sender as DatePicker;
+        await GoToRefreshAsync();
     }
 }

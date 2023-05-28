@@ -22,17 +22,18 @@
                 
                 <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="1">
                     <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}" VerticalOptions="Center"/>
-                    <DatePicker></DatePicker>
+                    <DatePicker Date="{Binding FilterStart}" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="15">
                     <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"  VerticalOptions="Center"/>
-                    <DatePicker></DatePicker>
+                    <DatePicker Date="{Binding FilterEnd}" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Grid.Column="3" Orientation="Horizontal" Spacing="15">
                     <Label Text="{x:Static t:ActivityListViewTexts.Filter_Label}"  VerticalOptions="Center"/>
                     <Picker ItemsSource="{Binding Filters}"
+                            SelectedIndex="1"
                     SelectedItem="{Binding SelectedFilter}"></Picker>
                 </StackLayout>
             </Grid>
@@ -63,6 +64,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+                    <Label Text="{Binding FilterStart}"/>
+                    <Label Text="{Binding FilterEnd}"/>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>

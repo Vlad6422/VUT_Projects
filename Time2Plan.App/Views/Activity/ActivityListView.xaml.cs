@@ -8,4 +8,9 @@ public partial class ActivityListView
     {
         InitializeComponent();
     }
+
+    private void DatePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+
+    }
 }
