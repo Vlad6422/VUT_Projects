@@ -57,23 +57,23 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
     }
 
 
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval, string? tag, Guid? projectId)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(IActivityFacade.Interval interval, string? tag, Guid? projectId)
     {
         DateTime toDate = DateTime.Now;
         DateTime fromDate;
 
         switch (interval)
         {
-            case Interval.Daily:
+            case IActivityFacade.Interval.Daily:
                 fromDate = toDate.AddDays(-1);
                 break;
-            case Interval.Weekly:
+            case IActivityFacade.Interval.Weekly:
                 fromDate = toDate.AddDays(-7);
                 break;
-            case Interval.Monthly:
+            case IActivityFacade.Interval.Monthly:
                 fromDate = toDate.AddMonths(-1);
                 break;
-            case Interval.Yearly:
+            case IActivityFacade.Interval.Yearly:
                 fromDate = toDate.AddYears(-1);
                 break;
             default:
@@ -82,17 +82,9 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
         return await GetAsyncFilter(fromDate, toDate, tag, projectId);
     }
 
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(IActivityFacade.Interval interval)
     {
         return await GetAsyncFilter(interval, null, null);
-    }
-    public enum Interval
-    {
-        Daily,
-        Weekly,
-        Monthly,
-        Yearly,
-        All
     }
 
     public async Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid Id)

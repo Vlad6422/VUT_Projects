@@ -19,4 +19,13 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
     Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval);
 
     Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid userId);
+
+    enum Interval
+    {
+        Daily,
+        Weekly,
+        Monthly,
+        Yearly,
+        All
+    }
 }

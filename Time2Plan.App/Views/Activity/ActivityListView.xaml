@@ -32,7 +32,8 @@
 
                 <StackLayout Grid.Column="3" Orientation="Horizontal" Spacing="15">
                     <Label Text="{x:Static t:ActivityListViewTexts.Filter_Label}"  VerticalOptions="Center"/>
-                    <Picker></Picker>
+                    <Picker ItemsSource="{Binding Filters}"
+                    SelectedItem="{Binding SelectedFilter}"></Picker>
                 </StackLayout>
             </Grid>
 
