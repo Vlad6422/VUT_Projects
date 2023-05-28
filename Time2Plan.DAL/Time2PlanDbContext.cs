@@ -45,6 +45,7 @@ public class Time2PlanDbContext : DbContext
             UserSeeds.Seed(modelBuilder);
             ProjectSeeds.Seed(modelBuilder);
             ActivitySeeds.Seed(modelBuilder);
+            UserProjectSeeds.Seed(modelBuilder);
         }
     }
 }

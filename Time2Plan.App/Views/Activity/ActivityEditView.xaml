@@ -80,7 +80,6 @@
                        Text="{Binding Activity.Description}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
-                    <Label Text="{Binding Project.Name}"/>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>
