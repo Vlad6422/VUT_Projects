@@ -14,6 +14,8 @@ public partial class ProjectListViewModel : ViewModelBase, IRecipient<ProjectEdi
 
     public IEnumerable<ProjectListModel> Projects { get; set; } = null!;
 
+    public Guid userId { get; set; }
+
     public ProjectListViewModel(
         IProjectFacade projectFacade,
         INavigationService navigationService,
@@ -22,6 +24,8 @@ public partial class ProjectListViewModel : ViewModelBase, IRecipient<ProjectEdi
     {
         _projectFacade = projectFacade;
         _navigationService = navigationService;
+        var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
+        userId = viewModel.UserId;
     }
 
     [RelayCommand]

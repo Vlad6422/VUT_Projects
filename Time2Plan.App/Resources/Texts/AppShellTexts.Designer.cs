@@ -97,6 +97,24 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Join.
+        /// </summary>
+        internal static string Join_Button_Text {
+            get {
+                return ResourceManager.GetString("Join_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave.
+        /// </summary>
+        internal static string Leave_Button_Text {
+            get {
+                return ResourceManager.GetString("Leave_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projects.
         /// </summary>
         internal static string Projects_Tab_Title {

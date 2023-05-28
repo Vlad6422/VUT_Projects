@@ -50,4 +50,24 @@
         <Setter Property="FontSize" Value="16" />
         <Setter Property="WidthRequest" Value="80" />
     </Style>
+
+    <Style x:Key="ButtonJoin" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource GreenCustom}" />
+        <Setter Property="Text" Value="{Static t:AppShellTexts.Join_Button_Text}"/>
+        <Setter Property="Padding" Value="12, 6" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="WidthRequest" Value="80" />
+    </Style>
+    
+    <Style x:Key="ButtonLeave" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextLight}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource RedCustom}" />
+        <Setter Property="Text" Value="{Static t:AppShellTexts.Leave_Button_Text}"/>
+        <Setter Property="Padding" Value="12, 6" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="WidthRequest" Value="80" />
+    </Style>
 </ResourceDictionary>

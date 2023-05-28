@@ -11,7 +11,7 @@
                         Style="{StaticResource ContentPageStyle}"
                         Title="{x:Static t:ActivityListViewTexts.Page_Title}">
     <Grid>
-        <Label Text="{Binding _userId}"/>
+        <Label Text="{Binding userId}"/>
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
               RowSpacing="50">
@@ -78,7 +78,7 @@
             <Button Style="{StaticResource ButtonAdd}"
                 HorizontalOptions="End" VerticalOptions="Start"
                 Command="{Binding GoToCreateCommand}"
-                CommandParameter="{Binding _userId}"/>
+                CommandParameter="{Binding userId}"/>
         </HorizontalStackLayout>
 
     </Grid>

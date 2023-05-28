@@ -14,7 +14,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
-    public Guid _userId { get; set; }
+    public Guid userId { get; set; }
 
     public ActivityListViewModel(
        IActivityFacade ingredientFacade,
@@ -25,14 +25,14 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         _activityFacade = ingredientFacade;
         _navigationService = navigationService;
         var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
-        _userId = viewModel.UserId;
+        userId = viewModel.UserId;
     }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Activities = await _activityFacade.GetAsyncListByUser(_userId);
+        Activities = await _activityFacade.GetAsyncListByUser(userId);
     }
 
     [RelayCommand]
@@ -66,7 +66,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public async void Receive(UserChangeMessage message)
     {
-        _userId = message.UserId;
+        userId = message.UserId;
         await LoadDataAsync();
     }
 }

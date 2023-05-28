@@ -12,6 +12,7 @@
              Style="{StaticResource ContentPageStyle}">
 
     <Grid RowDefinitions="100, *">
+        <Label Text="{Binding userId}"/>
         <Grid Grid.Column="1"
               ColumnDefinitions="*, Auto"
               ColumnSpacing="10"
@@ -49,6 +50,30 @@
                     <Label Text="{Binding Project.Description}" FontSize="Medium" />
                 </VerticalStackLayout>
             </ScrollView>
+        </Grid>
+
+        <Grid Grid.Row = "1"
+              Grid.Column="0"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="10"
+              Padding="20, 0">
+
+            <Button Style="{StaticResource ButtonJoin}"
+                Grid.Column="0"
+                IsVisible="{Binding IsNotMember}"
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                    WidthRequest="80"
+                Command="{Binding JoinProjectCommand}"/>
+
+            <Button Style="{StaticResource ButtonLeave}"
+                Grid.Column="1"
+                IsVisible="{Binding IsMember}"    
+                VerticalOptions="Start"
+                    HorizontalOptions="End"
+                HeightRequest="30"
+                Command="{Binding LeaveProjectCommand}"/>
         </Grid>
     </Grid>
 </views:ContentPageBase>
