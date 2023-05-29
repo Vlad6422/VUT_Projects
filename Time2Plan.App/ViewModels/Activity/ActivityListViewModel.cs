@@ -23,6 +23,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     public DateTime FilterStart { get; set; } = DateTime.Now;
 
     public DateTime FilterEnd { get; set; } = DateTime.Now;
+
     public ActivityListViewModel(
        IActivityFacade activityFacade,
        INavigationService navigationService,
@@ -45,7 +46,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         FilterEnd = GetMaxTime(Activities, FilterEnd);
         OnPropertyChanged(nameof(FilterEnd));
         FilterStart = GetMinTime(Activities, FilterStart);
-        Activities = await _activityFacade.GetAsyncListByUser(userId, FilterStart, FilterEnd);
+        Activities = await _activityFacade.GetAsyncFilter(userId, FilterStart, FilterEnd, null, null, IActivityFacade.Interval.All); //TODO
     }
 
     [RelayCommand]
