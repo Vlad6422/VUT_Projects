@@ -43,20 +43,59 @@
                     <CollectionView ItemsSource="{Binding Activities}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="m:ActivityListModel">
-                                <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0">
+                                <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0" 
+                                       BackgroundColor="{StaticResource BackgroundOfText}" >
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                                           CommandParameter="{Binding Id}" />
                                     </Frame.GestureRecognizers>
-                                    <Grid RowDefinitions="auto, *">
+                                    <Grid RowDefinitions="auto, *" ColumnDefinitions="*, *, *, *, *">
                                         <Label  Grid.Row="0"
-                                        Padding="10, 10"
-                                        FontSize="20" LineBreakMode="WordWrap"
-                                        FontAttributes="Bold"
-                                        BackgroundColor="{StaticResource BackgroundOfText}" 
-                                        TextColor="White" VerticalOptions="Start">
+                                                Grid.Column="0"
+                                                Padding="10, 10"
+                                                FontSize="20"
+                                                LineBreakMode="WordWrap"
+                                                FontAttributes="Bold"
+                                                TextColor="White" 
+                                                VerticalOptions="Start">
                                             <Label.Text>
                                                 <Binding Path="Type"/>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label  Grid.Row="0"
+                                                Grid.Column="1"
+                                                Padding="0, 10"
+                                                FontSize="18"
+                                                LineBreakMode="WordWrap"
+                                                TextColor="White" 
+                                                VerticalOptions="Start"
+                                                HorizontalOptions="Start">
+                                            <Label.Text>
+                                                <Binding Path="Start"/>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label  Grid.Row="0"
+                                                Grid.Column="2"
+                                                Padding="0, 10"
+                                                FontSize="18"
+                                                LineBreakMode="WordWrap"
+                                                TextColor="White" 
+                                                VerticalOptions="Start"
+                                                HorizontalOptions="Start">
+                                            <Label.Text>
+                                                <Binding Path="End"/>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label  Grid.Row="0"
+                                                Grid.Column="3"
+                                                Padding="0, 10"
+                                                FontSize="18"
+                                                LineBreakMode="WordWrap"
+                                                TextColor="White" 
+                                                VerticalOptions="Start"
+                                                HorizontalOptions="Start">
+                                            <Label.Text>
+                                                <Binding Path="ProjectId"/>
                                             </Label.Text>
                                         </Label>
                                     </Grid>
