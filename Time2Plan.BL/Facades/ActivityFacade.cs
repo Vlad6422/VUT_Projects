@@ -12,13 +12,36 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
     public ActivityFacade(IUnitOfWorkFactory unitOfWorkFactory, IActivityModelMapper modelMapper) : base(unitOfWorkFactory, modelMapper)
     {
     }
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? fromDate, DateTime? toDate, string? tag, Guid? projectId)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid UserId, DateTime? fromDate, DateTime? toDate, string? tag, Guid? projectId, IActivityFacade.Interval interval)
     {
+        if(interval != IActivityFacade.Interval.All)
+        {
+            DateTime now = DateTime.Now;
+            switch (interval)
+            {
+                case IActivityFacade.Interval.Daily:
+                    fromDate = now.AddDays(-1);
+                    break;
+                case IActivityFacade.Interval.Weekly:
+                    fromDate = now.AddDays(-7);
+                    break;
+                case IActivityFacade.Interval.Monthly:
+                    fromDate = now.AddMonths(-1);
+                    break;
+                case IActivityFacade.Interval.Yearly:
+                    fromDate = now.AddYears(-1);
+                    break;
+                default:
+                    throw new Exception("Undefined interval");
+            }
+            toDate = now;
+        }
+        
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
         IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
 
-
+        query = query.Where(e => e.UserId == UserId);
         if (fromDate != null)
         {
             query = query.Where(e => e.Start > fromDate);
@@ -39,52 +62,6 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
         List<ActivityEntity> entities = await query.ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
-    }
-
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime fromDate, DateTime toDate)
-    {
-        return await GetAsyncFilter(fromDate, toDate, null, null);
-    }
-
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(string tag)
-    {
-        return await GetAsyncFilter(null, null, tag, null);
-    }
-
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid projectId)
-    {
-        return await GetAsyncFilter(null, null, null, projectId);
-    }
-
-
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(IActivityFacade.Interval interval, string? tag, Guid? projectId)
-    {
-        DateTime toDate = DateTime.Now;
-        DateTime fromDate;
-
-        switch (interval)
-        {
-            case IActivityFacade.Interval.Daily:
-                fromDate = toDate.AddDays(-1);
-                break;
-            case IActivityFacade.Interval.Weekly:
-                fromDate = toDate.AddDays(-7);
-                break;
-            case IActivityFacade.Interval.Monthly:
-                fromDate = toDate.AddMonths(-1);
-                break;
-            case IActivityFacade.Interval.Yearly:
-                fromDate = toDate.AddYears(-1);
-                break;
-            default:
-                throw new Exception("Undefined interval");
-        }
-        return await GetAsyncFilter(fromDate, toDate, tag, projectId);
-    }
-
-    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(IActivityFacade.Interval interval)
-    {
-        return await GetAsyncFilter(interval, null, null);
     }
 
     public async Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid Id)

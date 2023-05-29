@@ -48,11 +48,15 @@ public class ActivityFacadeTests : FacadeTestBase
     }
 
     [Fact]
-    public async Task GetFilterAsyncDatesOnly()
+    public async Task GetFilterAsync()
     {
+        var userId = ActivitySeeds.Code.UserId;
+        var projectId = ActivitySeeds.Code.ProjectId;
         var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
         var toDate = new DateTime(2022, 12, 30);
-        var activities = await _activityFacadeSUT.GetAsyncFilter(fromDate, toDate);
+        var tag = ActivitySeeds.Code.Tag;
+        
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, fromDate, toDate, tag, projectId, IActivityFacade.Interval.All);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
@@ -62,7 +66,8 @@ public class ActivityFacadeTests : FacadeTestBase
     public async Task GetFilterAsyncTagOnly()
     {
         string tag = ActivitySeeds.Run.Tag!;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(tag);
+        var userId = ActivitySeeds.Code.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, null, null, tag, null, IActivityFacade.Interval.All);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Run.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Run), activity);
@@ -72,7 +77,8 @@ public class ActivityFacadeTests : FacadeTestBase
     public async Task GetFilterAsyncProjectOnly()
     {
         Guid projectId = ActivitySeeds.Run.ProjectId;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(projectId);
+        var userId = ActivitySeeds.Code.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, null, null, null, projectId, IActivityFacade.Interval.All);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Run.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Run), activity);
@@ -82,7 +88,8 @@ public class ActivityFacadeTests : FacadeTestBase
     public async Task GetFilterAsyncIntervalOnly()
     {
         var interval = IActivityFacade.Interval.Yearly;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(interval);
+        var userId = ActivitySeeds.Code.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, null, null, null, null, interval);
         var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.ThisYearActivity), activity);
@@ -94,7 +101,8 @@ public class ActivityFacadeTests : FacadeTestBase
         var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
         var toDate = new DateTime(2022, 12, 30);
         var tag = ActivitySeeds.Code.Tag;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(fromDate, toDate, tag, null); //doesnt work with project, seeds are broken rn
+        var userId = ActivitySeeds.Code.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, fromDate, toDate, tag, null, IActivityFacade.Interval.All); //doesnt work with project, seeds are broken rn
         var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
@@ -105,7 +113,8 @@ public class ActivityFacadeTests : FacadeTestBase
     {
         var interval = IActivityFacade.Interval.Yearly;
         var tag = ActivitySeeds.ThisYearActivity.Tag;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(interval, tag, null); //doesnt work with project, seeds are broken rn
+        var userId = ActivitySeeds.ThisYearActivity.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, null, null, tag, null, interval); //doesnt work with project, seeds are broken rn
         var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.ThisYearActivity), activity);
