@@ -6,7 +6,7 @@ namespace Time2Plan.BL.Facades;
 
 public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, ActivityDetailModel>
 {
-    Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid UserId, DateTime? fromDate, DateTime? toDate, string? tag, Guid? projectId, IActivityFacade.Interval interval);
+    Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid UserId, DateTime? fromDate, DateTime? toDate, string? tag, Guid? projectId);
 
     Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid userId);
 
@@ -16,6 +16,7 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
         Daily,
         Weekly,
         Monthly,
-        Yearly
+        Yearly,
+        Empty
     }
 }

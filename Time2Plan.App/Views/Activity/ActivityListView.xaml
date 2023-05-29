@@ -11,7 +11,6 @@
                         Style="{StaticResource ContentPageStyle}"
                         Title="{x:Static t:ActivityListViewTexts.Page_Title}">
     <Grid>
-        <Label Text="{Binding userId}"/>
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
               RowSpacing="50">
@@ -34,7 +33,7 @@
                     <Label Text="{x:Static t:ActivityListViewTexts.Filter_Label}"  VerticalOptions="Center"/>
                     <Picker ItemsSource="{Binding Filters}"
                             SelectedIndex="1"
-                    SelectedItem="{Binding SelectedFilter}"></Picker>
+                            SelectedItem="{Binding SelectedFilter}" />
                 </StackLayout>
             </Grid>
 
@@ -105,6 +104,9 @@
                     </CollectionView>
                     <Label Text="{Binding FilterStart}"/>
                     <Label Text="{Binding FilterEnd}"/>
+                    <Label Text="{Binding Interval}"/>
+                    <Label Text="{Binding SelectedFilter}"/>
+                    <Label Text="{Binding userId}"/>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>

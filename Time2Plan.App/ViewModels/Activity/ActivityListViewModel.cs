@@ -4,6 +4,7 @@ using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
+using static Time2Plan.BL.Facades.IActivityFacade;
 
 namespace Time2Plan.App.ViewModels;
 
@@ -16,13 +17,15 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public Guid userId { get; set; }
 
-    public string[] Filters { get; set; }
+    public string[] Filters { get; set; } = Enum.GetNames(typeof(IActivityFacade.Interval));
 
     public string SelectedFilter { get; set; }
 
-    public DateTime FilterStart { get; set; } = DateTime.Now;
+    public Interval Interval { get; set; }
 
-    public DateTime FilterEnd { get; set; } = DateTime.Now;
+    public DateTime? FilterStart { get; set; }
+
+    public DateTime? FilterEnd { get; set; }
 
     public ActivityListViewModel(
        IActivityFacade activityFacade,
@@ -39,14 +42,55 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
-
         Activities = await _activityFacade.GetAsyncListByUser(userId);
-        SelectedFilter = Enum.GetName(IActivityFacade.Interval.All);
-        Filters = Enum.GetNames(typeof(IActivityFacade.Interval));
-        FilterEnd = GetMaxTime(Activities, FilterEnd);
+
+        parseInterval(SelectedFilter);
+
+        if(FilterEnd == null)
+        {
+            FilterEnd = GetMaxTime(Activities, FilterEnd);
+        }
+        if(FilterStart == null)
+        {
+            FilterStart = GetMinTime(Activities, FilterStart);
+        }
         OnPropertyChanged(nameof(FilterEnd));
-        FilterStart = GetMinTime(Activities, FilterStart);
-        Activities = await _activityFacade.GetAsyncFilter(userId, FilterStart, FilterEnd, null, null, IActivityFacade.Interval.All); //TODO
+
+        Activities = await _activityFacade.GetAsyncFilter(userId, FilterStart, FilterEnd, null, null); //TODO
+    }
+
+    private void parseInterval(string selectedFilter)
+    {
+        if (selectedFilter == null)
+            return;
+
+        Interval = (Interval)Enum.Parse(typeof(Interval), SelectedFilter);
+
+        DateTime now = DateTime.Now;
+        switch (Interval)
+        {
+            case Interval.Daily:
+                FilterStart = now.AddDays(-1);
+                break;
+            case Interval.Weekly:
+                FilterStart = now.AddDays(-7);
+                break;
+            case Interval.Monthly:
+                FilterStart = now.AddMonths(-1);
+                break;
+            case Interval.Yearly:
+                FilterStart = now.AddYears(-1);
+                break;
+            case Interval.All:
+                FilterStart = DateTime.MinValue;
+                FilterEnd = DateTime.MaxValue;
+                return;
+            case Interval.Empty:
+                return;
+            default:
+                throw new Exception("Undefined interval");
+        }
+        FilterEnd = now;
     }
 
     [RelayCommand]
@@ -89,7 +133,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         await LoadDataAsync();
     }
 
-    public static DateTime GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime Start)
+    public static DateTime? GetMinTime(IEnumerable<ActivityListModel> userActivities, DateTime? Start)
     {
         foreach (var userActivity in userActivities)
         {
@@ -100,7 +144,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         }
         return Start;
     }
-    public static DateTime GetMaxTime(IEnumerable<ActivityListModel> userActivities, DateTime End)
+    public static DateTime? GetMaxTime(IEnumerable<ActivityListModel> userActivities, DateTime? End)
     {
         foreach (var userActivity in userActivities)
         {
