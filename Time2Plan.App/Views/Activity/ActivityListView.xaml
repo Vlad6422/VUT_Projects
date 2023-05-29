@@ -106,7 +106,7 @@
                     <Label Text="{Binding FilterEnd}"/>
                     <Label Text="{Binding Interval}"/>
                     <Label Text="{Binding SelectedFilter}"/>
-                    <Label Text="{Binding userId}"/>
+                    <Label Text="{Binding UserId}"/>
                 </VerticalStackLayout>
             </ScrollView>
         </Grid>
@@ -123,7 +123,7 @@
             <Button Style="{StaticResource ButtonAdd}"
                 HorizontalOptions="End" VerticalOptions="Start"
                 Command="{Binding GoToCreateCommand}"
-                CommandParameter="{Binding userId}"/>
+                CommandParameter="{Binding UserId}"/>
         </HorizontalStackLayout>
 
     </Grid>

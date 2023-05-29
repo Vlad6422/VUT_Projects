@@ -15,7 +15,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
-    public Guid userId { get; set; }
+    public Guid UserId { get; set; }
 
     public string[] Filters { get; set; } = Enum.GetNames(typeof(IActivityFacade.Interval));
 
@@ -36,13 +36,13 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         _activityFacade = activityFacade;
         _navigationService = navigationService;
         var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
-        userId = viewModel.UserId;
+        UserId = viewModel.UserId;
     }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
-        Activities = await _activityFacade.GetAsyncListByUser(userId);
+        Activities = await _activityFacade.GetAsyncListByUser(UserId);
 
         parseInterval(SelectedFilter);
 
@@ -56,7 +56,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         }
         OnPropertyChanged(nameof(FilterEnd));
 
-        Activities = await _activityFacade.GetAsyncFilter(userId, FilterStart, FilterEnd, null, null); //TODO
+        Activities = await _activityFacade.GetAsyncFilter(UserId, FilterStart, FilterEnd, null, null); //TODO
     }
 
     private void parseInterval(string selectedFilter)
@@ -124,7 +124,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public async void Receive(UserChangeMessage message)
     {
-        userId = message.UserId;
+        UserId = message.UserId;
         await LoadDataAsync();
     }
 
