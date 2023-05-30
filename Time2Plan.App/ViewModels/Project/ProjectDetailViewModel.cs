@@ -127,7 +127,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
             IsNotMember = true;
             await _alertService.DisplayAsync("Project left", "Successfully left " + Project.Name + ".");
         }
-        catch (Exception e)
+        catch
         {
             await _alertService.DisplayAsync("Error Leave", "Error while trying to leave project.");
         }
