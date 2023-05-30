@@ -1,6 +1,5 @@
 ﻿using Time2Plan.BL.Models;
 using Time2Plan.DAL.Entities;
-using static Time2Plan.BL.Facades.ActivityFacade;
 
 namespace Time2Plan.BL.Facades;
 
@@ -12,11 +11,11 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
 
     enum Interval
     {
+        Manual,
         All,
         Daily,
         Weekly,
         Monthly,
-        Yearly,
-        Manual
+        Yearly
     }
 }

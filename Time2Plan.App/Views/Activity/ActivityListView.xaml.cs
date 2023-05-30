@@ -19,7 +19,6 @@ public partial class ActivityListView
     }
     private void FilterDatePicker_DateSelected(object sender, DateChangedEventArgs e)
     {
-        PickerFilter.SelectedIndex = (int)IActivityFacade.Interval.Manual;
         RefreshButton.Command.Execute(RefreshButton.CommandParameter);
         
     }
