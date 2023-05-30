@@ -19,13 +19,15 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public string[] Filters { get; set; } = Enum.GetNames(typeof(Interval));
 
-    public string SelectedFilter { get; set; }
+    public string SelectedFilter { get; set; } = Enum.GetName<Interval>(Interval.All);
 
     public Interval Interval { get; set; }
 
     public DateTime? FilterStart { get; set; }
 
     public DateTime? FilterEnd { get; set; }
+
+    public bool ManualFilter { get; set; }
 
     public ActivityListViewModel(
        IActivityFacade activityFacade,
@@ -43,7 +45,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     {
         await base.LoadDataAsync();
         Activities = await _activityFacade.GetAsyncListByUser(UserId);
-
+        ManualFilter = false;
         ParseInterval(SelectedFilter);
 
         if(FilterEnd == null)
@@ -54,7 +56,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         {
             FilterStart = GetMinTime(Activities, FilterStart);
         }
-        OnPropertyChanged(nameof(FilterEnd));
 
         Activities = await _activityFacade.GetAsyncFilter(UserId, FilterStart, FilterEnd, null, null); //TODO
     }
@@ -86,6 +87,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
                 FilterEnd = GetMaxTime(Activities, FilterEnd);
                 return;
             case Interval.Manual:
+                ManualFilter = true;
                 return;
             default:
                 throw new Exception("Undefined interval");
