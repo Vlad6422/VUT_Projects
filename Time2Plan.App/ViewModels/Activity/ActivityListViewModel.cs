@@ -164,7 +164,6 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public async void DatePicker_PropertyChanged(object sender, SelectionChangedEventArgs e)
     {
-        var datePicker = sender as DatePicker;
         await GoToRefreshAsync();
     }
 }

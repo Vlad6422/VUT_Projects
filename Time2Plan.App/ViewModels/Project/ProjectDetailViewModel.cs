@@ -18,7 +18,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     private readonly IUserFacade _userFacade;
     public Guid Id { get; set; }
     public ProjectDetailModel Project { get; set; }
-    public Guid userId { get; set; }
+    public Guid UserId { get; set; }
     public UserDetailModel User { get; set; }
 
     public bool IsMember { get; set; }
@@ -36,7 +36,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
         _projectFacade = projectFacade;
         _navigationService = navigationService;
         var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
-        userId = viewModel.UserId;
+        UserId = viewModel.UserId;
         _userProjectFacade = userProjectFacade;
         _alertService = alertService;
         _userFacade = userFacade;
@@ -47,8 +47,8 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
         await base.LoadDataAsync();
 
         Project = await _projectFacade.GetAsync(Id);
-        User = await _userFacade.GetAsync(userId);
-        IsMember = (Project.UserProjects.Any(up => up.UserId == userId));
+        User = await _userFacade.GetAsync(UserId);
+        IsMember = (Project.UserProjects.Any(up => up.UserId == UserId));
         IsNotMember = !IsMember;
     }
 
@@ -88,7 +88,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     {
         var model = new UserProjectDetailModel()
         {
-            UserId = userId,
+            UserId = UserId,
             ProjectId = Guid.Parse(Project.Id.ToString()),
             UserName = User.Name ?? string.Empty,
             UserSurname = User.Surname ?? string.Empty,
@@ -99,7 +99,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
         await _userProjectFacade.SaveAsync(model);
         var listmodel = new UserProjectListModel()
         {
-            UserId = userId,
+            UserId = UserId,
             ProjectId = Guid.Parse(Project.Id.ToString()),
             UserName = User.Name ?? string.Empty,
             Surname = User.Surname ?? string.Empty,
@@ -120,7 +120,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     {
         try
         {
-            var model = Project.UserProjects.Single(up => up.UserId == userId);
+            var model = Project.UserProjects.Single(up => up.UserId == UserId);
             await _userProjectFacade.DeleteAsync(model.Id);
             Project.UserProjects.Remove(model);
             IsMember = false;
