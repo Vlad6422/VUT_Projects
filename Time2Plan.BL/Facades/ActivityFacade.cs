@@ -34,8 +34,8 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
         if (projectId != null)
         {
             query = query.Where(e => e.Project!.Id == projectId);
-
         }
+        query = query.OrderBy(e => e.Start);
         List<ActivityEntity> entities = await query.ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
