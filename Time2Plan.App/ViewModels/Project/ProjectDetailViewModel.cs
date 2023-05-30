@@ -64,7 +64,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
                 _navigationService.SendBackButtonPressed();
 
             }
-            catch (Exception ex)
+            catch
             {
                 await _alertService.DisplayAsync("Project delete failed", "Failed to delete " + Project.Name + " because other users are joined.");
             }
