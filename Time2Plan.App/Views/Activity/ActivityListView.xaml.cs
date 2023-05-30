@@ -14,9 +14,6 @@ public partial class ActivityListView
         PickerFilter.SelectedIndexChanged += OnPickerFilterSelected;
     }
 
-    private void DatePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-    }
     private void FilterDatePicker_DateSelected(object sender, DateChangedEventArgs e)
     {
         RefreshButton.Command.Execute(RefreshButton.CommandParameter);
