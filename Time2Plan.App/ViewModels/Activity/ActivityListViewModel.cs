@@ -76,9 +76,13 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
             case Interval.Weekly:
                 FilterStart = now.AddDays(-7);
                 break;
-            case Interval.Monthly:
-                FilterStart = now.AddMonths(-1);
+            case Interval.This_Month:
+                FilterStart = DateTime.MinValue.AddYears(now.Year-1).AddMonths(now.Month-1); //first day of month
                 break;
+            case Interval.Last_Month:
+                FilterStart = DateTime.MinValue.AddYears(now.Year - 1).AddMonths(now.Month - 2); //first day of month
+                FilterEnd = DateTime.MinValue.AddYears(now.Year - 1).AddMonths(now.Month - 1).AddDays(-1); //last day of month
+                return;
             case Interval.Yearly:
                 FilterStart = now.AddYears(-1);
                 break;
