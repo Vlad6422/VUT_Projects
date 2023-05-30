@@ -21,17 +21,18 @@
                 
                 <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="1">
                     <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}" VerticalOptions="Center"/>
-                    <DatePicker Date="{Binding FilterStart}" VerticalOptions="Center"/>
+                    <DatePicker x:Name="DatePickerStart"  Date="{Binding FilterStart}" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="15">
                     <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"  VerticalOptions="Center"/>
-                    <DatePicker Date="{Binding FilterEnd}" VerticalOptions="Center"/>
+                    <DatePicker x:Name="DatePickerEnd" Date="{Binding FilterEnd}" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Grid.Column="3" Orientation="Horizontal" Spacing="15">
                     <Label Text="{x:Static t:ActivityListViewTexts.Filter_Label}"  VerticalOptions="Center"/>
-                    <Picker ItemsSource="{Binding Filters}"
+                    <Picker x:Name="PickerFilter"
+                            ItemsSource="{Binding Filters}"
                             SelectedIndex="1"
                             SelectedItem="{Binding SelectedFilter}" />
                 </StackLayout>
@@ -112,7 +113,8 @@
         </Grid>
 
         <HorizontalStackLayout HorizontalOptions="End">
-            <ImageButton Source="refresh_icon.png" 
+            <ImageButton x:Name="RefreshButton"
+                Source="refresh_icon.png" 
                          HeightRequest="30" 
                          WidthRequest="30" 
                          HorizontalOptions="End" 

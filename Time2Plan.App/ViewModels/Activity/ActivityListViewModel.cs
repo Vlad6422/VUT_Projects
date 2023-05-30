@@ -85,7 +85,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
                 FilterStart = DateTime.MinValue;
                 FilterEnd = DateTime.MaxValue;
                 return;
-            case Interval.Empty:
+            case Interval.Manual:
                 return;
             default:
                 throw new Exception("Undefined interval");

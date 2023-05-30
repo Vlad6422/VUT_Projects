@@ -17,6 +17,6 @@ public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, Ac
         Weekly,
         Monthly,
         Yearly,
-        Empty
+        Manual
     }
 }
