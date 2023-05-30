@@ -46,7 +46,7 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
     [RelayCommand]
     private async Task GoToChangeUserAsync()
     {
-            await _navigationService.GoToAsync("//Users");
+        await _navigationService.GoToAsync("//Users");
     }
 
     [RelayCommand]
@@ -68,8 +68,8 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
 
     public async void Receive(UserChangeMessage message)
     {
-            _userId = message.UserId;
-            await LoadDataAsync();
+        _userId = message.UserId;
+        await LoadDataAsync();
     }
 
     public async void Receive(ProjectActivityAddMessage message)

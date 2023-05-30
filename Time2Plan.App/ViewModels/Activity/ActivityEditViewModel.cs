@@ -17,7 +17,7 @@ public partial class ActivityEditViewModel : ViewModelBase, INotifyPropertyChang
 
     public Guid UserId { get; set; }
     public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
-    public DateTime EndDate { get; set; } 
+    public DateTime EndDate { get; set; }
     public TimeSpan EndTime { get; set; }
 
     public DateTime StartDate { get; set; }

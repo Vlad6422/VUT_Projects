@@ -12,6 +12,6 @@ public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel,
     {
     }
 
-    protected override string IncludesNavigationPathDetail 
+    protected override string IncludesNavigationPathDetail
         => $"{nameof(UserEntity.UserProjects)}.{nameof(ProjectUserRelation.Project)}";
 }

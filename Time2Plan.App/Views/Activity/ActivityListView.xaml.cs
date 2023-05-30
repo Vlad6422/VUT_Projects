@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml;
-using Time2Plan.App.ViewModels;
-using Time2Plan.BL.Facades;
+﻿using Time2Plan.App.ViewModels;
 
 namespace Time2Plan.App.Views.Activity;
 

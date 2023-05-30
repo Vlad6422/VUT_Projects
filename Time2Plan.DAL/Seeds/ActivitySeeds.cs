@@ -25,8 +25,8 @@ public static class ActivitySeeds
         Type = "Meeting",
         Tag = "Planning",
         Description = "Planning meeting with the team",
-        UserId= UserSeeds.StepanUser.Id,
-        ProjectId= ProjectSeeds.ProjectAlpha.Id,
+        UserId = UserSeeds.StepanUser.Id,
+        ProjectId = ProjectSeeds.ProjectAlpha.Id,
     };
 
     public static readonly ActivityEntity Run = new()
@@ -58,8 +58,8 @@ public static class ActivitySeeds
         UserId = UserSeeds.StepanUser.Id,
         ProjectId = ProjectSeeds.ProjectBeta.Id,
     };
-    public static readonly ActivityEntity CodeDelete = Code with { Id = Guid.NewGuid(), Type = "Delete"};
-    public static readonly ActivityEntity CodeUpdate = Code with { Id = Guid.NewGuid(), Type = "Update"};
+    public static readonly ActivityEntity CodeDelete = Code with { Id = Guid.NewGuid(), Type = "Delete" };
+    public static readonly ActivityEntity CodeUpdate = Code with { Id = Guid.NewGuid(), Type = "Update" };
 
     public static readonly ActivityEntity ActivityViewTest = new()
     {

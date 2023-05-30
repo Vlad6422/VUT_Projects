@@ -55,7 +55,7 @@ public class ActivityFacadeTests : FacadeTestBase
         var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
         var toDate = new DateTime(2022, 12, 30);
         var tag = ActivitySeeds.Code.Tag;
-        
+
         var activities = await _activityFacadeSUT.GetAsyncFilter(userId, fromDate, toDate, tag, projectId);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
 

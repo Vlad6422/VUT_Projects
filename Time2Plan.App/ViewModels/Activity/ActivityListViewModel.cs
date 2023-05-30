@@ -48,11 +48,11 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         ManualFilter = false;
         ParseInterval(SelectedFilter);
 
-        if(FilterEnd == null)
+        if (FilterEnd == null)
         {
             FilterEnd = GetMaxTime(Activities, FilterEnd);
         }
-        if(FilterStart == null)
+        if (FilterStart == null)
         {
             FilterStart = GetMinTime(Activities, FilterStart);
         }
@@ -77,7 +77,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
                 FilterStart = now.AddDays(-7);
                 break;
             case Interval.This_Month:
-                FilterStart = DateTime.MinValue.AddYears(now.Year-1).AddMonths(now.Month-1); //first day of month
+                FilterStart = DateTime.MinValue.AddYears(now.Year - 1).AddMonths(now.Month - 1); //first day of month
                 break;
             case Interval.Last_Month:
                 FilterStart = DateTime.MinValue.AddYears(now.Year - 1).AddMonths(now.Month - 2); //first day of month

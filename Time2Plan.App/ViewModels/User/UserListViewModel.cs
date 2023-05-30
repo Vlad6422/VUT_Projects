@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Diagnostics;
 using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
 using Time2Plan.BL.Facades;

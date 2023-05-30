@@ -25,7 +25,7 @@ public class UserProjectModelMapper : ModelMapperBase<ProjectUserRelation, UserP
             Id = detailModel.Id,
             UserId = detailModel.UserId,
             ProjectId = detailModel.ProjectId,
-            ProjectName = detailModel.ProjectName, 
+            ProjectName = detailModel.ProjectName,
             Photo = detailModel.Photo,
             UserName = detailModel.UserName,
             Nickname = detailModel.UserNickname,

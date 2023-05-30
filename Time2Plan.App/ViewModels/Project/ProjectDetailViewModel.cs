@@ -1,11 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.UI.Xaml.Media;
 using Time2Plan.App.Messages;
 using Time2Plan.App.Services;
 using Time2Plan.BL.Facades;
 using Time2Plan.BL.Models;
-using Windows.System;
 
 namespace Time2Plan.App.ViewModels;
 
@@ -24,7 +22,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     public UserDetailModel User { get; set; }
 
     public bool IsMember { get; set; }
-    public bool IsNotMember{  get; set; }
+    public bool IsNotMember { get; set; }
 
     public ProjectDetailViewModel(
         IProjectFacade projectFacade,
@@ -144,7 +142,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
 
     public async void Receive(ProjectJoinMessage message)
     {
-            await LoadDataAsync();
+        await LoadDataAsync();
     }
 
 }
