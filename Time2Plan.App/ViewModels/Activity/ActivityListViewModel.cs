@@ -82,8 +82,8 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
                 FilterStart = now.AddYears(-1);
                 break;
             case Interval.All:
-                FilterStart = DateTime.MinValue;
-                FilterEnd = DateTime.MaxValue;
+                FilterStart = GetMinTime(Activities, FilterStart);
+                FilterEnd = GetMaxTime(Activities, FilterEnd);
                 return;
             case Interval.Manual:
                 return;
