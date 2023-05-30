@@ -17,7 +17,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public Guid UserId { get; set; }
 
-    public string[] Filters { get; set; } = Enum.GetNames(typeof(IActivityFacade.Interval));
+    public string[] Filters { get; set; } = Enum.GetNames(typeof(Interval));
 
     public string SelectedFilter { get; set; }
 
@@ -44,7 +44,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         await base.LoadDataAsync();
         Activities = await _activityFacade.GetAsyncListByUser(UserId);
 
-        parseInterval(SelectedFilter);
+        ParseInterval(SelectedFilter);
 
         if(FilterEnd == null)
         {
@@ -59,7 +59,7 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
         Activities = await _activityFacade.GetAsyncFilter(UserId, FilterStart, FilterEnd, null, null); //TODO
     }
 
-    private void parseInterval(string selectedFilter)
+    private void ParseInterval(string selectedFilter)
     {
         if (selectedFilter == null)
             return;
