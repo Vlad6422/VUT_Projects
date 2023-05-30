@@ -10,6 +10,7 @@ public partial class ActivityListView
         InitializeComponent();
         DatePickerStart.DateSelected += FilterDatePicker_DateSelected;
         DatePickerEnd.DateSelected += FilterDatePicker_DateSelected;
+        PickerFilter.SelectedIndexChanged += OnPickerFilterSelected;
     }
 
     private void DatePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -21,7 +22,11 @@ public partial class ActivityListView
         RefreshButton.Command.Execute(RefreshButton.CommandParameter);
         
     }
-    
+    private void OnPickerFilterSelected(object sender, EventArgs e)
+    {
+        RefreshButton.Command.Execute(RefreshButton.CommandParameter);
+    }
+
 }
 
 
