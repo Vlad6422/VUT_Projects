@@ -37,7 +37,6 @@ public class UserModelMapper : ModelMapperBase<UserEntity, UserListModel, UserDe
                 Surname = entity.Surname,
                 NickName = entity.NickName,
                 Photo = entity.Photo,
-                // Activities = _activityModelMapper != null ? _activityModelMapper.MapToListModel(entity.Activities).ToObservableCollection() : default!,
                 UserProjects = _userProjectModelMapper!.MapToListModel(entity.UserProjects).ToObservableCollection()
             };
 
