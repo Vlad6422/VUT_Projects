@@ -12,8 +12,6 @@
              Style="{StaticResource ContentPageStyle}">
 
     <Grid RowDefinitions="55, *">
-        <Label Text="{Binding userId}"/>
-
         <Grid Grid.Row="1"
               HorizontalOptions="Fill" VerticalOptions="Start"
               ColumnDefinitions="Auto, *" >

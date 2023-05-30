@@ -11,7 +11,6 @@
                         x:Name="ProjectListViewRoot"
                         Style="{StaticResource ContentPageStyle}">
     <Grid>
-        <Label Text="{Binding userId}"/>
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
               RowSpacing="50">

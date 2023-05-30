@@ -13,7 +13,6 @@
 
 
 <Grid RowDefinitions="70, *">
-        <Label Text="{Binding UserId}"/>
         <Grid Grid.Row="0"
                   ColumnDefinitions="*, Auto"
                   ColumnSpacing="15">
