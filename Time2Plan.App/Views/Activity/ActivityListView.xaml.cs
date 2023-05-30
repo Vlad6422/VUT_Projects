@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Time2Plan.App.ViewModels;
+using Time2Plan.BL.Facades;
 
 namespace Time2Plan.App.Views.Activity;
 
@@ -18,7 +19,7 @@ public partial class ActivityListView
     }
     private void FilterDatePicker_DateSelected(object sender, DateChangedEventArgs e)
     {
-        PickerFilter.SelectedIndex = 5;
+        PickerFilter.SelectedIndex = (int)IActivityFacade.Interval.Manual;
         RefreshButton.Command.Execute(RefreshButton.CommandParameter);
         
     }
