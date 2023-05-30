@@ -91,7 +91,7 @@ public class ActivityFacadeTests : FacadeTestBase
         var toDate = new DateTime(2022, 12, 30);
         var tag = ActivitySeeds.Code.Tag;
         var userId = ActivitySeeds.Code.UserId;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, fromDate, toDate, tag, null); //doesnt work with project, seeds are broken rn
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, fromDate, toDate, tag, ActivitySeeds.Code.ProjectId);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
