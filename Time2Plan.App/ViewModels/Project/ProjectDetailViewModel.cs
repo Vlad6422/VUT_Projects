@@ -48,8 +48,11 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
 
         Project = await _projectFacade.GetAsync(Id);
         User = await _userFacade.GetAsync(UserId);
-        IsMember = (Project.UserProjects.Any(up => up.UserId == UserId));
-        IsNotMember = !IsMember;
+        if(Project is not null)
+        {
+            IsMember = (Project.UserProjects.Any(up => up.UserId == UserId));
+            IsNotMember = !IsMember;
+        }
     }
 
     [RelayCommand]
@@ -124,6 +127,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
             Project.UserProjects.Remove(model);
             IsMember = false;
             IsNotMember = true;
+            MessengerService.Send(new ProjectJoinMessage());
             await _alertService.DisplayAsync("Project left", "Successfully left " + Project.Name + ".");
         }
         catch
