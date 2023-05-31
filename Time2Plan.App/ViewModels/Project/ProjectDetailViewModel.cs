@@ -118,19 +118,23 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
     [RelayCommand]
     private async Task LeaveProjectAsync()
     {
-        try
+        bool result = await _alertService.DisplayConfirmAsync("Leave project", "Are you sure you want to leave '" + Project.Name + "' and delete all activities in this project?");
+        if (result)
         {
-            var model = Project.UserProjects.Single(up => up.UserId == UserId);
-            await _userProjectFacade.DeleteAsync(model.Id);
-            Project.UserProjects.Remove(model);
-            IsMember = false;
-            IsNotMember = true;
-            MessengerService.Send(new ProjectLeaveMessage{ ProjectId = Id });
-            await _alertService.DisplayAsync("Project left", "Successfully left " + Project.Name + ".");
-        }
-        catch
-        {
-            await _alertService.DisplayAsync("Error Leave", "Error while trying to leave project.");
+            try
+            {
+                var model = Project.UserProjects.Single(up => up.UserId == UserId);
+                await _userProjectFacade.DeleteAsync(model.Id);
+                Project.UserProjects.Remove(model);
+                IsMember = false;
+                IsNotMember = true;
+                MessengerService.Send(new ProjectLeaveMessage { ProjectId = Id });
+                await _alertService.DisplayAsync("Project left", "Successfully left " + Project.Name + ".");
+            }
+            catch
+            {
+                await _alertService.DisplayAsync("Error Leave", "Error while trying to leave project.");
+            }
         }
     }
     public async void Receive(ProjectEditMessage message)

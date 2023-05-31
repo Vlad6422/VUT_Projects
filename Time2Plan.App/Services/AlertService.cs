@@ -11,5 +11,10 @@ public class AlertService : IAlertService
             await displayAlert;
         }
     }
-}
 
+    public async Task<bool> DisplayConfirmAsync(string title, string message)
+    {
+        var result = await Application.Current?.MainPage?.DisplayAlert(title, message, "Yes", "No");
+        return result;
+    }
+}
