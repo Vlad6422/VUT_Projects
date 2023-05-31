@@ -77,8 +77,6 @@ where TEntityMapper : IEntityMapper<TEntity>, new()
     {
         TDetailModel result;
 
-        GuardCollectionsAreNotSet(model);
-
         TEntity entity = ModelMapper.MapToEntity(model);
 
         IUnitOfWork uow = UnitOfWorkFactory.Create();
