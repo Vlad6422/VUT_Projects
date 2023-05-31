@@ -8,7 +8,7 @@ using static Time2Plan.BL.Facades.IActivityFacade;
 
 namespace Time2Plan.App.ViewModels;
 
-public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>, IRecipient<UserChangeMessage>, IRecipient<ProjectDeleteMessage>
+public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityEditMessage>, IRecipient<ActivityDeleteMessage>, IRecipient<UserChangeMessage>, IRecipient<ProjectDeleteMessage>, IRecipient<ProjectLeaveMessage>
 {
     private readonly IActivityFacade _activityFacade;
     private readonly INavigationService _navigationService;
@@ -165,5 +165,17 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
     public async void DatePicker_PropertyChanged(object sender, SelectionChangedEventArgs e)
     {
         await GoToRefreshAsync();
+    }
+
+    public async void Receive(ProjectLeaveMessage message)
+    {
+        foreach (var userActivity in Activities)
+        {
+            if (userActivity.ProjectId == message.ProjectId)
+            {
+                await _activityFacade.DeleteAsync(userActivity.Id);
+                MessengerService.Send(new ActivityDeleteMessage());
+            }
+        }
     }
 }

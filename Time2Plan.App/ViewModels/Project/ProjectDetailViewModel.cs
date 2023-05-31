@@ -70,8 +70,6 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
             {
                 await _alertService.DisplayAsync("Project delete failed", "Failed to delete " + Project.Name + " because other users are joined.");
             }
-
-
         }
     }
 
@@ -127,7 +125,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
             Project.UserProjects.Remove(model);
             IsMember = false;
             IsNotMember = true;
-            MessengerService.Send(new ProjectJoinMessage());
+            MessengerService.Send(new ProjectLeaveMessage{ ProjectId = Id });
             await _alertService.DisplayAsync("Project left", "Successfully left " + Project.Name + ".");
         }
         catch
