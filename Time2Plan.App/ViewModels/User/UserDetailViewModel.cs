@@ -45,7 +45,7 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
                 await _userFacade.DeleteAsync(User.Id);
                 MessengerService.Send(new UserDeleteMessage());
                 await _navigationService.GoToAsync("//Users");
-            }   
+            }
             catch
             {
                 await _alertService.DisplayAsync("User delete failed", "Failed to delete user " + User.Name + " because other user is joined to some project.");

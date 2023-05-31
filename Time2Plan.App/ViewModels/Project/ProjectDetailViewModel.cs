@@ -48,7 +48,7 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
 
         Project = await _projectFacade.GetAsync(Id);
         User = await _userFacade.GetAsync(UserId);
-        if(Project is not null)
+        if (Project is not null)
         {
             IsMember = (Project.UserProjects.Any(up => up.UserId == UserId));
             IsNotMember = !IsMember;

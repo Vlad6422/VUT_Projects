@@ -65,5 +65,5 @@ public partial class ActivityDetailViewModel : ViewModelBase, IRecipient<Activit
         {
             await LoadDataAsync();
         }
-    } 
+    }
 }
