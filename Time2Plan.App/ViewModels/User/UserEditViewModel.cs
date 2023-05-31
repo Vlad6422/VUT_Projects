@@ -32,7 +32,7 @@ public partial class UserEditViewModel : ViewModelBase
     [RelayCommand]
     private async Task SaveAsync()
     {
-        if(await CheckNicknames(User.NickName))
+        if(await CheckNicknames(User.NickName, User.Id))
         {
             await _UserFacade.SaveAsync(User);
             MessengerService.Send(new UserEditMessage { UserId = User.Id });
@@ -40,18 +40,18 @@ public partial class UserEditViewModel : ViewModelBase
         }
     }
 
-    public async Task<bool> CheckNicknames(string newNickname)
+    public async Task<bool> CheckNicknames(string newNickname, Guid userEditID)
     {
-        Users = await _UserFacade.GetAsync();
+            Users = await _UserFacade.GetAsync();
 
-        foreach (var user in Users)
-        {
-            if (user.NickName == newNickname)
+            foreach (var user in Users)
             {
-                await _alertService.DisplayAsync("Create user failed", "Another user with nickname '" + user.NickName + "' already exists.");
-                return false;
+                if (user.NickName == newNickname && user.Id != userEditID)
+                {
+                    await _alertService.DisplayAsync("Create user failed", "Another user with nickname '" + user.NickName + "' already exists.");
+                    return false;
+                }
             }
-        }
-        return true;
+            return true;
     }
 }
