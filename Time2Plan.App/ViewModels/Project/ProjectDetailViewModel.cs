@@ -62,7 +62,6 @@ public partial class ProjectDetailViewModel : ViewModelBase, IRecipient<ProjectE
                 await _projectFacade.DeleteAsync(Project.Id);
                 MessengerService.Send(new ProjectDeleteMessage());
                 _navigationService.SendBackButtonPressed();
-
             }
             catch
             {

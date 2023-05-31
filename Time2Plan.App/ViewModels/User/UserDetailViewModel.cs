@@ -10,6 +10,7 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
 {
     private readonly IUserFacade _userFacade;
     private readonly INavigationService _navigationService;
+    private readonly IAlertService _alertService;
 
     private Guid _userId;
     public UserDetailModel User { get; set; }
@@ -17,13 +18,15 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
     public UserDetailViewModel(
         IUserFacade userFacade,
         INavigationService navigationService,
-        IMessengerService messengerService)
+        IMessengerService messengerService,
+        IAlertService alertService)
         : base(messengerService)
     {
         _userFacade = userFacade;
         _navigationService = navigationService;
         var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
         _userId = viewModel.UserId;
+        _alertService = alertService;
     }
 
     protected override async Task LoadDataAsync()
@@ -37,9 +40,16 @@ public partial class UserDetailViewModel : ViewModelBase, IRecipient<UserEditMes
     {
         if (User is not null)
         {
-            await _userFacade.DeleteAsync(User.Id);
-            MessengerService.Send(new UserDeleteMessage());
-            await _navigationService.GoToAsync("//Users");
+            try
+            {
+                await _userFacade.DeleteAsync(User.Id);
+                MessengerService.Send(new UserDeleteMessage());
+                await _navigationService.GoToAsync("//Users");
+            }   
+            catch
+            {
+                await _alertService.DisplayAsync("User delete failed", "Failed to delete user " + User.Name + " because other user is joined to some project.");
+            }
         }
     }
 
