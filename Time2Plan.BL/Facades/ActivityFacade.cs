@@ -21,11 +21,11 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
         query = query.Where(e => e.UserId == UserId);
         if (fromDate != null)
         {
-            query = query.Where(e => e.Start > fromDate);
+            query = query.Where(e => e.Start >= fromDate);
         }
         if (toDate != null)
         {
-            query = query.Where(e => e.Start < toDate);
+            query = query.Where(e => e.Start <= toDate);
         }
         if (tag != null)
         {

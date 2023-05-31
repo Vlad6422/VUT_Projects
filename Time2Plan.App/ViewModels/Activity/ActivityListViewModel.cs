@@ -23,9 +23,9 @@ public partial class ActivityListViewModel : ViewModelBase, IRecipient<ActivityE
 
     public Interval Interval { get; set; }
 
-    public DateTime? FilterStart { get; set; }
+    public DateTime? FilterStart { get; set; } = DateTime.Now;
 
-    public DateTime? FilterEnd { get; set; }
+    public DateTime? FilterEnd { get; set; } = DateTime.Now;
 
     public bool ManualFilter { get; set; }
 
