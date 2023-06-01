@@ -9,24 +9,33 @@ namespace Time2Plan.App.ViewModels;
 [QueryProperty(nameof(Project), nameof(Project))]
 public partial class ProjectEditViewModel : ViewModelBase
 {
-    private readonly IProjectFacade _ProjectFacade;
+    private readonly IProjectFacade _projectFacade;
     private readonly INavigationService _navigationService;
 
-    public ProjectDetailModel Project { get; init; } = ProjectDetailModel.Empty;
+    public ProjectDetailModel Project { get; set; } = ProjectDetailModel.Empty;
+    public Guid UserId { get; set; }
     public ProjectEditViewModel(
         IProjectFacade ProjectFacade,
         INavigationService navigationService,
         IMessengerService messengerService)
         : base(messengerService)
     {
-        _ProjectFacade = ProjectFacade;
+        _projectFacade = ProjectFacade;
         _navigationService = navigationService;
+        var viewModel = (AppShellViewModel)Shell.Current.BindingContext;
+        UserId = viewModel.UserId;
+    }
+
+    protected override async Task LoadDataAsync()
+    {
+        await base.LoadDataAsync();
+        Project = await _projectFacade.GetAsync(Guid.Parse(Project.Id.ToString())) ?? ProjectDetailModel.Empty;
     }
 
     [RelayCommand]
     private async Task SaveAsync()
     {
-        await _ProjectFacade.SaveAsync(Project);
+        await _projectFacade.SaveAsync(Project with { UserProjects = default! });
         MessengerService.Send(new ProjectEditMessage { ProjectId = Project.Id });
         _navigationService.SendBackButtonPressed();
     }

@@ -2,7 +2,7 @@
 
 public record DALOptions
 {
-    public SqliteOptions Sqlite = new SqliteOptions();
+    public SqliteOptions Sqlite = new();
 }
 
 public record SqliteOptions

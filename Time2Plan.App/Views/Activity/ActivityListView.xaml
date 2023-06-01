@@ -14,39 +14,90 @@
         <Grid HorizontalOptions="FillAndExpand"
               RowDefinitions="auto, *"
               RowSpacing="50">
-        <Label Grid.Row="0"
-            FontSize="24"
-            Text="{x:Static t:ActivityListViewTexts.Title_Label}" />
-            <VerticalStackLayout Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Activities}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:ActivityListModel">
-                            <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+        
+            <Grid Padding="0,5" ColumnDefinitions="*,*,*,*,*">
+
+                <Label Grid.Row="0" FontSize="24" Text="{x:Static t:ActivityListViewTexts.Title_Label}" />
+                
+                <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="1">
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}" VerticalOptions="Center"/>
+                    <DatePicker x:Name="DatePickerStart"  Date="{Binding FilterStart}" VerticalOptions="Center" IsEnabled ="{Binding ManualFilter}"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="15">
+                    <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"  VerticalOptions="Center"/>
+                    <DatePicker x:Name="DatePickerEnd" Date="{Binding FilterEnd}" VerticalOptions="Center" IsEnabled="{Binding ManualFilter}"/>
+                </StackLayout>
+
+                <StackLayout Grid.Column="3" Orientation="Horizontal" Spacing="15">
+                    <Label Text="{x:Static t:ActivityListViewTexts.Filter_Label}"  VerticalOptions="Center"/>
+                    <Picker x:Name="PickerFilter"
+                            ItemsSource="{Binding Filters}"
+                            SelectedIndex="1"
+                            SelectedItem="{Binding SelectedFilter}" />
+                </StackLayout>
+            </Grid>
+
+            <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Grid.Row="1">
+                    <CollectionView ItemsSource="{Binding Activities}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="m:ActivityListModel">
+                                <Frame Padding="0" CornerRadius="10" Margin="0, 5, 0, 0" 
+                                       BackgroundColor="{StaticResource BackgroundOfText}" >
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}"
                                                           CommandParameter="{Binding Id}" />
-                            </Frame.GestureRecognizers>
-                            <Grid RowDefinitions="auto, *">
-                                <Label  Grid.Row="0"
-                                        Padding="10, 10"
-                                        FontSize="20" LineBreakMode="WordWrap"
-                                        FontAttributes="Bold"
-                                        BackgroundColor="{StaticResource BackgroundOfText}" 
-                                        TextColor="White" VerticalOptions="Start">
-                                    <Label.Text>
-                                        <Binding Path="Type"/>
-                                    </Label.Text>
-                                </Label>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
+                                    </Frame.GestureRecognizers>
+                                    <Grid RowDefinitions="auto, *" ColumnDefinitions="*, *, *, *, *">
+                                        <Label  Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="10, 10"
+                                                FontSize="20"
+                                                LineBreakMode="WordWrap"
+                                                FontAttributes="Bold"
+                                                TextColor="White" 
+                                                VerticalOptions="Start">
+                                            <Label.Text>
+                                                <Binding Path="Type"/>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label  Grid.Row="0"
+                                                Grid.Column="1"
+                                                Padding="0, 10"
+                                                FontSize="18"
+                                                LineBreakMode="WordWrap"
+                                                TextColor="White" 
+                                                VerticalOptions="Start"
+                                                HorizontalOptions="Start">
+                                            <Label.Text>
+                                                <Binding Path="Start"/>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label  Grid.Row="0"
+                                                Grid.Column="2"
+                                                Padding="0, 10"
+                                                FontSize="18"
+                                                LineBreakMode="WordWrap"
+                                                TextColor="White" 
+                                                VerticalOptions="Start"
+                                                HorizontalOptions="Start">
+                                            <Label.Text>
+                                                <Binding Path="End"/>
+                                            </Label.Text>
+                                        </Label>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
 
         <HorizontalStackLayout HorizontalOptions="End">
-            <ImageButton Source="refresh_icon.png" 
+            <ImageButton x:Name="RefreshButton"
+                Source="refresh_icon.png" 
                          HeightRequest="30" 
                          WidthRequest="30" 
                          HorizontalOptions="End" 
@@ -56,7 +107,8 @@
 
             <Button Style="{StaticResource ButtonAdd}"
                 HorizontalOptions="End" VerticalOptions="Start"
-                Command="{Binding GoToCreateCommand}"/>
+                Command="{Binding GoToCreateCommand}"
+                CommandParameter="{Binding UserId}"/>
         </HorizontalStackLayout>
 
     </Grid>

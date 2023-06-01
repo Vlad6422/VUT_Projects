@@ -13,6 +13,7 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     private readonly INavigationService _navigationService;
 
     public IEnumerable<UserListModel> Users { get; set; } = null!;
+    private AppShellViewModel _viewModel;
 
     public UserListViewModel(
         IUserFacade UserFacade,
@@ -22,6 +23,7 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     {
         _UserFacade = UserFacade;
         _navigationService = navigationService;
+        _viewModel = (AppShellViewModel)Shell.Current.BindingContext;
     }
 
     protected override async Task LoadDataAsync()
@@ -32,9 +34,13 @@ public partial class UserListViewModel : ViewModelBase, IRecipient<UserEditMessa
     }
 
     [RelayCommand]
-    private async Task GoToDetailAsync(Guid id)
-        => await _navigationService.GoToAsync<UserDetailViewModel>(
-            new Dictionary<string, object> { [nameof(UserDetailViewModel.Id)] = id });
+    private async Task GoToActivityListAsync(Guid Id)
+    {
+        _viewModel.UserId = Id;
+        MessengerService.Send(new UserChangeMessage { UserId = Id });
+        await _navigationService.GoToAsync("//Activities");
+    }
+
 
     [RelayCommand]
     private async Task GoToCreateAsync()

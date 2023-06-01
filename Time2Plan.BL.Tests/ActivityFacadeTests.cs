@@ -23,7 +23,9 @@ public class ActivityFacadeTests : FacadeTestBase
         {
             Start = new DateTime(2001, 1, 1, 8, 0, 0),
             End = new DateTime(2002, 1, 1, 10, 0, 0),
-            Type = "test type of activity"
+            Type = "test type of activity",
+            UserId = UserSeeds.UserEntity3.Id,
+            ProjectId = ProjectSeeds.ProjectBeta.Id
         };
 
         var savedActivity = await _activityFacadeSUT.SaveAsync(activity);
@@ -46,11 +48,15 @@ public class ActivityFacadeTests : FacadeTestBase
     }
 
     [Fact]
-    public async Task GetFilterAsyncDatesOnly()
+    public async Task GetFilterAsync()
     {
+        var userId = ActivitySeeds.Code.UserId;
+        var projectId = ActivitySeeds.Code.ProjectId;
         var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
         var toDate = new DateTime(2022, 12, 30);
-        var activities = await _activityFacadeSUT.GetAsyncFilter(fromDate, toDate);
+        var tag = ActivitySeeds.Code.Tag;
+
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, fromDate, toDate, tag, projectId);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
@@ -60,21 +66,22 @@ public class ActivityFacadeTests : FacadeTestBase
     public async Task GetFilterAsyncTagOnly()
     {
         string tag = ActivitySeeds.Run.Tag!;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(tag);
+        var userId = ActivitySeeds.Code.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, null, null, tag, null);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Run.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Run), activity);
     }
 
-
     [Fact]
-    public async Task GetFilterAsyncIntervalOnly()
+    public async Task GetFilterAsyncProjectOnly()
     {
-        var interval = ActivityFacade.Interval.Yearly;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(interval);
-        var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
+        Guid projectId = ActivitySeeds.Run.ProjectId;
+        var userId = ActivitySeeds.Code.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, null, null, null, projectId);
+        var activity = activities.Single(a => a.Id == ActivitySeeds.Run.Id);
 
-        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.ThisYearActivity), activity);
+        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Run), activity);
     }
 
     [Fact]
@@ -83,23 +90,12 @@ public class ActivityFacadeTests : FacadeTestBase
         var fromDate = new DateTime(2000, 1, 1, 15, 30, 0);
         var toDate = new DateTime(2022, 12, 30);
         var tag = ActivitySeeds.Code.Tag;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(fromDate, toDate, tag, null); //doesnt work with project, seeds are broken rn
+        var userId = ActivitySeeds.Code.UserId;
+        var activities = await _activityFacadeSUT.GetAsyncFilter(userId, fromDate, toDate, tag, ActivitySeeds.Code.ProjectId);
         var activity = activities.Single(a => a.Id == ActivitySeeds.Code.Id);
 
         DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.Code), activity);
     }
-
-    [Fact]
-    public async Task GetFilterAsyncIntervalAll()
-    {
-        var interval = ActivityFacade.Interval.Yearly;
-        var tag = ActivitySeeds.ThisYearActivity.Tag;
-        var activities = await _activityFacadeSUT.GetAsyncFilter(interval, tag, null); //doesnt work with project, seeds are broken rn
-        var activity = activities.Single(a => a.Id == ActivitySeeds.ThisYearActivity.Id);
-
-        DeepAssert.Equal(ActivityModelMapper.MapToListModel(ActivitySeeds.ThisYearActivity), activity);
-    }
-
 
     [Fact]
     public async Task GetById_SeededCode()
@@ -132,7 +128,9 @@ public class ActivityFacadeTests : FacadeTestBase
             Id = ActivitySeeds.Code.Id,
             Description = ActivitySeeds.Code.Description,
             Start = ActivitySeeds.Code.Start,
-            End = ActivitySeeds.Code.End
+            End = ActivitySeeds.Code.End,
+            UserId = UserSeeds.User1.Id,
+            ProjectId = ProjectSeeds.ProjectBeta.Id,
         };
         activity.Description += "updated";
 

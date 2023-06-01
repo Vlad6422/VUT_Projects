@@ -16,51 +16,71 @@
               ColumnDefinitions="*, Auto"
               ColumnSpacing="15">
 
-            <Button Style="{StaticResource ButtonAdd}"
+            <Button Style="{StaticResource ButtonSave}"
                 Grid.Column="1"
                 VerticalOptions="Start"
                 HeightRequest="30"
-                Command="{Binding SaveCommand}"/>
+                Command="{Binding SaveCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference Type}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
         </Grid>
         <Grid Grid.Row="1"
               HorizontalOptions="Fill" VerticalOptions="Start"
               RowDefinitions="100, *" ColumnDefinitions="Auto, *">
+            <ScrollView Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+                <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
                                  Grid.Column="1"
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="{x:Static t:ActivityEditViewTexts.Type_label}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Type_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Type}" 
                        TextColor="Black"
-                       BackgroundColor="LightGray"/>
+                       BackgroundColor="LightGray"
+                       x:Name="Type"/>
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.Tag_label}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Tag_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Tag}"
                        TextColor="Black"
-                       BackgroundColor="LightGray"/>
+                       BackgroundColor="LightGray"
+                       />
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}"/>
-                <Entry HorizontalOptions="Fill"
-                       Text="{Binding Activity.Start}"
-                       TextColor="Black"
-                       BackgroundColor="LightGray" />
+                    <Grid Padding="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"/>
-                <Entry HorizontalOptions="Fill"
-                       Text="{Binding Activity.End}"
-                       TextColor="Black"
-                       BackgroundColor="LightGray"/>
+                        <StackLayout Orientation="Horizontal" Spacing="15" Grid.Column="0">
+                            <Label Text="{x:Static t:ActivityEditViewTexts.Start_label}" VerticalOptions="Center"/>
+                            <DatePicker Date="{Binding StartDate, TargetNullValue={Binding DefaultStartDate}}" VerticalOptions="Center"/>
+                            <TimePicker Time="{Binding StartTime}" VerticalOptions="Center"/>
+                        </StackLayout>
 
-                <Label Text="{x:Static t:ActivityEditViewTexts.Description_label}"/>
-                <Entry HorizontalOptions="Fill"
+                        <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="15" HorizontalOptions="End">
+                            <Label Text="{x:Static t:ActivityEditViewTexts.End_label}"  VerticalOptions="Center"/>
+                            <DatePicker Date="{Binding EndDate}" VerticalOptions="Center"/>
+                            <TimePicker Time="{Binding EndTime}" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Grid>
+                    <Picker Title="Project" ItemsSource="{Binding Projects}"
+                    SelectedItem="{Binding SelectedProject}"></Picker>
+
+
+                    <Label Text="{x:Static t:ActivityEditViewTexts.Description_label}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding Activity.Description}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
-            </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </views:ContentPageBase>

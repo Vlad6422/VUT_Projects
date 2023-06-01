@@ -70,6 +70,15 @@ namespace Time2Plan.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select filter.
+        /// </summary>
+        internal static string Filter_Label {
+            get {
+                return ResourceManager.GetString("Filter_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time2Plan.
         /// </summary>
         internal static string Page_Title {

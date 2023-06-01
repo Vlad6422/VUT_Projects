@@ -9,13 +9,8 @@
     x:Class="Time2Plan.App.Shells.AppShell"
     x:Name="AppShellRoot"
     FlyoutBehavior="Disabled">
+    <ShellContent ContentTemplate="{DataTemplate u:UserListView}" Route="Users"></ShellContent>
     <TabBar>
-        <Tab Title="Users">
-            <ShellContent 
-                Title="Users"
-                ContentTemplate="{DataTemplate u:UserListView}"
-                Route="Users"/>
-        </Tab>
         <Tab Title="Activities">
             <ShellContent 
                 Title="Activities"
@@ -27,6 +22,12 @@
                  Title="Projects"
                  ContentTemplate="{DataTemplate p:ProjectListView}"
                  Route="Projects"/>
+        </Tab>
+        <Tab Title="Profile">
+             <ShellContent 
+                 Title="Profile"
+                 ContentTemplate="{DataTemplate u:UserDetailView}"
+                 Route="Profile"/>
         </Tab>
     </TabBar>
     

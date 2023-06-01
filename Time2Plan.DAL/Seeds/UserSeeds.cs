@@ -14,7 +14,7 @@ public static class UserSeeds
 
     public static readonly UserEntity AnnaUser = new()
     {
-        Id = Guid.Parse("fabde0cd-eefe-443f-baf6-3d96cc2cbf2e"),
+        Id = Guid.Parse("0c2964cd-d4ff-4470-8118-13080cc955e7"),
         Name = "Anna",
         Surname = "Stein",
         NickName = "AnduleStainka",
@@ -23,7 +23,7 @@ public static class UserSeeds
 
     public static readonly UserEntity PatrickUser = new()
     {
-        Id = Guid.Parse("fabde0cd-eefe-443f-baf6-3d96bb2cbf2e"),
+        Id = Guid.Parse("c78a4a0b-bcba-49bf-8759-f539726de3f3"),
         Name = "Patricius",
         Surname = "Robinson",
         NickName = "UserAgent007",

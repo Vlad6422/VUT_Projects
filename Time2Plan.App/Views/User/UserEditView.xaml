@@ -5,6 +5,7 @@
                         xmlns:t="clr-namespace:Time2Plan.App.Resources.Texts"
                         xmlns:m="clr-namespace:Time2Plan.BL.Models;assembly=Time2Plan.BL"
                         xmlns:vm="clr-namespace:Time2Plan.App.ViewModels"
+                        xmlns:converters="clr-namespace:Time2Plan.App.Converters"
                         x:Class="Time2Plan.App.Views.User.UserEditView"
                         x:Name="UserEditViewRoot"
                         x:DataType="vm:UserEditViewModel"
@@ -20,13 +21,21 @@
                 Grid.Column="1"
                 VerticalOptions="Start"
                 HeightRequest="30"
-                Command="{Binding SaveCommand}"/>
+                Command="{Binding SaveCommand}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource NotEmptyConverter}">
+                        <Binding Source="{x:Reference  NameIsOn}" Path="Text" />
+                        <Binding Source="{x:Reference NickNameIsOn}" Path="Text" />
+                        <Binding Source="{x:Reference  SurnameIsOn}" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled> 
+            </Button>
         </Grid>
         <Grid Grid.Row="1"
               HorizontalOptions="Fill" VerticalOptions="Start"
               RowDefinitions="170, *" ColumnDefinitions="Auto, *"
               RowSpacing="20" ColumnSpacing="20">
-            
+
             <Image HorizontalOptions="Fill" 
                    Grid.Column="1"
                     VerticalOptions="Fill"
@@ -35,36 +44,41 @@
                     BackgroundColor="white"
                     Source="{Binding User.Photo, TargetNullValue='user_default.png'}"/>
 
-
-            <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
+            <ScrollView Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <VerticalStackLayout Grid.Row="1" Grid.RowSpan="2"
                                  Grid.Column="1"
                                  HorizontalOptions="Fill"
                                  Spacing="10"
                                  WidthRequest="1000">
-                <Label Text="{x:Static t:UserEditViewTexts.Name_Label_Text}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:UserEditViewTexts.Name_Label_Text}"/>
+                    <Entry 
+                    x:Name="NameIsOn"
+                    HorizontalOptions="Fill"
                        Text="{Binding User.Name}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="{x:Static t:UserEditViewTexts.Surname_Label_Text}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:UserEditViewTexts.Surname_Label_Text}"/>
+                    <Entry x:Name="SurnameIsOn"
+                       HorizontalOptions="Fill"
                        Text="{Binding User.Surname}"
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="{x:Static t:UserEditViewTexts.Nickname_Label_Text}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:UserEditViewTexts.Nickname_Label_Text}"/>
+                    <Entry x:Name="NickNameIsOn"
+                       HorizontalOptions="Fill"
                        Text="{Binding User.NickName}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
 
-                <Label Text="{x:Static t:UserEditViewTexts.Photo_Label_Text}"/>
-                <Entry HorizontalOptions="Fill"
+                    <Label Text="{x:Static t:UserEditViewTexts.Photo_Label_Text}"/>
+                    <Entry HorizontalOptions="Fill"
                        Text="{Binding User.Photo}" 
                        TextColor="Black"
                        BackgroundColor="LightGray"/>
-            </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </views:ContentPageBase>

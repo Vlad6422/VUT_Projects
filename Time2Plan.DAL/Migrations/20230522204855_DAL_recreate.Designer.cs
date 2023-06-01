@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Time2Plan.DAL;
 
@@ -10,9 +11,11 @@ using Time2Plan.DAL;
 namespace Time2Plan.DAL.Migrations
 {
     [DbContext(typeof(Time2PlanDbContext))]
-    partial class Time2PlanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522204855_DAL_recreate")]
+    partial class DAL_recreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
@@ -50,7 +53,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Activities", (string)null);
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.ProjectEntity", b =>
@@ -68,7 +71,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.ProjectUserRelation", b =>
@@ -86,7 +89,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("UserProjects", (string)null);
+                    b.ToTable("UserProjects");
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.UserEntity", b =>
@@ -115,7 +118,7 @@ namespace Time2Plan.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Time2Plan.DAL.Entities.ActivityEntity", b =>

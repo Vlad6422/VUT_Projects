@@ -11,4 +11,7 @@ public class UserFacade : FacadeBase<UserEntity, UserListModel, UserDetailModel,
     public UserFacade(IUnitOfWorkFactory unitOfWorkFactory, IUserModelMapper modelMapper) : base(unitOfWorkFactory, modelMapper)
     {
     }
+
+    protected override string IncludesNavigationPathDetail
+        => $"{nameof(UserEntity.UserProjects)}.{nameof(ProjectUserRelation.Project)}";
 }

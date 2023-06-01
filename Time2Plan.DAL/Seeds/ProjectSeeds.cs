@@ -14,29 +14,24 @@ public static class ProjectSeeds
 
     public static readonly ProjectEntity ProjectAlpha = new()
     {
-        Id = Guid.NewGuid(),
+        Id = Guid.Parse("4ebe27b1-a851-4f00-a93b-edccad5587af"),
         Name = "Project Alpha",
         Description = "A software development project"
     };
 
     public static readonly ProjectEntity ProjectBeta = new()
     {
-        Id = Guid.NewGuid(),
+        Id = Guid.Parse("58084c98-638e-4294-b713-a36dac80c453"),
         Name = "Project Beta",
         Description = "A marketing campaign"
     };
 
     public static readonly ProjectEntity ProjectWithActivities = new()
     {
-        Id = Guid.NewGuid(),
+        Id = Guid.Parse("1030a9da-1592-4f6b-9e49-af4b59edc52c"),
         Name = "Project with activities",
         Description = "Coding and running"
     };
-
-    public static readonly ProjectEntity ProjectAlphaDelete = ProjectAlpha with { Id = Guid.NewGuid() };
-    public static readonly ProjectEntity ProjectAlphaUpdate = ProjectAlpha with { Id = Guid.NewGuid() };
-    public static readonly ProjectEntity ProjectWithActivitiesDelete = ProjectWithActivities with { Id = Guid.NewGuid() };
-    public static readonly ProjectEntity ProjectWithActivitiesUpdate = ProjectWithActivities with { Id = Guid.NewGuid() };
 
 
     public static void Seed(this ModelBuilder modelBuilder)
@@ -44,11 +39,7 @@ public static class ProjectSeeds
         modelBuilder.Entity<ProjectEntity>().HasData(
             ProjectAlpha,
             ProjectBeta,
-            ProjectAlphaDelete,
-            ProjectAlphaUpdate,
-            ProjectWithActivities,
-            ProjectWithActivitiesUpdate,
-            ProjectWithActivitiesDelete);
+            ProjectWithActivities);
     }
 }
 

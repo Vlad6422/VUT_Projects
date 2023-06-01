@@ -113,5 +113,14 @@ namespace Time2Plan.App.Resources.Texts {
                 return ResourceManager.GetString("Type_label", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        internal static string Type_Project {
+            get {
+                return ResourceManager.GetString("Type_Project", resourceCulture);
+            }
+        }
     }
 }

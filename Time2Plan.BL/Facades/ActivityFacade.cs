@@ -12,86 +12,44 @@ public class ActivityFacade : FacadeBase<ActivityEntity, ActivityListModel, Acti
     public ActivityFacade(IUnitOfWorkFactory unitOfWorkFactory, IActivityModelMapper modelMapper) : base(unitOfWorkFactory, modelMapper)
     {
     }
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime? fromDate, DateTime? toDate, string? tag, ProjectEntity? project)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Guid UserId, DateTime? fromDate, DateTime? toDate, string? tag, Guid? projectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
         IQueryable<ActivityEntity> query = uow.GetRepository<ActivityEntity, ActivityEntityMapper>().Get();
 
-
+        query = query.Where(e => e.UserId == UserId);
         if (fromDate != null)
         {
-            query = query.Where(e => e.Start > fromDate);
+            query = query.Where(e => e.Start >= fromDate);
         }
         if (toDate != null)
         {
-            query = query.Where(e => e.Start < toDate);
+            query = query.Where(e => e.Start <= toDate);
         }
         if (tag != null)
         {
             query = query.Where(e => e.Tag == tag);
         }
-        if (project != null)
+        if (projectId != null)
         {
-            query = query.Where(e => e.Project == project);
-
+            query = query.Where(e => e.Project!.Id == projectId);
         }
+        query = query.OrderBy(e => e.Start);
         List<ActivityEntity> entities = await query.ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
     }
 
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(DateTime fromDate, DateTime toDate)
+    public async Task<IEnumerable<ActivityListModel>> GetAsyncListByUser(Guid Id)
     {
-        return await GetAsyncFilter(fromDate, toDate, null, null);
-    }
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        List<ActivityEntity> entities = uow
+            .GetRepository<ActivityEntity, ActivityEntityMapper>()
+            .Get()
+            .Where(e => e.UserId == Id) // find all activities by user
+            .ToList();
 
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(string tag)
-    {
-        return await GetAsyncFilter(null, null, tag, null);
-    }
-
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(ProjectEntity project)
-    {
-        return await GetAsyncFilter(null, null, null, project);
-    }
-
-
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval, string? tag, ProjectEntity? project)
-    {
-        DateTime toDate = DateTime.Now;
-        DateTime fromDate;
-
-        switch (interval)
-        {
-            case Interval.Daily:
-                fromDate = toDate.AddDays(-1);
-                break;
-            case Interval.Weekly:
-                fromDate = toDate.AddDays(-7);
-                break;
-            case Interval.Monthly:
-                fromDate = toDate.AddMonths(-1);
-                break;
-            case Interval.Yearly:
-                fromDate = toDate.AddYears(-1);
-                break;
-            default:
-                throw new Exception("Undefined interval");
-        }
-        return await GetAsyncFilter(fromDate, toDate, tag, project);
-    }
-
-    public virtual async Task<IEnumerable<ActivityListModel>> GetAsyncFilter(Interval interval)
-    {
-        return await GetAsyncFilter(interval, null, null);
-    }
-    public enum Interval
-    {
-        Daily,
-        Weekly,
-        Monthly,
-        Yearly,
-        All
+        return ModelMapper.MapToListModel(entities);
     }
 }

@@ -7,11 +7,15 @@ public record ActivityListModel : ModelBase
     public string? Type { get; set; }
     public string? Tag { get; set; }
 
+    public Guid UserId { get; set; }
+    public Guid ProjectId { get; set; }
+
     public static ActivityListModel Empty
         => new()
         {
             Id = Guid.NewGuid(),
             Start = new DateTime(),
-            End = new DateTime()
+            End = new DateTime(),
+            UserId = Guid.Empty,
         };
 }

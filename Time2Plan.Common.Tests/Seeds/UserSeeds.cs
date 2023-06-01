@@ -24,7 +24,7 @@ public static class UserSeeds
         Photo = "https://example.com/john-doe.jpg"
     };
 
-    public static UserEntity UserEntity3 = new()
+    public static readonly UserEntity UserEntity3 = new()
     {
         Id = Guid.Parse(input: "e50551ce-6300-4784-ac8b-0b1f86e2bd76"),
         Name = "Adolf Entity",
