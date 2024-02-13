@@ -1,4 +1,4 @@
-# IFJ_sasat
+# IFJ_2023
 
 Procentuální hodnocení modulů překladače:<br>
 Lexikální analýza (detekce chyb): 91 % (147/161)<br>
