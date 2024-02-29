@@ -1,0 +1,7 @@
+#gitignore Ignore Files after Compilation (Build + Publish)
+/ipk1/ipk24chat-client/bin
+/ipk1/ipk24chat-client/obj
+/ipk1/ipk24chat-client/Properties
+/ipk1/ipk24chat-client/ipk24chat-client.csproj.user
+/ipk24chat-client
+/ipk24chat-client.pdb
