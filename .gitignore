@@ -5,3 +5,5 @@
 /ipk1/ipk24chat-client/ipk24chat-client.csproj.user
 /ipk24chat-client
 /ipk24chat-client.pdb
+.env
+.vs

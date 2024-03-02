@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ipk24chat_client.Classes
 {
-    internal class ServerSetings : IServerSettings
+    class ServerSetings : IServerSettings
     {
-        static void PrintHelp()
+        public void PrintHelp()
         {
             Console.WriteLine("Program Help:");
             Console.WriteLine("-t <tcp/udp>          : Transport protocol used for connection");
@@ -29,6 +29,10 @@ namespace ipk24chat_client.Classes
         public byte maxUdpRetransmissions { get; } = 3;
         public ServerSetings(string[] args)
         {
+#if DEBUG
+            transportProtocol = "tcp";
+            serverAddress = "127.0.0.1";
+#endif
             // Parse command line arguments
             for (int i = 0; i < args.Length; i += 2)
             {
