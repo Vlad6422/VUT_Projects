@@ -24,7 +24,7 @@ namespace ipk24chat_client
                     using (TcpClient tcpClient = new TcpClient(AddressFamily.InterNetwork))
                     {
                         tcpClient.Connect(serverSetings.serverAddress, serverSetings.serverPort);
-                        Console.WriteLine("Connected to the server.");
+                        //Console.WriteLine("Connected to the server.");
                         //START
                         using (NetworkStream networkStream = tcpClient.GetStream())
                         {
@@ -44,7 +44,6 @@ namespace ipk24chat_client
                 Console.WriteLine("Work In Progress");
             }
             
-            Console.ReadLine();
         }
 
 
