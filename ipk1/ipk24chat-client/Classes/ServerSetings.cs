@@ -55,7 +55,7 @@ namespace ipk24chat_client.Classes
                                     return;
                                 }
                                 serverAddress = ipAddress.ToString();
-                                
+
                             }
                             catch (System.Net.Sockets.SocketException)
                             {
@@ -92,11 +92,11 @@ namespace ipk24chat_client.Classes
             }
 
             // Perform program logic using the parsed arguments
-    #if DEBUG
+#if DEBUG
             Console.WriteLine($"Using {transportProtocol} protocol to connect to server {serverAddress}:{this.serverPort}");
             Console.WriteLine($"UDP Confirmation Timeout: {this.udpConfirmationTimeout}");
             Console.WriteLine($"Maximum UDP Retransmissions: {this.maxUdpRetransmissions}");
-    #endif
+#endif
         }
     }
 }

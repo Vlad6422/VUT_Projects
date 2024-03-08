@@ -1,25 +1,73 @@
 ﻿using ipk24chat_client.Interfaces;
 using System.Net.Sockets;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace ipk24chat_client.Classes
 {
-     public class TcpUser : IUser,IStream
+    public class TcpUser : IUser
     {
-        public string Username { get; set; }
-        public string Secret { get; set; }
-        public string DisplayName { get; set; }
-        public string ChannelId { get; set; }
-        public string Message { get; set; }
-        public NetworkStream networkStream { get; }
-        public TcpUser(NetworkStream networkStream) {
-            this.networkStream = networkStream;
-            Username = string.Empty;
-            Secret = string.Empty;
-            DisplayName = string.Empty;
-            ChannelId = string.Empty;
-            Message = string.Empty;
+        private string _username { get; set; }
+        private string _secret { get; set; }
+        private string _displayName { get; set; }
+        private string _message { get; set; }
+        private NetworkStream _networkStream { get; }
+        public TcpUser(NetworkStream networkStream)
+        {
+            _networkStream = networkStream;
+            _username = string.Empty;
+            _secret = string.Empty;
+            _displayName = string.Empty;
+            _message = string.Empty;
+        }
+        public void WriteInternalError(string error)
+        {
+            Console.Error.WriteLine($"ERR: {error}");
+        }
+        public bool ChangeUserName(string username)
+        {
+            if (username.Length > 20 || !System.Text.RegularExpressions.Regex.IsMatch(username, @"^[A-Za-z0-9\-]+$"))
+            {
+                WriteInternalError("Too Big UserName or Incorect");
+                return false;
+            }
+            else
+            {
+                _username = username;
+
+            }
+            return true;
+
+        }
+        public bool ChangeSecret(string secret)
+        {
+            if (secret.Length > 128 || !System.Text.RegularExpressions.Regex.IsMatch(secret, @"^[A-Za-z0-9\-]+$"))
+            {
+                WriteInternalError("Too Big Secret or Incorect");
+                return false;
+            }
+            else
+            {
+                _secret = secret;
+
+            }
+            return true;
+
+        }
+        public bool ChangeDisplayName(string newName)
+        {
+            if (_displayName.Length > 20)
+            {
+                WriteInternalError("Too Big DisplayName or Incorect");
+                return false;
+            }
+            else
+            {
+                _displayName = newName;
+            }
+            return true;
+
         }
         public void Start()
         {
@@ -31,10 +79,10 @@ namespace ipk24chat_client.Classes
 
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
-                    Console.WriteLine("Error: Empty input. Please enter a command or message.");
+                    WriteInternalError("Empty input. Please enter a command or message.");
                     continue;
                 }
-             
+
 
                 if (userInput.StartsWith("/"))
                 {
@@ -43,7 +91,7 @@ namespace ipk24chat_client.Classes
 
                     if (commandParts.Length == 0)
                     {
-                        Console.WriteLine("Error: Invalid command. Please provide a valid command.");
+                        WriteInternalError("Invalid command.Please provide a valid command.");
                         continue;
                     }
 
@@ -54,33 +102,32 @@ namespace ipk24chat_client.Classes
                         case "auth":
                             if (commandParts.Length != 4)
                             {
-                                Console.WriteLine("Error: Invalid number of parameters for /auth command.");
+                                WriteInternalError("Invalid number of parameters for /auth command.");
                                 continue;
                             }
-
-                            Username = commandParts[1];
-                            DisplayName = commandParts[2];
-                            Secret = commandParts[3];
-
-                            Authenticate();
+                            if (
+                            ChangeUserName(commandParts[1]) &&
+                            ChangeDisplayName(commandParts[2]) &&
+                            ChangeSecret(commandParts[3]))
+                            {
+                                Authenticate();
+                            }
 
                             break;
 
                         case "join":
                             if (commandParts.Length != 2)
                             {
-                                Console.WriteLine("Error: Invalid number of parameters for /join command.");
+                                WriteInternalError("Invalid number of parameters for /join command.");
                                 continue;
                             }
-                            // Handle /join command
-                            // Send JOIN message to the server with channel name
                             JoinChannel(commandParts[1]);
                             break;
 
                         case "rename":
                             if (commandParts.Length != 2)
                             {
-                                Console.WriteLine("Error: Invalid number of parameters for /rename command.");
+                                WriteInternalError("Invalid number of parameters for /rename command.");
                                 continue;
                             }
                             ChangeDisplayName(commandParts[1]);
@@ -95,7 +142,7 @@ namespace ipk24chat_client.Classes
                             break;
 
                         default:
-                            Console.WriteLine($"Error: Unknown command '{commandName}'. Type '/help' for a list of supported commands.");
+                            WriteInternalError($"Unknown command '{commandName}'. Type '/help' for a list of supported commands.");
                             break;
                     }
                 }
@@ -103,15 +150,16 @@ namespace ipk24chat_client.Classes
                 {
                     // Handle sending messages to the server
                     // This part should be implemented based on your application logic
-                    Message = userInput;
-                    if(Message == "BYE")
+                    _message = userInput;
+                    if (_message == "BYE")
                     {
-                        SendMessage(Message+"\r\n");
+                        SendMessage(_message + "\r\n");
                         return;
                     }
-                    else {
-                        SendMessage("MSG FROM " + DisplayName + " IS " + Message + "\r\n");
-                      //  Console.WriteLine(RecieveMessage());
+                    else
+                    {
+                        SendMessage("MSG FROM " + _displayName + " IS " + _message + "\r\n");
+                        //  Console.WriteLine(RecieveMessage());
                     }
 #if DEBUG
                     Console.WriteLine($"Sending message to the server: {userInput}");
@@ -127,42 +175,49 @@ namespace ipk24chat_client.Classes
         }
         public void Authenticate()
         {
-            SendMessage("AUTH " + Username + " AS " + DisplayName + " USING " + Secret + "\r\n");
+            SendMessage("AUTH " + _username + " AS " + _displayName + " USING " + _secret + "\r\n");
             //Console.WriteLine(RecieveMessage());
         }
         public void JoinChannel(string channelName)
         {
-            SendMessage("JOIN "+channelName+" AS "+DisplayName+"\r\n");
-           // Console.WriteLine(RecieveMessage());
+            if (channelName.Length > 20 || !System.Text.RegularExpressions.Regex.IsMatch(channelName, @"^[A-Za-z0-9\-]+$"))
+            {
+                WriteInternalError("Too Big ChannelName OR Incorrect");
+            }
+            else
+            {
+                SendMessage("JOIN " + channelName + " AS " + _displayName + "\r\n");
+            }
+
+            // Console.WriteLine(RecieveMessage());
         }
         public void SendMessage(string message)
         {
             byte[] data = Encoding.ASCII.GetBytes(message);
             // Send the data to the server
-            networkStream.Write(data, 0, data.Length);
+            _networkStream.Write(data, 0, data.Length);
 
         }
         public string RecieveMessage()
         {
-            // Optional: Receive a response from the server
 
             try
             {
                 byte[] buffer = new byte[1024];
-                int bytesRead = networkStream.Read(buffer, 0, buffer.Length);
+                int bytesRead = _networkStream.Read(buffer, 0, buffer.Length);
                 string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
                 return response;
             }
-            catch(IOException)
+            catch (IOException)
             {
                 return "ERROR";
             }
-               
+
 
         }
         public void StartReceivingMessages()
         {
-            while (Message!="BYE")
+            while (_message != "BYE")
             {
                 string response = RecieveMessage();
                 if (response != "BYE")
@@ -187,7 +242,7 @@ namespace ipk24chat_client.Classes
                         case "REPLY":
                             string resultType = parts[1];
                             string MessageContent = string.Join(" ", parts[3..]);
-                            if(resultType == "OK")
+                            if (resultType == "OK")
                             {
                                 Console.Error.WriteLine($"Success: {MessageContent}");
                             }
@@ -195,7 +250,7 @@ namespace ipk24chat_client.Classes
                             {
                                 Console.Error.WriteLine($"Failure: {MessageContent}");
                             }
-                           
+
                             break;
 
                         default:
@@ -208,13 +263,8 @@ namespace ipk24chat_client.Classes
                 {
                     break;
                 }
-                
-                // Добавьте вашу логику обработки полученных сообщений здесь
+
             }
-        }
-        public void ChangeDisplayName(string newName)
-        {
-            DisplayName = newName;
         }
     }
 }

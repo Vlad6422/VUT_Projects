@@ -13,7 +13,7 @@ namespace ipk24chat_client
         {
 
             ServerSetings serverSetings = new ServerSetings(args);
-            
+
 #if DEBUG
             Console.WriteLine(serverSetings.transportProtocol + "  " + serverSetings.serverAddress + ":" + serverSetings.serverPort + "   " + serverSetings.maxUdpRetransmissions + "    " + serverSetings.udpConfirmationTimeout);
 #endif
@@ -30,7 +30,6 @@ namespace ipk24chat_client
                         {
                             TcpUser tcpUser = new TcpUser(networkStream);
                             tcpUser.Start();
-                            Console.WriteLine(tcpUser.Username);
                         }
                         tcpClient.Close();
                     }
@@ -44,7 +43,7 @@ namespace ipk24chat_client
             {
                 Console.WriteLine("Work In Progress");
             }
-            
+
         }
 
 
