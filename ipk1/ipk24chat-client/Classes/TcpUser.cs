@@ -1,23 +1,25 @@
 ﻿using ipk24chat_client.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ipk24chat_client.Classes
 {
-    class TcpUser : IUser,IStream
+     public class TcpUser : IUser,IStream
     {
-        public string Username { get; set; } = null;
-        public string Secret { get; set; } = null;
-        public string DisplayName { get; set; } = null;
-        public string ChannelId { get; set; } = null;
-        public string Message { get; set; } = null;
+        public string Username { get; set; }
+        public string Secret { get; set; }
+        public string DisplayName { get; set; }
+        public string ChannelId { get; set; }
+        public string Message { get; set; }
         public NetworkStream networkStream { get; }
         public TcpUser(NetworkStream networkStream) {
             this.networkStream = networkStream;
+            Username = string.Empty;
+            Secret = string.Empty;
+            DisplayName = string.Empty;
+            ChannelId = string.Empty;
+            Message = string.Empty;
         }
         public void Start()
         {
@@ -25,7 +27,7 @@ namespace ipk24chat_client.Classes
             receiveThread.Start();
             while (true)
             {
-                string userInput = Console.ReadLine();
+                string? userInput = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
@@ -151,7 +153,7 @@ namespace ipk24chat_client.Classes
                 string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
                 return response;
             }
-            catch(IOException e)
+            catch(IOException)
             {
                 return "ERROR";
             }
@@ -163,7 +165,7 @@ namespace ipk24chat_client.Classes
             while (Message!="BYE")
             {
                 string response = RecieveMessage();
-                if (response != "ERROR")
+                if (response != "BYE")
                 {
                     string[] parts = response.Split();
                     string msgType = parts[0];
@@ -197,10 +199,14 @@ namespace ipk24chat_client.Classes
                             break;
 
                         default:
-                            Console.Error.WriteLine($"Unknown message type: {msgType}");
+                            //Console.Error.WriteLine($"Unknown message type: {msgType}");
                             break;
                     }
                     //Console.WriteLine($"Received message from the server: {response}");
+                }
+                else
+                {
+                    break;
                 }
                 
                 // Добавьте вашу логику обработки полученных сообщений здесь

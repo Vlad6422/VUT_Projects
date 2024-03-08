@@ -30,13 +30,14 @@ namespace ipk24chat_client
                         {
                             TcpUser tcpUser = new TcpUser(networkStream);
                             tcpUser.Start();
+                            Console.WriteLine(tcpUser.Username);
                         }
                         tcpClient.Close();
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.Error.WriteLine($"Error: {ex.Message}");
                 }
             }
             else if (serverSetings.transportProtocol == "udp")

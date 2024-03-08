@@ -1,10 +1,6 @@
 ﻿using ipk24chat_client.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ipk24chat_client.Classes
 {
@@ -22,8 +18,8 @@ namespace ipk24chat_client.Classes
         }
 
         // Default values
-        public string transportProtocol { get; } = null;
-        public string serverAddress { get; } = null;
+        public string transportProtocol { get; } = "";
+        public string serverAddress { get; } = "";
         public ushort serverPort { get; } = 4567;
         public ushort udpConfirmationTimeout { get; } = 250;
         public byte maxUdpRetransmissions { get; } = 3;
@@ -43,7 +39,7 @@ namespace ipk24chat_client.Classes
                         break;
                     case "-s":
                         serverAddress = args[i + 1];
-                        if (!IPAddress.TryParse(serverAddress, out IPAddress ipAddress))
+                        if (!IPAddress.TryParse(serverAddress, out IPAddress? ipAddress))
                         {
                             // It's not a valid IPv4 address, try resolving the domain name
                             try
@@ -52,13 +48,14 @@ namespace ipk24chat_client.Classes
 
                                 // Pick the first IPv4 address from the array
                                 ipAddress = addresses.FirstOrDefault(addr => addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                                serverAddress = ipAddress.ToString();
                                 if (ipAddress == null)
                                 {
                                     Console.WriteLine("Error: Unable to resolve domain to IPv4 address");
                                     // Handle error when unable to resolve domain to IPv4 address
                                     return;
                                 }
+                                serverAddress = ipAddress.ToString();
+                                
                             }
                             catch (System.Net.Sockets.SocketException)
                             {
