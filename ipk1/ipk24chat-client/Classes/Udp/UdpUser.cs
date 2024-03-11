@@ -1,25 +1,28 @@
 ﻿using ipk24chat_client.Interfaces;
+using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-
-namespace ipk24chat_client.Classes
+namespace ipk24chat_client.Classes.Udp
 {
-    public class TcpUser : IUser
+    public class UdpUser
     {
         private string _username { get; set; }
         private string _secret { get; set; }
         private string _displayName { get; set; }
         private string _message { get; set; }
-        private NetworkStream _networkStream { get; }
-        public TcpUser(NetworkStream networkStream)
+        private ushort _messageId { get; set; }
+        private UdpClient _client;
+        private IPEndPoint _serverEndPoint;
+        public UdpUser(string IpAdress, ushort port)
         {
-            _networkStream = networkStream;
             _username = string.Empty;
             _secret = string.Empty;
             _displayName = string.Empty;
             _message = string.Empty;
+            _messageId = 0;
+            _client = new UdpClient();
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse(IpAdress), port);
+            // client.Connect(serverEndPoint);
         }
         public void WriteInternalError(string error)
         {
@@ -71,7 +74,7 @@ namespace ipk24chat_client.Classes
         }
         public void Start()
         {
-            Thread receiveThread = new Thread(StartReceivingMessages);
+            Thread receiveThread = new Thread(RecieveUdpPacket);
             receiveThread.Start();
             while (true)
             {
@@ -121,7 +124,7 @@ namespace ipk24chat_client.Classes
                                 WriteInternalError("Invalid number of parameters for /join command.");
                                 continue;
                             }
-                            JoinChannel(commandParts[1]);
+                              JoinChannel(commandParts[1]);
                             break;
 
                         case "rename":
@@ -153,12 +156,15 @@ namespace ipk24chat_client.Classes
                     _message = userInput;
                     if (_message == "BYE")
                     {
-                        SendMessage(_message + "\r\n");
+                        ByeMessage byeMessage = new ByeMessage();
+                        byte[] byeMessageBytes = { 0xFF, 0, 99 };
+                        _client.Send(byeMessageBytes, byeMessageBytes.Length, _serverEndPoint);
+                        _client.Close();
                         return;
                     }
                     else
                     {
-                        SendMessage("MSG FROM " + _displayName + " IS " + _message + "\r\n");
+                        //  SendMessage("MSG FROM " + _displayName + " IS " + _message + "\r\n");
                         //  Console.WriteLine(RecieveMessage());
                     }
 #if DEBUG
@@ -169,14 +175,16 @@ namespace ipk24chat_client.Classes
             }
 
         }
-        public void Stop()
+        void Authenticate()
         {
+            AuthMessage authMessage = new AuthMessage(_messageId, _username, _displayName, _secret);
+            _client.Send(authMessage.GET(), authMessage.GET().Length, _serverEndPoint);
 
-        }
-        public void Authenticate()
-        {
-            SendMessage("AUTH " + _username + " AS " + _displayName + " USING " + _secret + "\r\n");
-            //Console.WriteLine(RecieveMessage());
+
+            Thread receiveThread = new Thread(RecieveUdpPacket);
+            receiveThread.Start();
+            _messageId++;
+
         }
         public void JoinChannel(string channelName)
         {
@@ -186,84 +194,60 @@ namespace ipk24chat_client.Classes
             }
             else
             {
-                SendMessage("JOIN " + channelName + " AS " + _displayName + "\r\n");
+                JoinMessage joinMessage = new JoinMessage(_messageId, channelName, _displayName);
+                _client.Send(joinMessage.GET(),joinMessage.GET().Length, _serverEndPoint);
             }
 
             // Console.WriteLine(RecieveMessage());
         }
-        public void SendMessage(string message)
+        void RecieveUdpPacket()
         {
-            byte[] data = Encoding.ASCII.GetBytes(message);
-            // Send the data to the server
-            _networkStream.Write(data, 0, data.Length);
-
-        }
-        public string RecieveMessage()
-        {
-
-            try
+            _serverEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
+            while (true)
             {
-                byte[] buffer = new byte[1024];
-                int bytesRead = _networkStream.Read(buffer, 0, buffer.Length);
-                string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                return response;
-            }
-            catch (IOException)
-            {
-                return "ERROR";
-            }
-
-
-        }
-        public void StartReceivingMessages()
-        {
-            while (_message != "BYE")
-            {
-                string response = RecieveMessage();
-                if (response != "BYE")
+                try
                 {
-                    string[] parts = response.Split();
-                    string msgType = parts[0];
-
-                    switch (msgType)
+                    byte[] buff = _client.Receive(ref _serverEndPoint);
+                    ushort result = BitConverter.ToUInt16(buff, 1);
+                    ConfirmMessage confirmMessage = new ConfirmMessage(result);
+                    if (buff[0] != 0x00)
                     {
-                        case "MSG":
-                            string displayName = parts[2];
-                            string messageContent = string.Join(" ", parts[4..]);
-                            Console.WriteLine($"{displayName}: {messageContent}");
-                            break;
-
-                        case "ERR":
-                            string errorDisplayName = parts[2];
-                            string errorContent = string.Join(" ", parts[4..]);
-                            Console.Error.WriteLine($"ERR FROM {errorDisplayName}: {errorContent}");
-                            break;
-
-                        case "REPLY":
-                            string resultType = parts[1];
-                            string MessageContent = string.Join(" ", parts[3..]);
-                            if (resultType == "OK")
+                        _client.Send(confirmMessage.GET(), confirmMessage.GET().Length, _serverEndPoint);
+                        if (buff[0] == 0x01)
+                        {
+                            ReplyMessage replyMessage = new ReplyMessage(buff);
+                            if (replyMessage.Result == 1)
                             {
-                                Console.Error.WriteLine($"Success: {MessageContent}");
+                                Console.WriteLine("Success: " + replyMessage.MessageContents);
                             }
-                            else if (resultType == "NOK")
+                            else if (replyMessage.Result == 0)
                             {
-                                Console.Error.WriteLine($"Failure: {MessageContent}");
+                                Console.WriteLine("Failure: " + replyMessage.MessageContents);
                             }
+                        }
 
-                            break;
-
-                        default:
-                            //Console.Error.WriteLine($"Unknown message type: {msgType}");
-                            break;
+                        if (buff[0] == 0x04)
+                        {
+                            MsgMessage msgMessage = new MsgMessage(buff);
+                            Console.WriteLine(msgMessage.DisplayName + ": " + msgMessage.MessageContents);
+                        }
+                        if (buff[0] == 0xFE)
+                        {
+                            ErrMessage errMessage = new ErrMessage(buff);
+                            Console.WriteLine("ERR FROM " + errMessage.DisplayName + ": " + errMessage.MessageContents);
+                        }
+                        if (buff[0] == 0xFF)
+                        {
+                            _client.Close();
+                            return;
+                        }
                     }
-                    //Console.WriteLine($"Received message from the server: {response}");
-                }
-                else
-                {
-                    break;
-                }
 
+                }
+                catch (Exception)
+                {
+                    return;
+                }
             }
         }
     }

@@ -26,7 +26,7 @@ namespace ipk24chat_client.Classes
         public ServerSetings(string[] args)
         {
 #if DEBUG
-            transportProtocol = "tcp";
+            transportProtocol = "udp";
             serverAddress = "127.0.0.1";
 #endif
             // Parse command line arguments
