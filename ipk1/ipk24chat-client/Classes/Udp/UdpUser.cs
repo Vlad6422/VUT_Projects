@@ -1,5 +1,4 @@
-﻿using ipk24chat_client.Interfaces;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 
 namespace ipk24chat_client.Classes.Udp
@@ -74,8 +73,8 @@ namespace ipk24chat_client.Classes.Udp
         }
         public void Start()
         {
-            Thread receiveThread = new Thread(RecieveUdpPacket);
-            receiveThread.Start();
+            // Thread receiveThread = new Thread(RecieveUdpPacket);
+            // receiveThread.Start();
             while (true)
             {
                 string? userInput = Console.ReadLine();
@@ -124,7 +123,7 @@ namespace ipk24chat_client.Classes.Udp
                                 WriteInternalError("Invalid number of parameters for /join command.");
                                 continue;
                             }
-                              JoinChannel(commandParts[1]);
+                            JoinChannel(commandParts[1]);
                             break;
 
                         case "rename":
@@ -164,8 +163,7 @@ namespace ipk24chat_client.Classes.Udp
                     }
                     else
                     {
-                        //  SendMessage("MSG FROM " + _displayName + " IS " + _message + "\r\n");
-                        //  Console.WriteLine(RecieveMessage());
+                        SendMessage(_message);
                     }
 #if DEBUG
                     Console.WriteLine($"Sending message to the server: {userInput}");
@@ -195,10 +193,17 @@ namespace ipk24chat_client.Classes.Udp
             else
             {
                 JoinMessage joinMessage = new JoinMessage(_messageId, channelName, _displayName);
-                _client.Send(joinMessage.GET(),joinMessage.GET().Length, _serverEndPoint);
+                _client.Send(joinMessage.GET(), joinMessage.GET().Length, _serverEndPoint);
+                _messageId++;
             }
 
             // Console.WriteLine(RecieveMessage());
+        }
+        public void SendMessage(string message)
+        {
+            MsgMessage msgMessage = new MsgMessage(_messageId, _displayName, _message);
+            _client.Send(msgMessage.GET(), msgMessage.GET().Length, _serverEndPoint);
+            _messageId++;
         }
         void RecieveUdpPacket()
         {

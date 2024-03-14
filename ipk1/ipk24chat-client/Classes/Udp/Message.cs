@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+
 
 namespace ipk24chat_client.Classes.Udp
 {
@@ -111,7 +107,23 @@ namespace ipk24chat_client.Classes.Udp
             int messageContentsLength = Array.IndexOf(buff, (byte)0, 3 + displayNameLength + 1) - (3 + displayNameLength + 1);
             MessageContents = Encoding.ASCII.GetString(buff, 3 + displayNameLength + 1, messageContentsLength);
         }
-
+        public MsgMessage(ushort MessageId,string DisplayName,string MessageContent)
+        {
+            MessageID = MessageId;
+            this.DisplayName = DisplayName;
+            MessageContents = MessageContent;
+        }
+        public byte[] GET()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add(MessageType);
+            bytes.AddRange(BitConverter.GetBytes(MessageID));
+            bytes.AddRange(Encoding.ASCII.GetBytes(DisplayName));
+            bytes.Add(0);
+            bytes.AddRange(Encoding.ASCII.GetBytes(MessageContents));
+            bytes.Add(0);
+            return bytes.ToArray();
+        }
     }
 
     public class ErrMessage
