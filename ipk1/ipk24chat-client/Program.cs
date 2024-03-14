@@ -1,9 +1,7 @@
 ﻿using ipk24chat_client.Classes;
 using ipk24chat_client.Classes.Tcp;
 using ipk24chat_client.Classes.Udp;
-using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 
 namespace ipk24chat_client
