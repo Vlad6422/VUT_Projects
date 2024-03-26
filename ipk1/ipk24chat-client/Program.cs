@@ -31,6 +31,7 @@ namespace ipk24chat_client
                             TcpUser tcpUser = new TcpUser(networkStream);
                             tcpUser.Start();
                         }
+                      
                         tcpClient.Close();
                     }
                 }

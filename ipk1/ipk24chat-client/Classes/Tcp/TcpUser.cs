@@ -1,4 +1,5 @@
 ﻿using ipk24chat_client.Interfaces;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
@@ -73,15 +74,22 @@ namespace ipk24chat_client.Classes.Tcp
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
             Thread receiveThread = new Thread(StartReceivingMessages);
             //receiveThread.Start();
+
             while (true)
             {
                 string? userInput = Console.ReadLine();
-
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
                     WriteInternalError("Empty input. Please enter a command or message.");
                     continue;   
                 }
+                if(userInput == "0000")
+                {
+                    SendMessage("BYE" + "\r\n");
+                    return;
+                    //Environment.Exit(0);
+                }
+
                 
 
                 if (userInput.StartsWith("/"))
@@ -157,9 +165,10 @@ namespace ipk24chat_client.Classes.Tcp
                         SendMessage(_message + "\r\n");
                         return;
                     }
-                    else
+                    else if(_message != null && _message.Length>0)
                     {
                         SendMessage("MSG FROM " + _displayName + " IS " + _message + "\r\n");
+                        //RecieveMessage();
                         //  Console.WriteLine(RecieveMessage());
                     }
 #if DEBUG
@@ -177,8 +186,8 @@ namespace ipk24chat_client.Classes.Tcp
         public void Authenticate()
         {
             SendMessage("AUTH " + _username + " AS " + _displayName + " USING " + _secret + "\r\n");
-            Console.WriteLine(RecieveMessage());
-            
+            RecieveMessage();
+            RecieveMessage();
         }
         public void JoinChannel(string channelName)
         {
@@ -219,6 +228,7 @@ namespace ipk24chat_client.Classes.Tcp
         }
         public void StartReceivingMessages()
         {
+            try{
             while (_message != "BYE")
             {
                 string response = RecieveMessage();
@@ -265,9 +275,13 @@ namespace ipk24chat_client.Classes.Tcp
                 }
                 else
                 {
+                    Environment.Exit(0);
                     break;
                 }
+            }
 
+            }catch{
+                Environment.Exit(0);
             }
         }
      void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
