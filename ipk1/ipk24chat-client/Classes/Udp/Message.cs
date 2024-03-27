@@ -147,5 +147,16 @@ namespace ipk24chat_client.Classes.Udp
     {
         public byte MessageType { get; set; } = 0xFF;
         public ushort MessageID { get; set; }
+        public ByeMessage(ushort MessageId)
+        {
+            MessageID = MessageId;
+        }
+        public byte[] GET()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add(MessageType);
+            bytes.AddRange(BitConverter.GetBytes(MessageID));
+            return bytes.ToArray();
+        }
     }
 }

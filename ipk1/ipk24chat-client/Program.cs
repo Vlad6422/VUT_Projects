@@ -40,7 +40,7 @@ namespace ipk24chat_client
             }
             else if (serverSetings.transportProtocol == "udp")
             {
-                UdpUser udpUser = new UdpUser(serverSetings.serverAddress,serverSetings.serverPort);
+                UdpUser udpUser = new UdpUser(serverSetings.serverAddress,serverSetings.serverPort,serverSetings.udpConfirmationTimeout,serverSetings.maxUdpRetransmissions);
                 udpUser.Start();
                 
 

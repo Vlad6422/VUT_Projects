@@ -10,9 +10,13 @@ namespace ipk24chat_client.Classes.Udp
         private string _displayName { get; set; }
         private string _message { get; set; }
         private ushort _messageId { get; set; }
-        private UdpClient _client;
+        ushort udpConfirmationTimeout { get; }
+        byte maxUdpRetransmissions { get; }
+    
+    private UdpClient _client;
         private IPEndPoint _serverEndPoint;
-        public UdpUser(string IpAdress, ushort port)
+        List<ushort> confirmedMessages = new List<ushort>();
+        public UdpUser(string IpAdress, ushort port,ushort udpConfirmationTimeout, byte maxUdpRetransmissions)
         {
             _username = string.Empty;
             _secret = string.Empty;
@@ -20,6 +24,8 @@ namespace ipk24chat_client.Classes.Udp
             _message = string.Empty;
             _messageId = 0;
             _client = new UdpClient();
+            this.udpConfirmationTimeout = udpConfirmationTimeout;
+            this.maxUdpRetransmissions = maxUdpRetransmissions;
             _serverEndPoint = new IPEndPoint(IPAddress.Parse(IpAdress), port);
             // client.Connect(serverEndPoint);
         }
@@ -71,8 +77,16 @@ namespace ipk24chat_client.Classes.Udp
             return true;
 
         }
+        void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
+        {
+            ByeMessage byeMessage = new ByeMessage(5);
+            _client.Send(byeMessage.GET(),byeMessage.GET().Length, _serverEndPoint);
+            _client.Close();
+            Environment.Exit(0);
+        }
         public void Start()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
             // Thread receiveThread = new Thread(RecieveUdpPacket);
             // receiveThread.Start();
             while (true)
@@ -81,6 +95,14 @@ namespace ipk24chat_client.Classes.Udp
 
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
+                    if (userInput == null)
+                    {
+                        ByeMessage byeMessage = new ByeMessage(_messageId);
+                        _client.Send(byeMessage.GET(), byeMessage.GET().Length, _serverEndPoint);
+                        _client.Close();
+
+                        Environment.Exit(0);
+                    }
                     WriteInternalError("Empty input. Please enter a command or message.");
                     continue;
                 }
@@ -155,9 +177,8 @@ namespace ipk24chat_client.Classes.Udp
                     _message = userInput;
                     if (_message == "BYE")
                     {
-                        ByeMessage byeMessage = new ByeMessage();
-                        byte[] byeMessageBytes = { 0xFF, 0, 99 };
-                        _client.Send(byeMessageBytes, byeMessageBytes.Length, _serverEndPoint);
+                        ByeMessage byeMessage = new ByeMessage(_messageId);
+                        _client.Send(byeMessage.GET(), byeMessage.GET().Length, _serverEndPoint);
                         _client.Close();
                         return;
                     }
@@ -176,11 +197,26 @@ namespace ipk24chat_client.Classes.Udp
         void Authenticate()
         {
             AuthMessage authMessage = new AuthMessage(_messageId, _username, _displayName, _secret);
+            
             _client.Send(authMessage.GET(), authMessage.GET().Length, _serverEndPoint);
-
-
             Thread receiveThread = new Thread(RecieveUdpPacket);
             receiveThread.Start();
+            for (int i = 0; i < maxUdpRetransmissions-1; i++) {
+                Thread.Sleep(udpConfirmationTimeout);
+                if (!confirmedMessages.Contains(_messageId))
+                {
+                    
+                    _client.Send(authMessage.GET(), authMessage.GET().Length, _serverEndPoint);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+
+
+
             _messageId++;
 
         }
@@ -201,9 +237,23 @@ namespace ipk24chat_client.Classes.Udp
         }
         public void SendMessage(string message)
         {
-            MsgMessage msgMessage = new MsgMessage(_messageId, _displayName, _message);
+            MsgMessage msgMessage = new MsgMessage(_messageId, _displayName, message);
             _client.Send(msgMessage.GET(), msgMessage.GET().Length, _serverEndPoint);
+            
+            for (int i = 0; i < maxUdpRetransmissions - 1; i++)
+            {
+                Thread.Sleep(udpConfirmationTimeout);
+                if (!confirmedMessages.Contains(_messageId))
+                {
+                    _client.Send(msgMessage.GET(), msgMessage.GET().Length, _serverEndPoint);
+                }
+                else
+                {
+                    break;
+                }
+            }
             _messageId++;
+            
         }
         void RecieveUdpPacket()
         {
@@ -246,6 +296,9 @@ namespace ipk24chat_client.Classes.Udp
                             _client.Close();
                             return;
                         }
+                    }else if (buff[0] == 0x00)
+                    {
+                        confirmedMessages.Add(buff[1]);
                     }
 
                 }

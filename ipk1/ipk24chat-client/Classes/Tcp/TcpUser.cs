@@ -12,6 +12,7 @@ namespace ipk24chat_client.Classes.Tcp
         private string _secret { get; set; }
         private string _displayName { get; set; }
         private string _message { get; set; }
+        private bool _isAuthorized {  get; set; }
         private NetworkStream _networkStream { get; }
         public TcpUser(NetworkStream networkStream)
         {
@@ -78,16 +79,17 @@ namespace ipk24chat_client.Classes.Tcp
             while (true)
             {
                 string? userInput = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(userInput))
+                if (string.IsNullOrEmpty(userInput))
                 {
+                    if(userInput == null)
+                    {
+                        SendMessage("BYE" + "\r\n");
+                        _networkStream.Close();
+                        
+                        Environment.Exit(0);
+                    }
                     WriteInternalError("Empty input. Please enter a command or message.");
                     continue;   
-                }
-                if(userInput == "0000")
-                {
-                    SendMessage("BYE" + "\r\n");
-                    return;
-                    //Environment.Exit(0);
                 }
 
                 
@@ -119,7 +121,10 @@ namespace ipk24chat_client.Classes.Tcp
                             ChangeSecret(commandParts[3]))
                             {
                                 Authenticate();
-                                receiveThread.Start();
+                                if (_isAuthorized)
+                                {
+                                    receiveThread.Start();
+                                }
                             }
 
                             break;
@@ -130,6 +135,11 @@ namespace ipk24chat_client.Classes.Tcp
                                 WriteInternalError("Invalid number of parameters for /join command.");
                                 continue;
                             }
+                            if (!_isAuthorized)
+                            {
+                                WriteInternalError("You are not Authorized");
+                                continue;
+                            } 
                             JoinChannel(commandParts[1]);
                             break;
 
@@ -159,17 +169,30 @@ namespace ipk24chat_client.Classes.Tcp
                 {
                     // Handle sending messages to the server
                     // This part should be implemented based on your application logic
-                    _message = userInput;
-                    if (_message == "BYE")
+                    if (!_isAuthorized)
                     {
-                        SendMessage(_message + "\r\n");
-                        return;
+                        WriteInternalError("You are not Authorized");
+                        continue;
                     }
-                    else if(_message != null && _message.Length>0)
+                    _message = userInput;
+                    if (_message.Length > 1400)
+                    {
+                        WriteInternalError("Input exceeds maximum length of 1400 characters.");
+                        continue;
+                    }
+
+                    // Validate input characters
+                    foreach (char c in _message)
+                    {
+                        if (c < 0x20 || c > 0x7E)
+                        {
+                            WriteInternalError("Invalid character detected. Only printable ASCII characters (0x20-7E) are allowed.");
+                            continue;
+                        }
+                    }
+                    if (_message != null && _message.Length>0)
                     {
                         SendMessage("MSG FROM " + _displayName + " IS " + _message + "\r\n");
-                        //RecieveMessage();
-                        //  Console.WriteLine(RecieveMessage());
                     }
 #if DEBUG
                     Console.WriteLine($"Sending message to the server: {userInput}");
@@ -186,9 +209,25 @@ namespace ipk24chat_client.Classes.Tcp
         public void Authenticate()
         {
             SendMessage("AUTH " + _username + " AS " + _displayName + " USING " + _secret + "\r\n");
-            RecieveMessage();
-            RecieveMessage();
-        }
+            string response = RecieveMessage();
+            string[] parts = response.Split();
+            string msgType = parts[0];
+            if (msgType == "REPLY")
+            {
+                string resultType = parts[1];
+                string MessageContent = string.Join(" ", parts[3..]);
+                if (resultType == "OK")
+                {
+                    Console.Error.WriteLine($"Success: {MessageContent}");
+                    _isAuthorized = true;
+                }
+                else if (resultType == "NOK")
+                {
+                    Console.Error.WriteLine($"Failure: {MessageContent}");
+                }
+            }
+                //RecieveMessage();
+            }
         public void JoinChannel(string channelName)
         {
             if (channelName.Length > 20 || !System.Text.RegularExpressions.Regex.IsMatch(channelName, @"^[A-Za-z0-9\-]+$"))
@@ -207,7 +246,7 @@ namespace ipk24chat_client.Classes.Tcp
             byte[] data = Encoding.ASCII.GetBytes(message);
             // Send the data to the server
             _networkStream.Write(data, 0, data.Length);
-
+            //Thread.Sleep(100);
         }
         public string RecieveMessage()
         {
@@ -229,7 +268,7 @@ namespace ipk24chat_client.Classes.Tcp
         public void StartReceivingMessages()
         {
             try{
-            while (_message != "BYE")
+            while (_message != null)
             {
                 string response = RecieveMessage();
                 if (response != "BYE")
@@ -286,9 +325,9 @@ namespace ipk24chat_client.Classes.Tcp
         }
      void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
     {
-        SendMessage("BYE" + "\r\n");
-        
-        Environment.Exit(0);
+            SendMessage("BYE" + "\r\n");
+            _networkStream.Close();
+            Environment.Exit(0);
     }
     }
 }
