@@ -1,4 +1,3 @@
-```markdown
 # IPK24 Chat Client
 
 This is a simple chat client application developed in C# for communication with a chat server. It supports both TCP and UDP transport protocols for connection.
