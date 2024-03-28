@@ -81,7 +81,7 @@ namespace ipk24chat_client.Classes.Udp
         {
             ByeMessage byeMessage = new ByeMessage(_messageId);
             _client.Send(byeMessage.GET(),byeMessage.GET().Length, _serverEndPoint);
-            for (int i = 0; i < maxUdpRetransmissions - 1; i++)
+            for (int i = 0; i < maxUdpRetransmissions; i++)
             {
                 Thread.Sleep(udpConfirmationTimeout);
                 if (!confirmedMessages.Contains(_messageId))
@@ -112,7 +112,7 @@ namespace ipk24chat_client.Classes.Udp
                     {
                         ByeMessage byeMessage = new ByeMessage(_messageId);
                         _client.Send(byeMessage.GET(), byeMessage.GET().Length, _serverEndPoint);
-                        for (int i = 0; i < maxUdpRetransmissions - 1; i++)
+                        for (int i = 0; i < maxUdpRetransmissions; i++)
                         {
                             Thread.Sleep(udpConfirmationTimeout);
                             if (!confirmedMessages.Contains(_messageId))
@@ -220,7 +220,7 @@ namespace ipk24chat_client.Classes.Udp
             _client.Send(authMessage.GET(), authMessage.GET().Length, _serverEndPoint);
             Thread receiveThread = new Thread(RecieveUdpPacket);
             receiveThread.Start();
-            for (int i = 0; i < maxUdpRetransmissions-1; i++) {
+            for (int i = 0; i < maxUdpRetransmissions; i++) {
                 Thread.Sleep(udpConfirmationTimeout);
                 if (!confirmedMessages.Contains(_messageId))
                 {
@@ -259,7 +259,7 @@ namespace ipk24chat_client.Classes.Udp
             MsgMessage msgMessage = new MsgMessage(_messageId, _displayName, message);
             _client.Send(msgMessage.GET(), msgMessage.GET().Length, _serverEndPoint);
             
-            for (int i = 0; i < maxUdpRetransmissions - 1; i++)
+            for (int i = 0; i < maxUdpRetransmissions; i++)
             {
                 Thread.Sleep(udpConfirmationTimeout);
                 if (!confirmedMessages.Contains(_messageId))
