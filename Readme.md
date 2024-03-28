@@ -13,7 +13,7 @@ This is a simple chat client application developed in C# for communication with 
 2. **Navigate to the project directory:** Change your current directory to the cloned project folder:
 
     ```bash
-    cd ipk24-chat-client
+    cd ipk-project1
     ```
 
 3. **Build the project:** Build the application using the .NET CLI:
@@ -40,7 +40,7 @@ The program accepts the following command line arguments:
 
 Example usage:
 ```bash
-ipk24chat_client -t tcp -s 127.0.0.1 -p 4567 -d 250 -r 3
+./ipk24chat-client -t tcp -s 127.0.0.1 -p 4567 -d 250 -r 3
 ```
 
 ### Local Commands
