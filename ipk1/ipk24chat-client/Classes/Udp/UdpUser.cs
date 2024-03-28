@@ -12,8 +12,9 @@ namespace ipk24chat_client.Classes.Udp
         private ushort _messageId { get; set; }
         ushort udpConfirmationTimeout { get; }
         byte maxUdpRetransmissions { get; }
-    
-    private UdpClient _client;
+        private bool _isAuthorized { get; set; }
+
+        private UdpClient _client;
         private IPEndPoint _serverEndPoint;
         List<ushort> confirmedMessages = new List<ushort>();
         public UdpUser(string IpAdress, ushort port,ushort udpConfirmationTimeout, byte maxUdpRetransmissions)
@@ -27,7 +28,6 @@ namespace ipk24chat_client.Classes.Udp
             this.udpConfirmationTimeout = udpConfirmationTimeout;
             this.maxUdpRetransmissions = maxUdpRetransmissions;
             _serverEndPoint = new IPEndPoint(IPAddress.Parse(IpAdress), port);
-            // client.Connect(serverEndPoint);
         }
         public void WriteInternalError(string error)
         {
@@ -79,9 +79,22 @@ namespace ipk24chat_client.Classes.Udp
         }
         void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
         {
-            ByeMessage byeMessage = new ByeMessage(5);
+            ByeMessage byeMessage = new ByeMessage(_messageId);
             _client.Send(byeMessage.GET(),byeMessage.GET().Length, _serverEndPoint);
-            _client.Close();
+            for (int i = 0; i < maxUdpRetransmissions - 1; i++)
+            {
+                Thread.Sleep(udpConfirmationTimeout);
+                if (!confirmedMessages.Contains(_messageId))
+                {
+
+                    _client.Send(byeMessage.GET(), byeMessage.GET().Length, _serverEndPoint);
+                }
+                else
+                {
+                    break;
+                }
+            }
+                _client.Close();
             Environment.Exit(0);
         }
         public void Start()
@@ -99,6 +112,19 @@ namespace ipk24chat_client.Classes.Udp
                     {
                         ByeMessage byeMessage = new ByeMessage(_messageId);
                         _client.Send(byeMessage.GET(), byeMessage.GET().Length, _serverEndPoint);
+                        for (int i = 0; i < maxUdpRetransmissions - 1; i++)
+                        {
+                            Thread.Sleep(udpConfirmationTimeout);
+                            if (!confirmedMessages.Contains(_messageId))
+                            {
+
+                                _client.Send(byeMessage.GET(), byeMessage.GET().Length, _serverEndPoint);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
                         _client.Close();
 
                         Environment.Exit(0);
@@ -175,17 +201,10 @@ namespace ipk24chat_client.Classes.Udp
                     // Handle sending messages to the server
                     // This part should be implemented based on your application logic
                     _message = userInput;
-                    if (_message == "BYE")
-                    {
-                        ByeMessage byeMessage = new ByeMessage(_messageId);
-                        _client.Send(byeMessage.GET(), byeMessage.GET().Length, _serverEndPoint);
-                        _client.Close();
-                        return;
-                    }
-                    else
-                    {
-                        SendMessage(_message);
-                    }
+
+                    
+                    SendMessage(_message);
+                    
 #if DEBUG
                     Console.WriteLine($"Sending message to the server: {userInput}");
 #endif           
@@ -273,11 +292,11 @@ namespace ipk24chat_client.Classes.Udp
                             ReplyMessage replyMessage = new ReplyMessage(buff);
                             if (replyMessage.Result == 1)
                             {
-                                Console.WriteLine("Success: " + replyMessage.MessageContents);
+                                Console.Error.WriteLine("Success: " + replyMessage.MessageContents);
                             }
                             else if (replyMessage.Result == 0)
                             {
-                                Console.WriteLine("Failure: " + replyMessage.MessageContents);
+                                Console.Error.WriteLine("Failure: " + replyMessage.MessageContents);
                             }
                         }
 
@@ -289,7 +308,7 @@ namespace ipk24chat_client.Classes.Udp
                         if (buff[0] == 0xFE)
                         {
                             ErrMessage errMessage = new ErrMessage(buff);
-                            Console.WriteLine("ERR FROM " + errMessage.DisplayName + ": " + errMessage.MessageContents);
+                            Console.Error.WriteLine("ERR FROM " + errMessage.DisplayName + ": " + errMessage.MessageContents);
                         }
                         if (buff[0] == 0xFF)
                         {

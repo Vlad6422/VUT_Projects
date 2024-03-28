@@ -226,7 +226,7 @@ namespace ipk24chat_client.Classes.Tcp
                     Console.Error.WriteLine($"Failure: {MessageContent}");
                 }
             }
-                //RecieveMessage();
+
             }
         public void JoinChannel(string channelName)
         {
@@ -246,7 +246,7 @@ namespace ipk24chat_client.Classes.Tcp
             byte[] data = Encoding.ASCII.GetBytes(message);
             // Send the data to the server
             _networkStream.Write(data, 0, data.Length);
-            //Thread.Sleep(100);
+
         }
         public string RecieveMessage()
         {
@@ -307,10 +307,10 @@ namespace ipk24chat_client.Classes.Tcp
                             break;
 
                         default:
-                            //Console.Error.WriteLine($"Unknown message type: {msgType}");
+
                             break;
                     }
-                    //Console.WriteLine($"Received message from the server: {response}");
+
                 }
                 else
                 {
