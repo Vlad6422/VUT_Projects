@@ -2,6 +2,29 @@
 
 This is a simple chat client application developed in C# for communication with a chat server. It supports both TCP and UDP transport protocols for connection.
 
+## Download and Setup
+
+1. **Clone the repository:** Clone this repository to your local machine using the following command:
+
+    ```bash
+    git clone https://git.fit.vutbr.cz/xmalas04/ipk-project1.git
+    ```
+
+2. **Navigate to the project directory:** Change your current directory to the cloned project folder:
+
+    ```bash
+    cd ipk24-chat-client
+    ```
+
+3. **Build the project:** Build the application using the .NET CLI:
+
+    ```bash
+    make
+    ```
+4. **Run the project** Run the Project:
+    ```bash
+    ipk24chat_client -t tcp -s 127.0.0.1
+    ```
 ## Usage
 
 ### Command Line Arguments
@@ -17,7 +40,7 @@ The program accepts the following command line arguments:
 
 Example usage:
 ```bash
-ipk24chat_client.exe -t tcp -s 127.0.0.1 -p 4567 -d 250 -r 3
+ipk24chat_client -t tcp -s 127.0.0.1 -p 4567 -d 250 -r 3
 ```
 
 ### Local Commands
