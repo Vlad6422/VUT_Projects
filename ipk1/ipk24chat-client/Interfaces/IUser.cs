@@ -3,7 +3,6 @@
       public interface IUser
     {
         void Start();
-        void Stop();
 
         void Authenticate();
         void JoinChannel(string channelName);

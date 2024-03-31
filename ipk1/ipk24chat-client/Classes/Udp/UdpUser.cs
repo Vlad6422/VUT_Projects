@@ -10,8 +10,8 @@ namespace ipk24chat_client.Classes.Udp
         private string _displayName { get; set; }
         private string _message { get; set; }
         private ushort _messageId { get; set; }
-        ushort udpConfirmationTimeout { get; }
-        byte maxUdpRetransmissions { get; }
+        private ushort udpConfirmationTimeout { get; }
+        private byte maxUdpRetransmissions { get; }
         private bool _isAuthorized { get; set; }
 
         private UdpClient _client;
@@ -100,8 +100,6 @@ namespace ipk24chat_client.Classes.Udp
         public void Start()
         {
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-            // Thread receiveThread = new Thread(RecieveUdpPacket);
-            // receiveThread.Start();
             while (true)
             {
                 string? userInput = Console.ReadLine();
@@ -122,6 +120,7 @@ namespace ipk24chat_client.Classes.Udp
                             }
                             else
                             {
+
                                 break;
                             }
                         }
@@ -150,6 +149,11 @@ namespace ipk24chat_client.Classes.Udp
                     switch (commandName)
                     {
                         case "auth":
+                            if (_isAuthorized)
+                            {
+                                WriteInternalError("You are already Authorized.");
+                                continue;
+                            }
                             if (commandParts.Length != 4)
                             {
                                 WriteInternalError("Invalid number of parameters for /auth command.");
@@ -166,6 +170,11 @@ namespace ipk24chat_client.Classes.Udp
                             break;
 
                         case "join":
+                            if (!_isAuthorized)
+                            {
+                                WriteInternalError("You are not Authorized.");
+                                continue;
+                            }
                             if (commandParts.Length != 2)
                             {
                                 WriteInternalError("Invalid number of parameters for /join command.");
@@ -202,7 +211,27 @@ namespace ipk24chat_client.Classes.Udp
                     // This part should be implemented based on your application logic
                     _message = userInput;
 
-                    
+                    if (!_isAuthorized)
+                    {
+                        WriteInternalError("You are not Authorized");
+                        continue;
+                    }
+                    _message = userInput;
+                    if (_message.Length > 1400)
+                    {
+                        WriteInternalError("Input exceeds maximum length of 1400 characters.");
+                        continue;
+                    }
+
+                    // Validate input characters
+                    foreach (char c in _message)
+                    {
+                        if (c < 0x20 || c > 0x7E)
+                        {
+                            WriteInternalError("Invalid character detected. Only printable ASCII characters (0x20-7E) are allowed.");
+                            continue;
+                        }
+                    }
                     SendMessage(_message);
                     
 #if DEBUG
@@ -224,11 +253,11 @@ namespace ipk24chat_client.Classes.Udp
                 Thread.Sleep(udpConfirmationTimeout);
                 if (!confirmedMessages.Contains(_messageId))
                 {
-                    
                     _client.Send(authMessage.GET(), authMessage.GET().Length, _serverEndPoint);
                 }
                 else
                 {
+                    confirmedMessages.Remove(_messageId);
                     break;
                 }
             }
@@ -268,6 +297,7 @@ namespace ipk24chat_client.Classes.Udp
                 }
                 else
                 {
+                    confirmedMessages.Remove(_messageId);
                     break;
                 }
             }
@@ -293,6 +323,7 @@ namespace ipk24chat_client.Classes.Udp
                             if (replyMessage.Result == 1)
                             {
                                 Console.Error.WriteLine("Success: " + replyMessage.MessageContents);
+                                _isAuthorized = true;
                             }
                             else if (replyMessage.Result == 0)
                             {

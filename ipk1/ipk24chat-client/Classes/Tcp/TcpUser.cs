@@ -1,11 +1,11 @@
 ﻿using ipk24chat_client.Interfaces;
-using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
 
 namespace ipk24chat_client.Classes.Tcp
 {
+    // Represents a user for TCP communication
     public class TcpUser : IUser
     {
         private string _username { get; set; }
@@ -14,6 +14,7 @@ namespace ipk24chat_client.Classes.Tcp
         private string _message { get; set; }
         private bool _isAuthorized {  get; set; }
         private NetworkStream _networkStream { get; }
+        // Constructor
         public TcpUser(NetworkStream networkStream)
         {
             _networkStream = networkStream;
@@ -74,7 +75,6 @@ namespace ipk24chat_client.Classes.Tcp
         {
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
             Thread receiveThread = new Thread(StartReceivingMessages);
-            //receiveThread.Start();
 
             while (true)
             {
@@ -110,6 +110,11 @@ namespace ipk24chat_client.Classes.Tcp
                     switch (commandName)
                     {
                         case "auth":
+                            if (_isAuthorized)
+                            {
+                                WriteInternalError("You are already Authorized.");
+                                continue;
+                            }
                             if (commandParts.Length != 4)
                             {
                                 WriteInternalError("Invalid number of parameters for /auth command.");
@@ -197,15 +202,11 @@ namespace ipk24chat_client.Classes.Tcp
 #if DEBUG
                     Console.WriteLine($"Sending message to the server: {userInput}");
 #endif           
-                    //break;
                 }
             }
 
         }
-        public void Stop()
-        {
 
-        }
         public void Authenticate()
         {
             SendMessage("AUTH " + _username + " AS " + _displayName + " USING " + _secret + "\r\n");
@@ -239,7 +240,6 @@ namespace ipk24chat_client.Classes.Tcp
                 SendMessage("JOIN " + channelName + " AS " + _displayName + "\r\n");
             }
 
-            // Console.WriteLine(RecieveMessage());
         }
         public void SendMessage(string message)
         {
@@ -323,7 +323,8 @@ namespace ipk24chat_client.Classes.Tcp
                 Environment.Exit(0);
             }
         }
-     void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
+        // Event handler for console cancel key press
+        void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
     {
             SendMessage("BYE" + "\r\n");
             _networkStream.Close();
