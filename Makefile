@@ -4,7 +4,7 @@ OUTPUTPATH = .
 
 .PHONY: build publish clean
 
-all: publish
+all: publish clean
 
 build_app:
 	@echo "Building $(APP_NAME)..."

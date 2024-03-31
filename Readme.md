@@ -1,8 +1,8 @@
-# IPK24 Chat Client
+# IPK24 Chat Client🔮
 
 This is a simple chat client application developed in C# for communication with a chat server. It supports both TCP and UDP transport protocols for connection.
 
-## Download and Setup
+## Download and Setup💻
 
 1. **Clone the repository:** Clone this repository to your local machine using the following command:
 
@@ -25,7 +25,7 @@ This is a simple chat client application developed in C# for communication with 
     ```bash
     ipk24chat_client -t tcp -s 127.0.0.1
     ```
-## Usage
+## Usage🎓
 
 ### Command Line Arguments
 
@@ -50,7 +50,7 @@ Example usage:
 - `/rename {DisplayName}`: Locally changes the display name of the user.
 - `/help`: Prints out supported local commands with their parameters and a description.
 
-## Classes
+## Classes📘
 
 ### `ServerSetings`
 
@@ -73,4 +73,74 @@ This class implements the functionality for communication over UDP protocol. It 
 - Handle user input and execute corresponding actions (authentication, joining channels, sending messages, etc.).
 - Receive messages from the server and display them to the user.
 - Gracefully handle program termination by sending BYE message to the server and closing network streams.
+
+
+## Testing the IPK24 Chat Client Application🔎
+
+In software development, thorough testing is essential to ensure the reliability and functionality of an application. This article discusses the testing process for the IPK24 Chat Client application, including automated testing using various input files and manual verification using Wireshark.
+
+#### Automated Testing⌛
+
+Automated testing plays a crucial role in validating the functionality of the IPK24 Chat Client across different scenarios. The application was tested using a variety of input files, representing different user interactions and server responses. These input files were fed into the application's standard input (stdin) during automated testing.
+
+##### Testing Scenarios:
+
+1. **Basic Functionality Test:** This test verifies the fundamental features of the chat client, including user authentication, joining channels, sending messages, and receiving messages from the server. Input files were created to simulate these actions and ensure that the application behaves as expected.
+
+2. **Error Handling Test:** Error handling is critical for providing a smooth user experience. Input files containing erroneous commands and unexpected server responses were used to validate the application's error handling mechanisms. The chat client should gracefully handle errors and provide informative feedback to the user.
+
+3. **Performance Test:** Performance testing assesses the chat client's responsiveness and scalability under different load conditions. Input files with a large number of concurrent user interactions were used to stress-test the application and identify potential bottlenecks or performance issues.
+##### Testing Input File:
+
+During automated testing, the chat client was fed input scenarios from the following file:
+
+- `testing_input.txt`: This file contains a series of predefined input commands and expected server responses, allowing for comprehensive testing of the application's functionality.
+
+    ```plaintext
+    /join Hello
+    Test Massage For Error
+    /auth Login Test1 (Key)
+    Hello 1
+    /rename Test2
+    Hello 2
+    /rename Test3
+    Hello 3
+    ```
+
+##### Expected Output:
+
+Upon processing the input commands from the testing file, the application is expected to produce the following output on the console:
+
+```plaintext
+ERR: You are not Authorized.
+ERR: You are not Authorized.
+Success: Authentication successful.
+Server: Test1 joined discord.general.
 ```
+    
+Reference Server:
+
+```plaintext
+Test1 joined discord.general.
+Test1 : Hello 1
+Test2 : Hello 2
+Test3 : Hello 3
+Test3 left discord.general.
+```
+#### Manual Verification with Wireshark
+
+In addition to automated testing, manual verification was conducted using Wireshark, a network protocol analyzer. Wireshark captures and analyzes network traffic, allowing developers to inspect packets exchanged between the chat client and the server in real-time.
+
+##### Wireshark Testing Process:
+
+1. **Packet Capture:** Wireshark was used to capture network packets during the interaction between the chat client and the server. This includes packets sent and received over TCP and UDP connections.
+
+2. **Protocol Analysis:** The captured packets were analyzed to ensure compliance with the TCP and UDP protocols. Wireshark provides detailed insights into packet headers, payload contents, and protocol behavior, enabling developers to diagnose network-related issues.
+
+3. **Message Verification:** Each message exchanged between the chat client and the server was verified to ensure its integrity, correctness, and adherence to the chat protocol specifications. Wireshark's packet inspection capabilities were instrumental in identifying any anomalies or discrepancies in the transmitted data.
+
+#### Conclusion of testing📣
+
+Testing is an integral part of the software development lifecycle, ensuring the reliability, stability, and performance of the IPK24 Chat Client application. By combining automated testing with manual verification using Wireshark, developers can confidently validate the application's functionality and address any potential issues before deployment.
+
+The thorough testing process employed for the IPK24 Chat Client demonstrates a commitment to quality and reliability, enhancing the overall user experience and satisfaction with the application.
