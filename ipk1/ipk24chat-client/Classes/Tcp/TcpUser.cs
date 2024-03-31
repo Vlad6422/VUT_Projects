@@ -12,7 +12,7 @@ namespace ipk24chat_client.Classes.Tcp
         private string _secret { get; set; }
         private string _displayName { get; set; }
         private string _message { get; set; }
-        private bool _isAuthorized {  get; set; }
+        private bool _isAuthorized { get; set; }
         private NetworkStream _networkStream { get; }
         // Constructor
         public TcpUser(NetworkStream networkStream)
@@ -81,18 +81,18 @@ namespace ipk24chat_client.Classes.Tcp
                 string? userInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(userInput))
                 {
-                    if(userInput == null)
+                    if (userInput == null)
                     {
                         SendMessage("BYE" + "\r\n");
                         _networkStream.Close();
-                        
+
                         Environment.Exit(0);
                     }
                     WriteInternalError("Empty input. Please enter a command or message.");
-                    continue;   
+                    continue;
                 }
 
-                
+
 
                 if (userInput.StartsWith("/"))
                 {
@@ -144,7 +144,7 @@ namespace ipk24chat_client.Classes.Tcp
                             {
                                 WriteInternalError("You are not Authorized");
                                 continue;
-                            } 
+                            }
                             JoinChannel(commandParts[1]);
                             break;
 
@@ -195,7 +195,7 @@ namespace ipk24chat_client.Classes.Tcp
                             continue;
                         }
                     }
-                    if (_message != null && _message.Length>0)
+                    if (_message != null && _message.Length > 0)
                     {
                         SendMessage("MSG FROM " + _displayName + " IS " + _message + "\r\n");
                     }
@@ -228,7 +228,7 @@ namespace ipk24chat_client.Classes.Tcp
                 }
             }
 
-            }
+        }
         public void JoinChannel(string channelName)
         {
             if (channelName.Length > 20 || !System.Text.RegularExpressions.Regex.IsMatch(channelName, @"^[A-Za-z0-9\-]+$"))
@@ -267,68 +267,71 @@ namespace ipk24chat_client.Classes.Tcp
         }
         public void StartReceivingMessages()
         {
-            try{
-            while (_message != null)
+            try
             {
-                string response = RecieveMessage();
-                if (response != "BYE")
+                while (_message != null)
                 {
-                    string[] parts = response.Split();
-                    string msgType = parts[0];
-
-                    switch (msgType)
+                    string response = RecieveMessage();
+                    if (response != "BYE")
                     {
-                        case "MSG":
-                            string displayName = parts[2];
-                            string messageContent = string.Join(" ", parts[4..]);
-                            Console.WriteLine($"{displayName}: {messageContent}");
-                            break;
+                        string[] parts = response.Split();
+                        string msgType = parts[0];
 
-                        case "ERR":
-                            string errorDisplayName = parts[2];
-                            string errorContent = string.Join(" ", parts[4..]);
-                            Console.Error.WriteLine($"ERR FROM {errorDisplayName}: {errorContent}");
-                            SendMessage("BYE" + "\r\n");
-                            Environment.Exit(0);
-                            break;
+                        switch (msgType)
+                        {
+                            case "MSG":
+                                string displayName = parts[2];
+                                string messageContent = string.Join(" ", parts[4..]);
+                                Console.WriteLine($"{displayName}: {messageContent}");
+                                break;
 
-                        case "REPLY":
-                            string resultType = parts[1];
-                            string MessageContent = string.Join(" ", parts[3..]);
-                            if (resultType == "OK")
-                            {
-                                Console.Error.WriteLine($"Success: {MessageContent}");
-                            }
-                            else if (resultType == "NOK")
-                            {
-                                Console.Error.WriteLine($"Failure: {MessageContent}");
-                            }
+                            case "ERR":
+                                string errorDisplayName = parts[2];
+                                string errorContent = string.Join(" ", parts[4..]);
+                                Console.Error.WriteLine($"ERR FROM {errorDisplayName}: {errorContent}");
+                                SendMessage("BYE" + "\r\n");
+                                Environment.Exit(0);
+                                break;
 
-                            break;
+                            case "REPLY":
+                                string resultType = parts[1];
+                                string MessageContent = string.Join(" ", parts[3..]);
+                                if (resultType == "OK")
+                                {
+                                    Console.Error.WriteLine($"Success: {MessageContent}");
+                                }
+                                else if (resultType == "NOK")
+                                {
+                                    Console.Error.WriteLine($"Failure: {MessageContent}");
+                                }
 
-                        default:
+                                break;
 
-                            break;
+                            default:
+
+                                break;
+                        }
+
                     }
+                    else
+                    {
+                        Environment.Exit(0);
+                        break;
+                    }
+                }
 
-                }
-                else
-                {
-                    Environment.Exit(0);
-                    break;
-                }
             }
-
-            }catch{
+            catch
+            {
                 Environment.Exit(0);
             }
         }
         // Event handler for console cancel key press
         void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
-    {
+        {
             SendMessage("BYE" + "\r\n");
             _networkStream.Close();
             Environment.Exit(0);
-    }
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace ipk24chat_client
                             TcpUser tcpUser = new TcpUser(networkStream);
                             tcpUser.Start();
                         }
-                      
+
                         tcpClient.Close();
                     }
                 }
@@ -40,9 +40,9 @@ namespace ipk24chat_client
             }
             else if (serverSetings.transportProtocol == "udp")
             {
-                UdpUser udpUser = new UdpUser(serverSetings.serverAddress,serverSetings.serverPort,serverSetings.udpConfirmationTimeout,serverSetings.maxUdpRetransmissions);
+                UdpUser udpUser = new UdpUser(serverSetings.serverAddress, serverSetings.serverPort, serverSetings.udpConfirmationTimeout, serverSetings.maxUdpRetransmissions);
                 udpUser.Start();
-                
+
 
             }
 
