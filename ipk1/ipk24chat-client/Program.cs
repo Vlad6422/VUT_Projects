@@ -1,6 +1,7 @@
 ﻿using ipk24chat_client.Classes;
 using ipk24chat_client.Classes.Tcp;
 using ipk24chat_client.Classes.Udp;
+using System;
 using System.Net.Sockets;
 
 
@@ -40,9 +41,16 @@ namespace ipk24chat_client
             }
             else if (serverSetings.transportProtocol == "udp")
             {
-                UdpUser udpUser = new UdpUser(serverSetings.serverAddress, serverSetings.serverPort, serverSetings.udpConfirmationTimeout, serverSetings.maxUdpRetransmissions);
-                udpUser.Start();
-
+                try
+                {
+                    UdpUser udpUser = new UdpUser(serverSetings.serverAddress, serverSetings.serverPort, serverSetings.udpConfirmationTimeout, serverSetings.maxUdpRetransmissions);
+                    udpUser.Start();
+                }
+                catch
+                {
+                    Console.Error.WriteLine("ERR: Unexpected Error");
+                    Environment.Exit(0);
+                }
 
             }
 
