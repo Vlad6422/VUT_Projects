@@ -41,7 +41,7 @@ namespace IOTA
 
         public ReplyMessage(ushort MessageId,byte Result,ushort RefMessageID,string MessageContent)
         {
-            MessageID = MessageID;
+            MessageID = MessageId;
             this.Result = Result;
             this.RefMessageID = RefMessageID;
             MessageContents = MessageContent;

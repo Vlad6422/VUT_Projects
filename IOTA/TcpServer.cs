@@ -1,12 +1,6 @@
-﻿using IOTA;
-using System;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
 
 namespace IOTA
 {
@@ -93,7 +87,7 @@ namespace IOTA
                                 channels[defaultChannelId].ConnectedUsersTcp.Add(client);
                                 //Console.Error.WriteLine($"User {displayName} joined channel {defaultChannelId}");
                                 // Find the channel of the sender (assuming displayName is the user's display name)
-                                string senderChannelId = null;
+                                string? senderChannelId = null;
                                 //DELETE NULL USERS *******************************
                                 foreach (var channelId in channels.Keys)
                                 {
@@ -169,7 +163,6 @@ namespace IOTA
                     string msgBroadcast = Encoding.ASCII.GetString(buffer, 0, bytesRead2);
                     string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead2).Trim();
                     string clientEndPoint = client.Client.RemoteEndPoint.ToString(); // "IP:Port"
-
                     // Parse the received command
                     string[] parts = dataReceived.Split(' ');
 
@@ -285,6 +278,7 @@ namespace IOTA
                         // Find the channel of the sender (assuming displayName is the user's display name)
                         string senderChannelId = null;
                         Console.WriteLine($"RECV {clientEndPoint} | BYE DisplayName={displayName}");
+                        stream.Close();
                         foreach (var channelId in channels.Keys)
                         {
                             var channel = channels[channelId];

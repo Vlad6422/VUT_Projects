@@ -5,9 +5,13 @@ namespace IOTA
     public class UdpServer
     {
         public static Dictionary<string, Channel> channels;
+        public static ushort Timeout;
+        public static byte MaxRetransmissions;
         public static async Task StartUdpServer(ushort port, ushort timeout, byte maxRetransmissions, Dictionary<string, Channel> srcChannels)
         {
             channels = srcChannels;
+            Timeout = timeout;
+            MaxRetransmissions = maxRetransmissions;
             UdpClient udpListener = new UdpClient(port);
             Console.Error.WriteLine($"UDP server started. Listening on {port}...");
 
@@ -39,16 +43,17 @@ namespace IOTA
             try
             {
                 byte[] data = receiveResult.Buffer;
+                //AUTH
                 if (data[0] == 0x02)
                 { // Decode received message
                     AuthMessage authMessage = new AuthMessage(data);
-
-
-                    ReplyMessage replyMessage = new ReplyMessage(2, 0x01, authMessage.MessageID, "AUTH Succ ");
+                    Random random = new Random();
+                    ReplyMessage replyMessage = new ReplyMessage((ushort)random.Next(0, ushort.MaxValue + 1), 0x01, authMessage.MessageID, "AUTH Succ ");
 
                     // Send reply packet back to the client
                     await UdpClient.SendAsync(replyMessage.GetBytes(), replyMessage.GetBytes().Length);
                     Console.WriteLine($"SENT {UdpClient.Client.RemoteEndPoint} | REPLY");
+                    //WAIT FOR CONFITM
 
 
                     string defaultChannelId = "general";
@@ -56,8 +61,9 @@ namespace IOTA
                         channels[defaultChannelId] = new Channel(defaultChannelId);
 
                     channels[defaultChannelId].ConnectedUsersUdp.Add(UdpClient);
-                    string senderChannelId = null;
-                    //DELETE NULL USERS *******************************
+
+                    string? senderChannelId = null;
+
                     foreach (var channelId in channels.Keys)
                     {
                         var channel = channels[channelId];
@@ -80,7 +86,7 @@ namespace IOTA
                         Console.Error.WriteLine($"Sender {authMessage.DisplayName} is not connected to any channel.");
                         // Handle this case based on your application's requirements
                     }
-                    await HandleUdpPacketMsgJoinAsync(UdpClient,authMessage.DisplayName);
+                    await HandleUdpPacketMsgJoinAsync(UdpClient, authMessage.DisplayName);
                 }
 
             }
@@ -89,7 +95,7 @@ namespace IOTA
                 Console.Error.WriteLine("Error handling UDP packet: " + ex.Message);
             }
         }
-        static async Task HandleUdpPacketMsgJoinAsync(UdpClient udpClient,string DisplayName)
+        static async Task HandleUdpPacketMsgJoinAsync(UdpClient udpClient, string DisplayName)
         {
             string lastDisplayName = DisplayName;
             while (true)
@@ -188,8 +194,9 @@ namespace IOTA
                                     // Handle this case based on your application's requirements
                                 }
                                 break;
-                             
+
                             }
+                        //BYE
                         case 0xFF:
                             // Find the channel of the sender (assuming displayName is the user's display name)
                             string senderChannelID = null;
@@ -202,7 +209,7 @@ namespace IOTA
                                     var userToRemove = channel.ConnectedUsersUdp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == udpClient.Client.RemoteEndPoint.ToString());
                                     if (userToRemove != null)
                                         channel.ConnectedUsersUdp.Remove(userToRemove);
-                                    if (senderChannelID!= null)
+                                    if (senderChannelID != null)
                                     {
                                         // Broadcast the message to all users in the sender's channel except the sender
                                         var senderChannel = channels[senderChannelID];
@@ -221,7 +228,10 @@ namespace IOTA
                     }
 
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                }
             }
         }
         public static void writeRecvPacket(byte[] data, string endPoint)
