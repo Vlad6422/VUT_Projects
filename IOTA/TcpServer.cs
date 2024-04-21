@@ -151,170 +151,140 @@ namespace IOTA
         {
             return true;
         }
-        public static async Task HandleTcpPacket(TcpClient client, NetworkStream stream,string displayName)
+        public static async Task HandleTcpPacket(TcpClient client, NetworkStream stream, string displayName)
         {
+            StringBuilder messageBuffer = new StringBuilder(); // To store partial messages
+            byte[] buffer = new byte[1024];
+
             while (true)
             {
                 try
                 {
-
-                    byte[] buffer = new byte[1024];
-                    int bytesRead2 = await stream.ReadAsync(buffer, 0, buffer.Length);
-                    string msgBroadcast = Encoding.ASCII.GetString(buffer, 0, bytesRead2);
-                    string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead2).Trim();
-                    string clientEndPoint = client.Client.RemoteEndPoint.ToString(); // "IP:Port"
-                    // Parse the received command
-                    string[] parts = dataReceived.Split(' ');
-
-                    string commandType = parts[0];
-
-                    if (commandType == "JOIN")
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0)
                     {
-                        // Handle JOIN command
-                        if (parts[0] == "JOIN" && parts[2] == "AS")
-                        {
-                            string channelId = parts[1];
-                            displayName = parts[3];
-
-                            //RECIEVE JOIN
-                            Console.WriteLine($"RECV {clientEndPoint} | JOIN ChannelID={channelId} DisplayName={displayName}");
-                            // Send response back to the client
-                            byte[] responseData = Encoding.ASCII.GetBytes("REPLY OK IS Join Success\r\n");
-                            await stream.WriteAsync(responseData, 0, responseData.Length);
-                            Console.WriteLine($"SENT {clientEndPoint} | REPLY DisplayName={displayName} ChannelID={channelId}");
-
-                            // Check if the user is already connected to any other channels
-                            //Remove user connection from current channel
-                            //Send Leave MSG
-                            foreach (var existingChannelId in channels.Keys.ToList())
-                            {
-                                if (existingChannelId != channelId) // Exclude the new channel
-                                {
-                                    var existingChannel = channels[existingChannelId];
-
-                                    // Check if the user is in this existing channel
-                                    var userToRemove = existingChannel.ConnectedUsersTcp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint);
-                                    if (userToRemove != null)
-                                    {
-                                        existingChannel.ConnectedUsersTcp.Remove(userToRemove);
-                                        //Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
-                                        // Broadcast the message to all users in the sender's channel except the sender
-                                        var senderChannel1 = channels[existingChannelId];
-                                        
-                                        senderChannel1.BroadcastMSG($"MSG FROM Server IS {displayName} has left {existingChannelId}\r\n", client.Client.RemoteEndPoint);
-
-
-                                        // Check if the channel is now empty after removing the user
-                                        if (existingChannel.ConnectedUsersTcp.Count == 0 && existingChannel.ConnectedUsersUdp.Count== 0)
-                                        {
-                                            // Channel is empty, remove it from the dictionary
-                                            channels.Remove(existingChannelId);
-                                            //Console.Error.WriteLine($"Channel {existingChannelId} has become empty and was removed");
-                                        }
-                                    }
-                                }
-                            }
-                            //Channel exist?
-                            if (!channels.ContainsKey(channelId))
-                                channels[channelId] = new Channel(channelId);
-                            //Add user to channel
-                            channels[channelId].ConnectedUsersTcp.Add(client);
-                           
-                            // For server Stderr
-                            //Console.Error.WriteLine($"User {displayName} joined channel {channelId}");
-
-                            //Send Join MSG to channel
-                            var senderChannel = channels[channelId];
-                            senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has joined {channelId}\r\n", client.Client.RemoteEndPoint);
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Invalid JOIN command format received.");
-                            // Optionally, send an error response back to the client
-                        }
-                    }
-                    else if (commandType == "MSG")
-                    {
-                        // Handle MSG command
-                        if (parts[0] == "MSG" && parts[1] == "FROM" && parts[3] == "IS")
-                        {
-                            displayName = parts[2];
-                            string[] messageParts = new ArraySegment<string>(parts, 4, parts.Length - 4).ToArray();
-                            string messageContent = string.Join(" ", messageParts);
-                            Console.WriteLine($"RECV {clientEndPoint} | MSG DisplayName={displayName} MessageContent={messageContent}");
-
-                            // Find the channel of the sender (assuming displayName is the user's display name)
-                            string senderChannelId = null;
-                            foreach (var channelId in channels.Keys)
-                            {
-                                var channel = channels[channelId];
-                                if (channel.ConnectedUsersTcp.Any(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint))
-                                {
-                                    senderChannelId = channelId;
-                                    break;
-                                }
-                            }
-
-                            if (senderChannelId != null)
-                            {
-                                // Broadcast the message to all users in the sender's channel except the sender
-                                var senderChannel = channels[senderChannelId];
-                                senderChannel.BroadcastMSG(msgBroadcast, client.Client.RemoteEndPoint);
-                            }
-                            else
-                            {
-                                Console.Error.WriteLine($"Sender {displayName} is not connected to any channel.");
-                                // Handle this case based on your application's requirements
-                            }
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Invalid MSG command format received.");
-                            // Optionally, send an error response back to the client
-                        }
-                    }
-                    else if (commandType == "BYE")
-                    {
-                        // Find the channel of the sender (assuming displayName is the user's display name)
-                        string senderChannelId = null;
-                        Console.WriteLine($"RECV {clientEndPoint} | BYE DisplayName={displayName}");
+                        // Connection closed by the client
                         stream.Close();
-                        foreach (var channelId in channels.Keys)
-                        {
-                            var channel = channels[channelId];
-                            if (channel.ConnectedUsersTcp.Any(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint))
-                            {
-                                senderChannelId = channelId;
-                                var userToRemove = channel.ConnectedUsersTcp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint);
-                                if(userToRemove!=null)
-                                channel.ConnectedUsersTcp.Remove(userToRemove);
-                                if (senderChannelId != null)
-                                {
-                                    // Broadcast the message to all users in the sender's channel except the sender
-                                    var senderChannel = channels[senderChannelId];
-                                    senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has left {senderChannelId}\r\n", client.Client.RemoteEndPoint);
-                                }
-                                if (channel.ConnectedUsersTcp.Count == 0 && channel.ConnectedUsersUdp.Count == 0)
-                                {
-                                    // Channel is empty, remove it from the dictionary
-                                    channels.Remove(channelId);
-                                    Console.Error.WriteLine($"Channel {channelId} has become empty and was removed");
-                                }
-                                break;
-                            }
-                        }
                         return;
                     }
-                    else
+
+                    string receivedData = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                    messageBuffer.Append(receivedData);
+
+                    // Process complete messages ending with "\r\n"
+                    string messageBufferStr = messageBuffer.ToString();
+                    while (true)
                     {
-                        Console.Error.WriteLine("Unsupported command type.");
-                        // Optionally, send an error response back to the client
+                        int terminatorIndex = messageBufferStr.IndexOf("\r\n");
+                        if (terminatorIndex == -1)
+                        {
+                            break; // No complete message yet, continue reading
+                        }
+
+                        // Extract and process the complete message
+                        string completeMessage = messageBufferStr.Substring(0, terminatorIndex);
+                        messageBuffer.Remove(0, terminatorIndex + 2); // Remove processed message from buffer (+2 for "\r\n")
+
+                        await ProcessMessage(client, stream, completeMessage, displayName);
+
+                        messageBufferStr = messageBuffer.ToString(); // Update string after removal
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.Error.WriteLine("Error handling packet: " + ex.Message);
-                    string clientEndPoint = client.Client.RemoteEndPoint.ToString(); // "IP:Port"
+                    break; // Exit loop on error
+                }
+            }
+
+            // Connection closed, perform cleanup (e.g., remove user from channels)
+            // (This part might depend on your specific cleanup logic)
+        }
+        private static async Task ProcessMessage(TcpClient client, NetworkStream stream, string message, string displayName)
+        {
+            string clientEndPoint = client.Client.RemoteEndPoint.ToString();
+            string[] parts = message.Split(' ');
+
+            
+
+            string commandType = parts[0];
+
+            if (commandType == "JOIN")
+            {
+                // Handle JOIN command
+                if (parts[0] == "JOIN" && parts[2] == "AS")
+                {
+                    string channelId = parts[1];
+                    displayName = parts[3];
+
+                    //RECIEVE JOIN
+                    Console.WriteLine($"RECV {clientEndPoint} | JOIN ChannelID={channelId} DisplayName={displayName}");
+                    // Send response back to the client
+                    byte[] responseData = Encoding.ASCII.GetBytes("REPLY OK IS Join Success\r\n");
+                    await stream.WriteAsync(responseData, 0, responseData.Length);
+                    Console.WriteLine($"SENT {clientEndPoint} | REPLY DisplayName={displayName} ChannelID={channelId}");
+
+                    // Check if the user is already connected to any other channels
+                    //Remove user connection from current channel
+                    //Send Leave MSG
+                    foreach (var existingChannelId in channels.Keys.ToList())
+                    {
+                        if (existingChannelId != channelId) // Exclude the new channel
+                        {
+                            var existingChannel = channels[existingChannelId];
+
+                            // Check if the user is in this existing channel
+                            var userToRemove = existingChannel.ConnectedUsersTcp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint);
+                            if (userToRemove != null)
+                            {
+                                existingChannel.ConnectedUsersTcp.Remove(userToRemove);
+                                //Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
+                                // Broadcast the message to all users in the sender's channel except the sender
+                                var senderChannel1 = channels[existingChannelId];
+
+                                senderChannel1.BroadcastMSG($"MSG FROM Server IS {displayName} has left {existingChannelId}\r\n", client.Client.RemoteEndPoint);
+
+
+                                // Check if the channel is now empty after removing the user
+                                if (existingChannel.ConnectedUsersTcp.Count == 0 && existingChannel.ConnectedUsersUdp.Count == 0)
+                                {
+                                    // Channel is empty, remove it from the dictionary
+                                    channels.Remove(existingChannelId);
+                                    //Console.Error.WriteLine($"Channel {existingChannelId} has become empty and was removed");
+                                }
+                            }
+                        }
+                    }
+                    //Channel exist?
+                    if (!channels.ContainsKey(channelId))
+                        channels[channelId] = new Channel(channelId);
+                    //Add user to channel
+                    channels[channelId].ConnectedUsersTcp.Add(client);
+
+                    // For server Stderr
+                    //Console.Error.WriteLine($"User {displayName} joined channel {channelId}");
+
+                    //Send Join MSG to channel
+                    var senderChannel = channels[channelId];
+                    senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has joined {channelId}\r\n", client.Client.RemoteEndPoint);
+                }
+                else
+                {
+                    Console.Error.WriteLine("Invalid JOIN command format received.");
+                    // Optionally, send an error response back to the client
+                }
+            }
+            else if (commandType == "MSG")
+            {
+                // Handle MSG command
+                if (parts[0] == "MSG" && parts[1] == "FROM" && parts[3] == "IS")
+                {
+                    displayName = parts[2];
+                    string[] messageParts = new ArraySegment<string>(parts, 4, parts.Length - 4).ToArray();
+                    string messageContent = string.Join(" ", messageParts);
+                    Console.WriteLine($"RECV {clientEndPoint} | MSG DisplayName={displayName} MessageContent={messageContent}");
+
+                    // Find the channel of the sender (assuming displayName is the user's display name)
                     string senderChannelId = null;
                     foreach (var channelId in channels.Keys)
                     {
@@ -322,26 +292,64 @@ namespace IOTA
                         if (channel.ConnectedUsersTcp.Any(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint))
                         {
                             senderChannelId = channelId;
-                            var userToRemove = channel.ConnectedUsersTcp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint);
-                            if (userToRemove != null)
-                                channel.ConnectedUsersTcp.Remove(userToRemove);
-                            if (senderChannelId != null)
-                            {
-                                // Broadcast the message to all users in the sender's channel except the sender
-                                var senderChannel = channels[senderChannelId];
-                                senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has left {senderChannelId}\r\n", client.Client.RemoteEndPoint);
-                            }
-                            if (channel.ConnectedUsersTcp.Count == 0 && channel.ConnectedUsersUdp.Count == 0)
-                            {
-                                // Channel is empty, remove it from the dictionary
-                                channels.Remove(channelId);
-                                Console.Error.WriteLine($"Channel {channelId} has become empty and was removed");
-                            }
                             break;
                         }
                     }
-                    return;
+
+                    if (senderChannelId != null)
+                    {
+                        // Broadcast the message to all users in the sender's channel except the sender
+                        var senderChannel = channels[senderChannelId];
+                        senderChannel.BroadcastMSG(message, client.Client.RemoteEndPoint);
+                    }
+                    else
+                    {
+                        Console.Error.WriteLine($"Sender {displayName} is not connected to any channel.");
+                        // Handle this case based on your application's requirements
+                    }
                 }
+                else
+                {
+                    Console.Error.WriteLine("Invalid MSG command format received.");
+                    // Optionally, send an error response back to the client
+                }
+            }
+            else if (commandType == "BYE")
+            {
+                // Handle BYE command
+                string senderChannelId = null;
+                Console.WriteLine($"RECV {clientEndPoint} | BYE DisplayName={displayName}");
+                
+                foreach (var channelId in channels.Keys)
+                {
+                    var channel = channels[channelId];
+                    if (channel.ConnectedUsersTcp.Any(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint))
+                    {
+                        senderChannelId = channelId;
+                        var userToRemove = channel.ConnectedUsersTcp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == clientEndPoint);
+                        if (userToRemove != null)
+                            channel.ConnectedUsersTcp.Remove(userToRemove);
+                        if (senderChannelId != null)
+                        {
+                            // Broadcast the message to all users in the sender's channel except the sender
+                            var senderChannel = channels[senderChannelId];
+                            senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has left {senderChannelId}\r\n", client.Client.RemoteEndPoint);
+                        }
+                        if (channel.ConnectedUsersTcp.Count == 0 && channel.ConnectedUsersUdp.Count == 0)
+                        {
+                            // Channel is empty, remove it from the dictionary
+                            channels.Remove(channelId);
+                            Console.Error.WriteLine($"Channel {channelId} has become empty and was removed");
+                        }
+                        break;
+                    }
+                }
+                return;
+            }
+            else
+            {
+                Console.Error.WriteLine("Unsupported command type.");
+                // Optionally, send an error response back to the client
             }
         }
     }
