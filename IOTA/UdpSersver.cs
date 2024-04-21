@@ -1,40 +1,257 @@
-﻿using System;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Sockets;
 
 namespace IOTA
 {
     public class UdpServer
     {
-        public static async Task StartUdpServer(ushort port, ushort timeout, byte maxRetransmissions)
+        public static Dictionary<string, Channel> channels;
+        public static async Task StartUdpServer(ushort port, ushort timeout, byte maxRetransmissions, Dictionary<string, Channel> srcChannels)
         {
+            channels = srcChannels;
             UdpClient udpListener = new UdpClient(port);
-            Console.WriteLine($"UDP server started. Listening on  {port}...");
+            Console.Error.WriteLine($"UDP server started. Listening on {port}...");
 
             try
             {
                 while (true)
                 {
                     UdpReceiveResult result = await udpListener.ReceiveAsync();
-                    Console.WriteLine("UDP packet received from: " + result.RemoteEndPoint);
+                    writeRecvPacket(result.Buffer, result.RemoteEndPoint.ToString());
+                    ushort messageID = BitConverter.ToUInt16(result.Buffer, 1);
+                    await udpListener.SendAsync(new ConfirmMessage(messageID).GET(), result.RemoteEndPoint);
+                    Console.WriteLine($"SENT {result.RemoteEndPoint} | CONFIRM");
+                    // Handle UDP packet and send confirmation
+                    _ = HandleUdpPacketAuthAsync(udpListener, result);
 
-                    // Handle UDP packet
-                    HandleUdpPacket(result.Buffer);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("UDP server error: " + ex.Message);
+                Console.Error.WriteLine("UDP server error: " + ex.Message);
             }
         }
 
-        static void HandleUdpPacket(byte[] data)
+        static async Task HandleUdpPacketAuthAsync(UdpClient udpClient, UdpReceiveResult receiveResult)
         {
-            string message = Encoding.ASCII.GetString(data);
-            Console.WriteLine("UDP packet received: " + message);
-        }
+            UdpClient UdpClient = new UdpClient();
+            UdpClient.Connect(receiveResult.RemoteEndPoint);
 
-        // You can add more methods related to UDP server handling if needed
+            try
+            {
+                byte[] data = receiveResult.Buffer;
+                if (data[0] == 0x02)
+                { // Decode received message
+                    AuthMessage authMessage = new AuthMessage(data);
+
+
+                    ReplyMessage replyMessage = new ReplyMessage(2, 0x01, authMessage.MessageID, "AUTH Succ ");
+
+                    // Send reply packet back to the client
+                    await UdpClient.SendAsync(replyMessage.GetBytes(), replyMessage.GetBytes().Length);
+                    Console.WriteLine($"SENT {UdpClient.Client.RemoteEndPoint} | REPLY");
+
+
+                    string defaultChannelId = "general";
+                    if (!channels.ContainsKey(defaultChannelId))
+                        channels[defaultChannelId] = new Channel(defaultChannelId);
+
+                    channels[defaultChannelId].ConnectedUsersUdp.Add(UdpClient);
+                    string senderChannelId = null;
+                    //DELETE NULL USERS *******************************
+                    foreach (var channelId in channels.Keys)
+                    {
+                        var channel = channels[channelId];
+                        if (channel.ConnectedUsersUdp.Any(user => user.Client.RemoteEndPoint.ToString() == UdpClient.Client.RemoteEndPoint.ToString()))
+                        {
+                            senderChannelId = channelId;
+                            break;
+                        }
+                    }
+
+                    if (senderChannelId != null)
+                    {
+                        // Broadcast the message to all users in the sender's channel except the sender
+                        var senderChannel = channels[senderChannelId];
+                        senderChannel.BroadcastMSG($"MSG FROM Server IS {authMessage.DisplayName} has joined {senderChannel.ChannelId}\r\n", UdpClient.Client.RemoteEndPoint);
+                    }
+
+                    else
+                    {
+                        Console.Error.WriteLine($"Sender {authMessage.DisplayName} is not connected to any channel.");
+                        // Handle this case based on your application's requirements
+                    }
+                    await HandleUdpPacketMsgJoinAsync(UdpClient,authMessage.DisplayName);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine("Error handling UDP packet: " + ex.Message);
+            }
+        }
+        static async Task HandleUdpPacketMsgJoinAsync(UdpClient udpClient,string DisplayName)
+        {
+            string lastDisplayName = DisplayName;
+            while (true)
+            {
+                try
+                {
+                    UdpReceiveResult result = await udpClient.ReceiveAsync();
+                    writeRecvPacket(result.Buffer, udpClient.Client.RemoteEndPoint.ToString());
+                    ushort messageID = BitConverter.ToUInt16(result.Buffer, 1);
+                    if (result.Buffer[0] != 0x00)
+                    {
+                        await udpClient.SendAsync(new ConfirmMessage(messageID).GET());
+                        Console.WriteLine($"SENT {udpClient.Client.RemoteEndPoint} | CONFIRM");
+                    }
+                    switch (result.Buffer[0])
+                    {
+                        //JOIN
+                        case 0x03:
+                            {
+                                JoinMessage joinMessage = new JoinMessage(result.Buffer);
+                                ReplyMessage replyMessage = new ReplyMessage(2, 0x01, joinMessage.MessageID, "JOIN Succ ");
+
+                                // Send reply packet back to the client
+                                await udpClient.SendAsync(replyMessage.GetBytes(), replyMessage.GetBytes().Length);
+                                Console.WriteLine($"SENT {udpClient.Client.RemoteEndPoint} | REPLY");
+                                // Check if the user is already connected to any other channels
+                                //Remove user connection from current channel
+                                //Send Leave MSG
+                                foreach (var existingChannelId in channels.Keys.ToList())
+                                {
+                                    if (existingChannelId != joinMessage.ChannelID) // Exclude the new channel
+                                    {
+                                        var existingChannel = channels[existingChannelId];
+
+                                        // Check if the user is in this existing channel
+                                        var userToRemove = existingChannel.ConnectedUsersUdp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == udpClient.Client.RemoteEndPoint.ToString());
+                                        if (userToRemove != null)
+                                        {
+                                            existingChannel.ConnectedUsersUdp.Remove(udpClient);
+                                            //Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
+                                            // Broadcast the message to all users in the sender's channel except the sender
+                                            var senderChannel1 = channels[existingChannelId];
+
+                                            senderChannel1.BroadcastMSG($"MSG FROM Server IS {joinMessage.DisplayName} has left {existingChannelId}\r\n", udpClient.Client.RemoteEndPoint);
+
+
+                                            // Check if the channel is now empty after removing the user
+                                            if (existingChannel.ConnectedUsersTcp.Count == 0 && existingChannel.ConnectedUsersUdp.Count == 0)
+                                            {
+                                                // Channel is empty, remove it from the dictionary
+                                                channels.Remove(existingChannelId);
+                                                //Console.Error.WriteLine($"Channel {existingChannelId} has become empty and was removed");
+                                            }
+                                        }
+                                    }
+                                }
+                                //Channel exist?
+                                if (!channels.ContainsKey(joinMessage.ChannelID))
+                                    channels[joinMessage.ChannelID] = new Channel(joinMessage.ChannelID);
+                                //Add user to channel
+                                channels[joinMessage.ChannelID].ConnectedUsersUdp.Add(udpClient);
+
+                                // For server Stderr
+                                //Console.Error.WriteLine($"User {displayName} joined channel {channelId}");
+
+                                //Send Join MSG to channel
+                                var senderChannel = channels[joinMessage.ChannelID];
+                                senderChannel.BroadcastMSG($"MSG FROM Server IS {joinMessage.DisplayName} has joined {joinMessage.ChannelID}\r\n", udpClient.Client.RemoteEndPoint);
+                                break;
+                            }
+                        //MSG
+                        case 0x04:
+                            {
+                                MsgMessage msgMessage = new MsgMessage(result.Buffer);
+                                string senderChannelId = null;
+                                lastDisplayName = msgMessage.DisplayName;
+                                foreach (var channelId in channels.Keys)
+                                {
+                                    var channel = channels[channelId];
+                                    if (channel.ConnectedUsersUdp.Any(user => user.Client.RemoteEndPoint.ToString() == udpClient.Client.RemoteEndPoint.ToString()))
+                                    {
+                                        senderChannelId = channelId;
+                                        break;
+                                    }
+                                }
+
+                                if (senderChannelId != null)
+                                {
+                                    // Broadcast the message to all users in the sender's channel except the sender
+                                    var senderChannel = channels[senderChannelId];
+                                    senderChannel.BroadcastMSG($"MSG FROM {msgMessage.DisplayName} IS {msgMessage.MessageContents}\r\n", udpClient.Client.RemoteEndPoint);
+                                }
+                                else
+                                {
+                                    Console.Error.WriteLine($"Sender {msgMessage.DisplayName} is not connected to any channel.");
+                                    // Handle this case based on your application's requirements
+                                }
+                                break;
+                             
+                            }
+                        case 0xFF:
+                            // Find the channel of the sender (assuming displayName is the user's display name)
+                            string senderChannelID = null;
+                            foreach (var channelId in channels.Keys)
+                            {
+                                var channel = channels[channelId];
+                                if (channel.ConnectedUsersUdp.Any(user => user.Client.RemoteEndPoint.ToString() == udpClient.Client.RemoteEndPoint.ToString()))
+                                {
+                                    senderChannelID = channelId;
+                                    var userToRemove = channel.ConnectedUsersUdp.FirstOrDefault(user => user.Client.RemoteEndPoint.ToString() == udpClient.Client.RemoteEndPoint.ToString());
+                                    if (userToRemove != null)
+                                        channel.ConnectedUsersUdp.Remove(userToRemove);
+                                    if (senderChannelID!= null)
+                                    {
+                                        // Broadcast the message to all users in the sender's channel except the sender
+                                        var senderChannel = channels[senderChannelID];
+                                        senderChannel.BroadcastMSG($"MSG FROM Server IS {lastDisplayName} has left {senderChannelID}\r\n", udpClient.Client.RemoteEndPoint);
+                                    }
+                                    if (channel.ConnectedUsersTcp.Count == 0 && channel.ConnectedUsersUdp.Count == 0)
+                                    {
+                                        // Channel is empty, remove it from the dictionary
+                                        channels.Remove(channelId);
+                                        Console.Error.WriteLine($"Channel {channelId} has become empty and was removed");
+                                    }
+                                    break;
+                                }
+                            }
+                            return;
+                    }
+
+                }
+                catch { }
+            }
+        }
+        public static void writeRecvPacket(byte[] data, string endPoint)
+        {
+            switch (data[0])
+            {
+                case 0x00:
+                    Console.WriteLine($"RECV {endPoint} | CONFIRM");
+                    break;
+                case 0x01:
+                    Console.WriteLine($"RECV {endPoint} | REPLY");
+                    break;
+                case 0x02:
+                    Console.WriteLine($"RECV {endPoint} | AUTH");
+                    break;
+                case 0x03:
+                    Console.WriteLine($"RECV {endPoint} | JOIN");
+                    break;
+                case 0x04:
+                    Console.WriteLine($"RECV {endPoint} | MSG");
+                    break;
+                case 0xFE:
+                    Console.WriteLine($"RECV {endPoint} | ERR");
+                    break;
+                case 0xFF:
+                    Console.WriteLine($"RECV {endPoint} | BYE");
+                    break;
+            }
+        }
     }
+    // You can add more methods related to UDP server handling if needed
 }
+

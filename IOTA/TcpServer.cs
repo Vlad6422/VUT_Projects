@@ -12,13 +12,13 @@ namespace IOTA
 {
     public class TcpServer
     {
-        public static Dictionary<string, Channel> channels = new Dictionary<string, Channel>();
-        public static async Task StartTcpServer(string ipAddress, ushort port)
+        public static Dictionary<string, Channel> channels;
+        public static async Task StartTcpServer(string ipAddress, ushort port, Dictionary<string, Channel> srcChannels)
         {
-
+            channels = srcChannels;
             TcpListener tcpListener = new TcpListener(IPAddress.Parse(ipAddress), port);
             tcpListener.Start();
-            Console.WriteLine($"TCP server started. Listening on {ipAddress}:{port}...");
+            Console.Error.WriteLine($"TCP server started. Listening on {ipAddress}:{port}...");
 
             try
             {
@@ -91,7 +91,7 @@ namespace IOTA
                                     channels[defaultChannelId] = new Channel(defaultChannelId);
 
                                 channels[defaultChannelId].ConnectedUsersTcp.Add(client);
-                                Console.Error.WriteLine($"User {displayName} joined channel {defaultChannelId}");
+                                //Console.Error.WriteLine($"User {displayName} joined channel {defaultChannelId}");
                                 // Find the channel of the sender (assuming displayName is the user's display name)
                                 string senderChannelId = null;
                                 //DELETE NULL USERS *******************************
@@ -116,13 +116,11 @@ namespace IOTA
                                 {
                                     // Broadcast the message to all users in the sender's channel except the sender
                                     var senderChannel = channels[senderChannelId];
-                                    senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has joined {senderChannel.ChannelId}", client.Client.RemoteEndPoint);
-
-
+                                    senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has joined {senderChannel.ChannelId}\r\n", client.Client.RemoteEndPoint);
                                 }
                                 else
                                 {
-                                    Console.Error.WriteLine($"Sender {displayName} is not connected to any channel.");
+                                    //Console.Error.WriteLine($"Sender {displayName} is not connected to any channel.");
                                     // Handle this case based on your application's requirements
                                 }
 
@@ -168,6 +166,7 @@ namespace IOTA
 
                     byte[] buffer = new byte[1024];
                     int bytesRead2 = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    string msgBroadcast = Encoding.ASCII.GetString(buffer, 0, bytesRead2);
                     string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead2).Trim();
                     string clientEndPoint = client.Client.RemoteEndPoint.ToString(); // "IP:Port"
 
@@ -205,19 +204,19 @@ namespace IOTA
                                     if (userToRemove != null)
                                     {
                                         existingChannel.ConnectedUsersTcp.Remove(userToRemove);
-                                        Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
+                                        //Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
                                         // Broadcast the message to all users in the sender's channel except the sender
                                         var senderChannel1 = channels[existingChannelId];
                                         
-                                        senderChannel1.BroadcastMSG($"MSG FROM Server IS {displayName} has left {existingChannelId}", client.Client.RemoteEndPoint);
+                                        senderChannel1.BroadcastMSG($"MSG FROM Server IS {displayName} has left {existingChannelId}\r\n", client.Client.RemoteEndPoint);
 
 
                                         // Check if the channel is now empty after removing the user
-                                        if (existingChannel.ConnectedUsersTcp.Count == 0)
+                                        if (existingChannel.ConnectedUsersTcp.Count == 0 && existingChannel.ConnectedUsersUdp.Count== 0)
                                         {
                                             // Channel is empty, remove it from the dictionary
                                             channels.Remove(existingChannelId);
-                                            Console.Error.WriteLine($"Channel {existingChannelId} has become empty and was removed");
+                                            //Console.Error.WriteLine($"Channel {existingChannelId} has become empty and was removed");
                                         }
                                     }
                                 }
@@ -229,11 +228,11 @@ namespace IOTA
                             channels[channelId].ConnectedUsersTcp.Add(client);
                            
                             // For server Stderr
-                            Console.Error.WriteLine($"User {displayName} joined channel {channelId}");
+                            //Console.Error.WriteLine($"User {displayName} joined channel {channelId}");
 
                             //Send Join MSG to channel
                             var senderChannel = channels[channelId];
-                            senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has joined {channelId}", client.Client.RemoteEndPoint);
+                            senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has joined {channelId}\r\n", client.Client.RemoteEndPoint);
                         }
                         else
                         {
@@ -267,7 +266,7 @@ namespace IOTA
                             {
                                 // Broadcast the message to all users in the sender's channel except the sender
                                 var senderChannel = channels[senderChannelId];
-                                senderChannel.BroadcastMSG(dataReceived, client.Client.RemoteEndPoint);
+                                senderChannel.BroadcastMSG(msgBroadcast, client.Client.RemoteEndPoint);
                             }
                             else
                             {
@@ -299,9 +298,9 @@ namespace IOTA
                                 {
                                     // Broadcast the message to all users in the sender's channel except the sender
                                     var senderChannel = channels[senderChannelId];
-                                    senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has left {senderChannelId}", client.Client.RemoteEndPoint);
+                                    senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has left {senderChannelId}\r\n", client.Client.RemoteEndPoint);
                                 }
-                                if (channel.ConnectedUsersTcp.Count == 0)
+                                if (channel.ConnectedUsersTcp.Count == 0 && channel.ConnectedUsersUdp.Count == 0)
                                 {
                                     // Channel is empty, remove it from the dictionary
                                     channels.Remove(channelId);
@@ -336,9 +335,9 @@ namespace IOTA
                             {
                                 // Broadcast the message to all users in the sender's channel except the sender
                                 var senderChannel = channels[senderChannelId];
-                                senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has left {senderChannelId}", client.Client.RemoteEndPoint);
+                                senderChannel.BroadcastMSG($"MSG FROM Server IS {displayName} has left {senderChannelId}\r\n", client.Client.RemoteEndPoint);
                             }
-                            if (channel.ConnectedUsersTcp.Count == 0)
+                            if (channel.ConnectedUsersTcp.Count == 0 && channel.ConnectedUsersUdp.Count == 0)
                             {
                                 // Channel is empty, remove it from the dictionary
                                 channels.Remove(channelId);

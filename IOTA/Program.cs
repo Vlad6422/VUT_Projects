@@ -8,6 +8,7 @@ namespace IOTA
 {
     class Program
     {
+        public static Dictionary<string, Channel> channels = new Dictionary<string, Channel>();
         static async Task Main(string[] args)
         {
             // Default values
@@ -61,14 +62,11 @@ namespace IOTA
             }
 
 
+             
+            Task tcpTask = TcpServer.StartTcpServer(ipAddress, tcpPort,channels);
+            Task udpTask = UdpServer.StartUdpServer(udpPort, udpTimeout, maxRetransmissions,channels);
 
-            Task tcpTask = TcpServer.StartTcpServer(ipAddress, tcpPort);
-            Task udpTask = UdpServer.StartUdpServer(udpPort, udpTimeout, maxRetransmissions);
-
-            // Your existing code here
-
-
-            Console.WriteLine("Press any key to exit...");
+            Console.Error.WriteLine("Press any key to exit...");
             Console.ReadKey();
 
             // Clean up tasks
