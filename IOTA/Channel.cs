@@ -40,7 +40,7 @@ namespace IOTA
                     Console.WriteLine($"SENT {user.Client.RemoteEndPoint} | MSG");
                 }
             }
-            string pattern = @"MSG FROM (\w+) IS (.+)\r\n";
+            string pattern = @"MSG FROM (\w+) IS (.+)";
 
             // Use Regex to match the pattern in the input string
             Match match = Regex.Match(Message, pattern);
