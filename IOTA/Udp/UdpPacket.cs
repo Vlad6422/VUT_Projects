@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOTA
+namespace IOTA.Udp
 {
-        
-    
+
+
     // Represents a confirmation message
     public class ConfirmMessage
     {
@@ -39,7 +39,7 @@ namespace IOTA
         public ushort RefMessageID { get; set; }
         public string MessageContents { get; set; }
 
-        public ReplyMessage(ushort MessageId,byte Result,ushort RefMessageID,string MessageContent)
+        public ReplyMessage(ushort MessageId, byte Result, ushort RefMessageID, string MessageContent)
         {
             MessageID = MessageId;
             this.Result = Result;
@@ -102,7 +102,7 @@ namespace IOTA
             }
 
             // Read MessageID (2 bytes)
-            this.MessageID = BitConverter.ToUInt16(packet, 1);
+            MessageID = BitConverter.ToUInt16(packet, 1);
 
             // Find Username end (0 terminator)
             int usernameEndIndex = Array.IndexOf(packet, (byte)0, 3); // Start searching after MessageID
@@ -110,7 +110,7 @@ namespace IOTA
             {
                 throw new ArgumentException("Invalid packet format - Username terminator not found");
             }
-            this.Username = Encoding.ASCII.GetString(packet, 3, usernameEndIndex - 3);
+            Username = Encoding.ASCII.GetString(packet, 3, usernameEndIndex - 3);
 
             // Find DisplayName end (0 terminator) after Username
             int displayNameStartIndex = usernameEndIndex + 1;
@@ -119,7 +119,7 @@ namespace IOTA
             {
                 throw new ArgumentException("Invalid packet format - DisplayName terminator not found");
             }
-            this.DisplayName = Encoding.ASCII.GetString(packet, displayNameStartIndex, displayNameEndIndex - displayNameStartIndex);
+            DisplayName = Encoding.ASCII.GetString(packet, displayNameStartIndex, displayNameEndIndex - displayNameStartIndex);
 
             // Find Secret end (0 terminator) after DisplayName
             int secretStartIndex = displayNameEndIndex + 1;
@@ -128,7 +128,7 @@ namespace IOTA
             {
                 throw new ArgumentException("Invalid packet format - Secret terminator not found");
             }
-            this.Secret = Encoding.ASCII.GetString(packet, secretStartIndex, secretEndIndex - secretStartIndex);
+            Secret = Encoding.ASCII.GetString(packet, secretStartIndex, secretEndIndex - secretStartIndex);
         }
 
 
@@ -172,10 +172,10 @@ namespace IOTA
             }
 
             // Read MessageType (first byte), assuming it's always 0x03
-            this.MessageType = data[0];
+            MessageType = data[0];
 
             // Read MessageID (next 2 bytes as ushort)
-            this.MessageID = BitConverter.ToUInt16(data, 1);
+            MessageID = BitConverter.ToUInt16(data, 1);
 
             // Read ChannelID (string terminated by null byte)
             int channelIdEndIndex = Array.IndexOf<byte>(data, 0, 3); // Start looking from index 3
@@ -183,7 +183,7 @@ namespace IOTA
             {
                 throw new ArgumentException("Invalid byte array format for ChannelID");
             }
-            this.ChannelID = Encoding.ASCII.GetString(data, 3, channelIdEndIndex - 3);
+            ChannelID = Encoding.ASCII.GetString(data, 3, channelIdEndIndex - 3);
 
             // Read DisplayName (string starting after ChannelID, terminated by null byte)
             int displayNameStartIndex = channelIdEndIndex + 1;
@@ -192,7 +192,7 @@ namespace IOTA
             {
                 throw new ArgumentException("Invalid byte array format for DisplayName");
             }
-            this.DisplayName = Encoding.ASCII.GetString(data, displayNameStartIndex, displayNameEndIndex - displayNameStartIndex);
+            DisplayName = Encoding.ASCII.GetString(data, displayNameStartIndex, displayNameEndIndex - displayNameStartIndex);
         }
         // Method to get the bytes of the message
         public byte[] GET()

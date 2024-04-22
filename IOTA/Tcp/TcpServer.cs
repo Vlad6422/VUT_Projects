@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 
-namespace IOTA
+namespace IOTA.Tcp
 {
     public class TcpServer
     {
@@ -19,7 +19,7 @@ namespace IOTA
                 while (true)
                 {
                     TcpClient client = await tcpListener.AcceptTcpClientAsync();
-                    Console.WriteLine("TCP connection accepted from: " + client.Client.RemoteEndPoint);
+                    Console.Error.WriteLine("TCP connection accepted from: " + client.Client.RemoteEndPoint);
 
                     // Handle TCP client communication asynchronously
                     _ = HandleTcpClient(client);
@@ -27,7 +27,7 @@ namespace IOTA
             }
             catch (Exception ex)
             {
-                Console.WriteLine("TCP server error: " + ex.Message);
+                Console.Error.WriteLine("TCP server error: " + ex.Message);
             }
             finally
             {
@@ -74,8 +74,8 @@ namespace IOTA
                             byte[] responseData = Encoding.ASCII.GetBytes(response);
                             await stream.WriteAsync(responseData, 0, responseData.Length);
                             Console.WriteLine($"SENT {clientEndPoint} | REPLY Username={username} DisplayName={displayName} Secret={secret}");
-                          
-                            
+
+
                             // Authenticate user
                             if (isAuthenticated)
                             {
@@ -85,7 +85,7 @@ namespace IOTA
                                     channels[defaultChannelId] = new Channel(defaultChannelId);
 
                                 channels[defaultChannelId].ConnectedUsersTcp.Add(client);
-                                //Console.Error.WriteLine($"User {displayName} joined channel {defaultChannelId}");
+                                Console.Error.WriteLine($"User {displayName} joined channel {defaultChannelId}");
                                 // Find the channel of the sender (assuming displayName is the user's display name)
                                 string? senderChannelId = null;
                                 //DELETE NULL USERS *******************************
@@ -114,13 +114,12 @@ namespace IOTA
                                 }
                                 else
                                 {
-                                    //Console.Error.WriteLine($"Sender {displayName} is not connected to any channel.");
-                                    // Handle this case based on your application's requirements
+                                    Console.Error.WriteLine($"Sender {displayName} is not connected to any channel.");
                                 }
 
 
                             }
-                            await HandleTcpPacket(client, stream,displayName);
+                            await HandleTcpPacket(client, stream, displayName);
 
                         }
                         else
@@ -205,7 +204,7 @@ namespace IOTA
             string clientEndPoint = client.Client.RemoteEndPoint.ToString();
             string[] parts = message.Split(' ');
 
-            
+
 
             string commandType = parts[0];
 
@@ -238,7 +237,7 @@ namespace IOTA
                             if (userToRemove != null)
                             {
                                 existingChannel.ConnectedUsersTcp.Remove(userToRemove);
-                                //Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
+                                Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
                                 // Broadcast the message to all users in the sender's channel except the sender
                                 var senderChannel1 = channels[existingChannelId];
 
@@ -319,7 +318,7 @@ namespace IOTA
                 // Handle BYE command
                 string senderChannelId = null;
                 Console.WriteLine($"RECV {clientEndPoint} | BYE DisplayName={displayName}");
-                
+
                 foreach (var channelId in channels.Keys)
                 {
                     var channel = channels[channelId];

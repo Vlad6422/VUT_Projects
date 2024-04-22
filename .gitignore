@@ -1,4 +1,7 @@
 .vs
+.mono
 /IOTA/bin
 /IOTA/obj
 /IOTA/Properties
+ipk24chat-server
+ipk24chat-server.pdb

@@ -3,6 +3,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using IOTA.Tcp;
+using IOTA.Udp;
 
 namespace IOTA
 {

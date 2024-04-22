@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace IOTA
+namespace IOTA.Udp
 {
     public class UdpServer
     {
@@ -134,7 +134,7 @@ namespace IOTA
                                         if (userToRemove != null)
                                         {
                                             existingChannel.ConnectedUsersUdp.Remove(udpClient);
-                                            //Console.Error.WriteLine($"User {displayName} removed from channel {existingChannelId}");
+                                            Console.Error.WriteLine($"User {joinMessage.DisplayName} removed from channel {existingChannelId}");
                                             // Broadcast the message to all users in the sender's channel except the sender
                                             var senderChannel1 = channels[existingChannelId];
 
@@ -146,7 +146,7 @@ namespace IOTA
                                             {
                                                 // Channel is empty, remove it from the dictionary
                                                 channels.Remove(existingChannelId);
-                                                //Console.Error.WriteLine($"Channel {existingChannelId} has become empty and was removed");
+                                                Console.Error.WriteLine($"Channel {existingChannelId} has become empty and was removed");
                                             }
                                         }
                                     }
@@ -158,7 +158,7 @@ namespace IOTA
                                 channels[joinMessage.ChannelID].ConnectedUsersUdp.Add(udpClient);
 
                                 // For server Stderr
-                                //Console.Error.WriteLine($"User {displayName} joined channel {channelId}");
+                                Console.Error.WriteLine($"User {joinMessage.DisplayName} joined channel {joinMessage.ChannelID}");
 
                                 //Send Join MSG to channel
                                 var senderChannel = channels[joinMessage.ChannelID];
