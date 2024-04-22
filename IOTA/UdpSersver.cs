@@ -51,9 +51,8 @@ namespace IOTA
                     ReplyMessage replyMessage = new ReplyMessage((ushort)random.Next(0, ushort.MaxValue + 1), 0x01, authMessage.MessageID, "AUTH Succ ");
 
                     // Send reply packet back to the client
-                    await UdpClient.SendAsync(replyMessage.GetBytes(), replyMessage.GetBytes().Length);
-                    Console.WriteLine($"SENT {UdpClient.Client.RemoteEndPoint} | REPLY");
                     //WAIT FOR CONFITM
+                    bool confirmationReceived = await SendAndWaitForConfirmationAsync(UdpClient, replyMessage.MessageID, "REPLY", replyMessage.GetBytes(), MaxRetransmissions + 1, Timeout);
 
 
                     string defaultChannelId = "general";
@@ -116,11 +115,11 @@ namespace IOTA
                         case 0x03:
                             {
                                 JoinMessage joinMessage = new JoinMessage(result.Buffer);
-                                ReplyMessage replyMessage = new ReplyMessage(2, 0x01, joinMessage.MessageID, "JOIN Succ ");
+                                ReplyMessage replyMessage = new ReplyMessage(10, 0x01, joinMessage.MessageID, "JOIN Succ ");
 
                                 // Send reply packet back to the client
-                                await udpClient.SendAsync(replyMessage.GetBytes(), replyMessage.GetBytes().Length);
-                                Console.WriteLine($"SENT {udpClient.Client.RemoteEndPoint} | REPLY");
+                                bool confirmationReceived = await SendAndWaitForConfirmationAsync(udpClient, replyMessage.MessageID, "REPLY", replyMessage.GetBytes(), MaxRetransmissions + 1, Timeout);
+
                                 // Check if the user is already connected to any other channels
                                 //Remove user connection from current channel
                                 //Send Leave MSG
@@ -261,7 +260,47 @@ namespace IOTA
                     break;
             }
         }
+        public static async Task<bool> SendAndWaitForConfirmationAsync(UdpClient udpClient, ushort messageID, string typeofPacket, byte[] messageToSend, int maxResendAttempts = 3, int timeoutMilliseconds = 250)
+        {
+            bool confirmationReceived = false;
+            int resendCount = 0;
+
+            while (!confirmationReceived && resendCount < maxResendAttempts)
+            {
+                // Send the message
+                await udpClient.SendAsync(messageToSend, messageToSend.Length);
+                Console.WriteLine($"SENT {udpClient.Client.RemoteEndPoint} | {typeofPacket}");
+
+                DateTime startTime = DateTime.UtcNow;
+
+                while (!confirmationReceived && (DateTime.UtcNow - startTime).TotalMilliseconds < timeoutMilliseconds)
+                {
+                    var receiveTask = udpClient.ReceiveAsync();
+                    var delayTask = Task.Delay(10); // Poll every 10ms
+
+                    await Task.WhenAny(receiveTask, delayTask);
+
+                    if (receiveTask.IsCompleted)
+                    {
+                        byte[] receivedData = receiveTask.Result.Buffer;
+
+                        // Check confirmation criteria
+                        if (receiveTask.IsCompleted && receiveTask.Result.Buffer.Length >= 3 &&
+                                receiveTask.Result.Buffer[0] == 0x00 &&
+                                BitConverter.ToUInt16(receiveTask.Result.Buffer, 1) == messageID)
+                        {
+                            // Confirmation packet received
+                            confirmationReceived = true;
+                            writeRecvPacket(receivedData, udpClient.Client.RemoteEndPoint.ToString());
+                        }
+                    }
+                }
+
+                resendCount++;
+            }
+
+            return confirmationReceived;
+        }
     }
-    // You can add more methods related to UDP server handling if needed
 }
 
