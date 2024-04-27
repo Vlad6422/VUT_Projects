@@ -6,7 +6,22 @@
  */
 
 #include <student/gpu.hpp>
+uint32_t computeVertexID(GPUMemory& mem, VertexArray const& vao, uint32_t shaderInvocation) {
+	if (vao.indexBufferID < 0)
+		return shaderInvocation;
 
+	const void* ind = mem.buffers[vao.indexBufferID].data;
+
+	if (vao.indexType == IndexType::UINT32) {
+		return ((uint32_t*)ind)[shaderInvocation];
+	}
+	else if (vao.indexType == IndexType::UINT16) {
+		return ((uint16_t*)ind)[shaderInvocation];
+	}
+	else {
+		return ((uint8_t*)ind)[shaderInvocation];
+	}
+}
 void clear(GPUMemory& mem, ClearCommand cmd) {
 	// výběr framebufferu
 	Framebuffer* fbo = mem.framebuffers + mem.activatedFramebuffer;
@@ -51,13 +66,18 @@ void clear(GPUMemory& mem, ClearCommand cmd) {
 void draw(GPUMemory& mem, DrawCommand cmd) {
 
 	VertexShader vs = mem.programs[mem.activatedProgram].vertexShader;
+	uint32_t shaderInvocationCounter = 0;
+	ShaderInterface si;
 	for (uint32_t n = 0; n < cmd.nofVertices; ++n) {
 		InVertex inVertex;
 		OutVertex outVertex;
-		ShaderInterface si;
+		inVertex.gl_VertexID = computeVertexID(mem, mem.vertexArrays[mem.activatedVertexArray], shaderInvocationCounter);
 		si.gl_DrawID = mem.gl_DrawID;
 		vs(outVertex, inVertex, si);
+		inVertex.gl_VertexID++;
+		shaderInvocationCounter++;
 	}
+	
 }
 //! [izg_enqueue]
 void izg_enqueue(GPUMemory& mem, CommandBuffer const& cb) {
