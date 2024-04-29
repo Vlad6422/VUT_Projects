@@ -1,4 +1,6 @@
-﻿using System.Net.Sockets;
+﻿using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Sockets;
 
 namespace IOTA.Udp
 {
@@ -7,13 +9,15 @@ namespace IOTA.Udp
         public static Dictionary<string, Channel> channels;
         public static ushort Timeout;
         public static byte MaxRetransmissions;
-        public static async Task StartUdpServer(ushort port, ushort timeout, byte maxRetransmissions, Dictionary<string, Channel> srcChannels)
+        public static async Task StartUdpServer(string ipAdr,ushort port, ushort timeout, byte maxRetransmissions, Dictionary<string, Channel> srcChannels)
         {
             channels = srcChannels;
             Timeout = timeout;
             MaxRetransmissions = maxRetransmissions;
-            UdpClient udpListener = new UdpClient(port);
-            Console.Error.WriteLine($"UDP server started. Listening on {port}...");
+            IPAddress localIpAddress = IPAddress.Parse(ipAdr);
+            IPEndPoint localEndPoint = new IPEndPoint(localIpAddress,port);
+            UdpClient udpListener = new UdpClient(localEndPoint);
+            Console.Error.WriteLine($"UDP server started. Listening on {localEndPoint}...");
 
             try
             {

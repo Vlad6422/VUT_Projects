@@ -15,8 +15,7 @@ namespace IOTA
         {
             // Default values
             string ipAddress = "0.0.0.0";
-            ushort tcpPort = 4567;
-            ushort udpPort = 4567;
+            ushort port = 4567;
             ushort udpTimeout = 250;
             byte maxRetransmissions = 3;
 
@@ -29,23 +28,23 @@ namespace IOTA
                         ipAddress = args[i + 1];
                         break;
                     case "-p":
-                        if (!ushort.TryParse(args[i + 1], out tcpPort))
+                        if (!ushort.TryParse(args[i + 1], out port))
                         {
-                            Console.WriteLine("Invalid port number.");
+                            Console.Error.WriteLine("Invalid port number.");
                             return;
                         }
                         break;
                     case "-d":
                         if (!ushort.TryParse(args[i + 1], out udpTimeout))
                         {
-                            Console.WriteLine("Invalid UDP timeout value.");
+                            Console.Error.WriteLine("Invalid UDP timeout value.");
                             return;
                         }
                         break;
                     case "-r":
                         if (!byte.TryParse(args[i + 1], out maxRetransmissions))
                         {
-                            Console.WriteLine("Invalid max retransmissions value.");
+                            Console.Error.WriteLine("Invalid max retransmissions value.");
                             return;
                         }
                         break;
@@ -58,15 +57,15 @@ namespace IOTA
                         Console.WriteLine("-h                : Print program help output and exit");
                         return;
                     default:
-                        Console.WriteLine($"Unknown argument: {args[i]}");
+                        Console.Error.WriteLine($"Unknown argument: {args[i]}");
                         return;
                 }
             }
 
 
              
-            Task tcpTask = TcpServer.StartTcpServer(ipAddress, tcpPort,channels);
-            Task udpTask = UdpServer.StartUdpServer(udpPort, udpTimeout, maxRetransmissions,channels);
+            Task tcpTask = TcpServer.StartTcpServer(ipAddress, port,channels);
+            Task udpTask = UdpServer.StartUdpServer(ipAddress,port, udpTimeout, maxRetransmissions,channels);
 
             Console.Error.WriteLine("Press any key to exit...");
             Console.ReadKey();
