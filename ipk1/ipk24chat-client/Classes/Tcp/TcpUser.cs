@@ -122,8 +122,8 @@ namespace ipk24chat_client.Classes.Tcp
                             }
                             if (
                             ChangeUserName(commandParts[1]) &&
-                            ChangeDisplayName(commandParts[2]) &&
-                            ChangeSecret(commandParts[3]))
+                            ChangeDisplayName(commandParts[3]) &&
+                            ChangeSecret(commandParts[2]))
                             {
                                 Authenticate();
                                 if (_isAuthorized)
