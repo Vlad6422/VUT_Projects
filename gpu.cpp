@@ -43,10 +43,7 @@ void readAttributes(GPUMemory& mem, InVertex& in, VertexArray& vao) {
 	}
 }
 
-void runVertexAssembly(InVertex& inVertex, VertexArray const& vao, uint32_t vertexIndex, GPUMemory& mem) {
-	//computeVertexID(inVertex, vao, vertexIndex, mem);
-	//readAttributes(inVertex, vao, vertexIndex, mem);
-}
+
 uint32_t computeVertexID(GPUMemory& mem, VertexArray const& vao, uint32_t shaderInvocation) {
 	if (vao.indexBufferID >= 0) {
 		uint8_t* indexData = (uint8_t*)(mem.buffers[vao.indexBufferID].data) + vao.indexOffset;
@@ -114,6 +111,11 @@ void clear(GPUMemory& mem, ClearCommand cmd) {
 		}
 	}
 }
+void runVertexAssembly(InVertex& inVertex, ShaderInterface& si, uint32_t shaderInvocationCounter, GPUMemory& mem) {
+	inVertex.gl_VertexID = computeVertexID(mem, mem.vertexArrays[mem.activatedVertexArray], shaderInvocationCounter);
+	si.gl_DrawID = mem.gl_DrawID;
+	readAttributes(mem, inVertex, mem.vertexArrays[mem.activatedVertexArray]);
+}
 void draw(GPUMemory& mem, DrawCommand cmd) {
 
 	VertexShader vs = mem.programs[mem.activatedProgram].vertexShader;
@@ -122,16 +124,13 @@ void draw(GPUMemory& mem, DrawCommand cmd) {
 	for (uint32_t n = 0; n < cmd.nofVertices; ++n) {
 		InVertex inVertex;
 		OutVertex outVertex;
-		// Start VertexAssembly
-		inVertex.gl_VertexID = computeVertexID(mem, mem.vertexArrays[mem.activatedVertexArray], shaderInvocationCounter);
-		si.gl_DrawID = mem.gl_DrawID;
-		readAttributes(mem, inVertex, mem.vertexArrays[mem.activatedVertexArray]);
-		// End VertexAssembly
-		
+
+		runVertexAssembly(inVertex, si, shaderInvocationCounter, mem);
+
 		vs(outVertex, inVertex, si);
 		shaderInvocationCounter++;
 	}
-	
+
 }
 //! [izg_enqueue]
 void izg_enqueue(GPUMemory& mem, CommandBuffer const& cb) {
