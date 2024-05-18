@@ -6,20 +6,71 @@
  */
 
 #include <student/gpu.hpp>
-uint32_t computeVertexID(GPUMemory& mem, VertexArray const& vao, uint32_t shaderInvocation) {
-	if (vao.indexBufferID < 0)
-		return shaderInvocation;
-
-	const void* ind = mem.buffers[vao.indexBufferID].data;
-
-	if (vao.indexType == IndexType::UINT32) {
-		return ((uint32_t*)ind)[shaderInvocation];
+void readAttributes(GPUMemory& mem, InVertex& in, VertexArray& vao) {
+	for (int i = 0; i < maxAttributes; i++) {
+		const auto& attribute = vao.vertexAttrib[i];
+		const void* buffer_ptr = mem.buffers[attribute.bufferID].data;
+		//auto buffer = &buffer_ptr + attribute.offset + in.gl_VertexID * attribute.stride;
+		void const* buffer = (uint8_t*)mem.buffers[vao.vertexAttrib[i].bufferID].data + in.gl_VertexID * vao.vertexAttrib[i].stride + vao.vertexAttrib[i].offset;
+		switch (attribute.type) {
+		case AttributeType::EMPTY:
+			break;
+		case AttributeType::FLOAT:
+			in.attributes[i].v1 = *(float*)buffer;
+			break;
+		case AttributeType::VEC2:
+			in.attributes[i].v2 = *(glm::vec2*)buffer;
+			break;
+		case AttributeType::VEC3:
+			in.attributes[i].v3 = *(glm::vec3*)buffer;
+			break;
+		case AttributeType::VEC4:
+			in.attributes[i].v4 = *(glm::vec4*)buffer;
+			break;
+		case AttributeType::UINT:
+			in.attributes[i].u1 = *(uint32_t*)buffer;
+			break;
+		case AttributeType::UVEC2:
+			in.attributes[i].u2 = *(glm::uvec2*)buffer;
+			break;
+		case AttributeType::UVEC3:
+			in.attributes[i].u3 = *(glm::uvec3*)buffer;
+			break;
+		case AttributeType::UVEC4:
+			in.attributes[i].u4 = *(glm::uvec4*)buffer;
+			break;
+		}
 	}
-	else if (vao.indexType == IndexType::UINT16) {
-		return ((uint16_t*)ind)[shaderInvocation];
+}
+
+void runVertexAssembly(InVertex& inVertex, VertexArray const& vao, uint32_t vertexIndex, GPUMemory& mem) {
+	//computeVertexID(inVertex, vao, vertexIndex, mem);
+	//readAttributes(inVertex, vao, vertexIndex, mem);
+}
+uint32_t computeVertexID(GPUMemory& mem, VertexArray const& vao, uint32_t shaderInvocation) {
+	if (vao.indexBufferID >= 0) {
+		uint8_t* indexData = (uint8_t*)(mem.buffers[vao.indexBufferID].data) + vao.indexOffset;
+		uint32_t index;
+		switch (vao.indexType) {
+		case IndexType::UINT8: { //if index type is uint8
+			index = (uint32_t)(indexData[shaderInvocation]);
+			break;
+		}
+		case IndexType::UINT16: { //if index type is uint16
+			uint16_t* indexData16 = (uint16_t*)(indexData);
+			index = (uint32_t)(indexData16[shaderInvocation]);
+			break;
+		}
+		case IndexType::UINT32: { //if index type is uint32
+			uint32_t* indexData32 = (uint32_t*)(indexData);
+			index = indexData32[shaderInvocation];
+			break;
+		}
+		}
+		return index;
 	}
 	else {
-		return ((uint8_t*)ind)[shaderInvocation];
+		return shaderInvocation;
 	}
 }
 void clear(GPUMemory& mem, ClearCommand cmd) {
@@ -71,10 +122,13 @@ void draw(GPUMemory& mem, DrawCommand cmd) {
 	for (uint32_t n = 0; n < cmd.nofVertices; ++n) {
 		InVertex inVertex;
 		OutVertex outVertex;
+		// Start VertexAssembly
 		inVertex.gl_VertexID = computeVertexID(mem, mem.vertexArrays[mem.activatedVertexArray], shaderInvocationCounter);
 		si.gl_DrawID = mem.gl_DrawID;
+		readAttributes(mem, inVertex, mem.vertexArrays[mem.activatedVertexArray]);
+		// End VertexAssembly
+		
 		vs(outVertex, inVertex, si);
-		inVertex.gl_VertexID++;
 		shaderInvocationCounter++;
 	}
 	
