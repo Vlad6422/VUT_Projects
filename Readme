@@ -7,13 +7,13 @@ Sure, here's your text in Markdown format:
 
 To clone the repository, run the following command in your terminal:
 
-```bash
+```
 git clone https://github.com/Vlad6422/IPP-patters.git
 ```
 
 Navigate into the cloned directory:
 
-```bash
+```
 cd IPP-patterns
 ```
 
