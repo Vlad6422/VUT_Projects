@@ -1,4 +1,6 @@
 # IFJ_2023
+# This code is for compile swift code.
+# Runs swift code
 
 Procentuální hodnocení modulů překladače:<br>
 Lexikální analýza (detekce chyb): 91 % (147/161)<br>
