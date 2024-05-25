@@ -7,7 +7,7 @@ This is a simple chat server application developed in C# to facilitate communica
 1. **Clone the repository:** Clone this repository to your local machine using the following command:
 
     ```bash
-    git clone https://git.fit.vutbr.cz/xmalas04/ipk-project2.git
+    git clone https://github.com/Vlad6422/IPK-Project-2-Udp-Tcp-Chat-Server.git
     ```
 
 2. **Navigate to the project directory:** Change your current directory to the cloned project folder:
